@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "commonjs",
+        "allowJs": true,
+        "outDir": "./out",
+        "rootDir": "./src",
+        "removeComments": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noImplicitOverride": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "src"
+    ]
+}

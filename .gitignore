@@ -1,0 +1,16 @@
+node_modules/
+*.log
+yarn.lock
+.eslintcache
+.DS_Store
+static/build
+
+.env*
+!.env.example
+!.env.test
+
+out/
+.tmp*
+plaintext.*
+*.tsbuildinfo
+_dev/

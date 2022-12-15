@@ -1,0 +1,32 @@
+{
+  "name": "@ubio/engine",
+  "version": "0.0.0",
+  "description": "Engine for running Automation Scripts",
+  "main": "out/main/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha"
+  },
+  "pre-commit": [
+    "link"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@nodescript/eslint-config": "^1.0.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.11.15",
+    "eslint": "^8.29.0",
+    "mocha": "^10.2.0",
+    "pre-commit": "^1.2.2",
+    "typescript": "^4.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubio/engine.git"
+  },
+  "author": "Ubio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ubio/engine/issues"
+  },
+  "homepage": "https://github.com/ubio/engine#readme",
+}

@@ -4,10 +4,11 @@
   "description": "Engine for running Automation Scripts",
   "main": "out/main/index.js",
   "scripts": {
+    "lint": "eslint . --ext=.js,.ts --cache",
     "test": "NODE_ENV=test mocha"
   },
   "pre-commit": [
-    "link"
+    "lint"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -28,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/ubio/engine/issues"
   },
-  "homepage": "https://github.com/ubio/engine#readme",
+  "homepage": "https://github.com/ubio/engine#readme"
 }

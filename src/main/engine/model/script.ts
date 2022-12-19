@@ -9,7 +9,6 @@ import { Logger } from '../../logger.js';
 import { ContextMatchTimer } from '../context-match-timer.js';
 import { Engine } from '../engine.js';
 import { ExtensionVersion } from '../extension.js';
-import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from './inspection.js';
 import {
     BrowserService,
     FlowService,
@@ -24,6 +23,7 @@ import { IdDatabase } from './commons.js';
 import { Context, ContextList } from './context.js';
 import { DefinitionAction } from './definition.js';
 import { Entity } from './entity.js';
+import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from './inspection.js';
 import { ScriptSearch, ScriptSearchOptions, ScriptSearchQuery, ScriptSearchResult } from './search.js';
 
 const CONTEXT_MATCH_INTERVAL = numberConfig('CONTEXT_MATCH_INTERVAL', 100);

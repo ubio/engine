@@ -9,8 +9,8 @@ import { promisify } from 'util';
 
 import { Exception } from '../exception.js';
 import { Engine } from './engine.js';
-import { Inspection, InspectionClass } from './model/inspection.js';
 import { Action, ActionClass, Pipe, PipeClass } from './model/index.js';
+import { Inspection, InspectionClass } from './model/inspection.js';
 import { JsonSchema } from './schema.js';
 
 const globAsync = promisify(glob);

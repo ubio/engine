@@ -1,33 +1,60 @@
 {
-  "name": "@ubio/engine",
-  "version": "0.0.0",
-  "description": "Engine for running Automation Scripts",
-  "main": "out/main/index.js",
-  "scripts": {
-    "lint": "eslint . --ext=.js,.ts --cache",
-    "test": "NODE_ENV=test mocha"
-  },
-  "pre-commit": [
-    "lint"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@nodescript/eslint-config": "^1.0.4",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.15",
-    "eslint": "^8.29.0",
-    "mocha": "^10.2.0",
-    "pre-commit": "^1.2.2",
-    "typescript": "^4.9.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ubio/engine.git"
-  },
-  "author": "Ubio",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ubio/engine/issues"
-  },
-  "homepage": "https://github.com/ubio/engine#readme"
+    "name": "@ubio/engine",
+    "version": "0.0.0",
+    "description": "Engine for running Automation Scripts",
+    "main": "out/main/index.js",
+    "types": "out/main/index.d.ts",
+    "scripts": {
+        "clean": "rm -rf out",
+        "compile": "npm run clean && tsc",
+        "dev": "npm run clean && tsc -b -w",
+        "lint": "eslint . --ext=.js,.ts --cache",
+        "test": "NODE_ENV=test mocha",
+        "preversion": "npm run lint && npm run compile",
+        "postversion": "npm publish --access public && git push origin main --tags"
+    },
+    "pre-commit": [
+        "lint"
+    ],
+    "files": [
+        "out/main/**/*"
+    ],
+    "dependencies": {
+        "@types/dotenv": "^8.2.0",
+        "@types/node-fetch": "^2.6.2",
+        "@types/rimraf": "^3.0.2",
+        "@types/uuid": "^9.0.0",
+        "@types/ws": "^8.5.3",
+        "dotenv": "^16.0.3",
+        "node-fetch": "^2.6.7",
+        "rimraf": "^3.0.2",
+        "uuid": "^9.0.0",
+        "ws": "^8.11.0"
+    },
+    "devDependencies": {
+        "@nodescript/eslint-config": "^1.0.4",
+        "@types/koa": "^2.13.5",
+        "@types/koa-bodyparser": "^4.3.10",
+        "@types/koa-static": "^4.0.2",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^18.11.15",
+        "eslint": "^8.29.0",
+        "koa": "^2.14.1",
+        "koa-bodyparser": "^4.3.0",
+        "koa-router2": "^1.3.1",
+        "koa-static": "^5.0.0",
+        "mocha": "^10.2.0",
+        "pre-commit": "^1.2.2",
+        "typescript": "^4.9.4"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ubio/engine.git"
+    },
+    "author": "Ubio",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ubio/engine/issues"
+    },
+    "homepage": "https://github.com/ubio/engine#readme"
 }

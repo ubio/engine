@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 
+import { asyncRegexpReplace } from './cdp-util.js';
 import { Exception } from './exception.js';
 import { ExecutionContext } from './execution-context.js';
 import { runtimeScripts, stubScripts } from './inject/index.js';
@@ -7,7 +8,6 @@ import { Page } from './page.js';
 import { RemoteElement } from './remote-element.js';
 import { RemoteObject } from './remote-object.js';
 import { CdpFrame, RemoteExpression } from './types.js';
-import { asyncRegexpReplace } from './util.js';
 
 /**
  * Represents a single frame (may correspond to page's main frame or any of the child frames).

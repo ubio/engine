@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Browser } from './browser.js';
+import { convertHeadersToEntries, convertHeadersToObject } from './cdp-util.js';
 import { Target } from './target.js';
 import { CdpHeaderEntry, CdpHeaders, CdpNetworkErrorReason, CdpRequest, CdpRequestPaused } from './types.js';
-import { convertHeadersToEntries, convertHeadersToObject } from './util.js';
 
 export type InterceptorHandler = (req: InterceptedRequest) => Promise<InterceptorOutcome | void>;
 

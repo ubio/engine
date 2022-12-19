@@ -1,3 +1,4 @@
+import { convertHeadersToEntries, convertHeadersToObject } from './cdp-util.js';
 import { Exception } from './exception.js';
 import { Page } from './page.js';
 import {
@@ -10,7 +11,6 @@ import {
     CdpResponse,
     CdpResponseReceived,
 } from './types';
-import { convertHeadersToEntries, convertHeadersToObject } from './util.js';
 
 const IGNORE_REQUEST_LOG_TYPES = ['Image', 'Font', 'Stylesheet', 'Media'];
 

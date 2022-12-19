@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+static/
+build/
+grammars/
+encrypted.*
+plaintext.*
+package-lock.json
+.tmp/

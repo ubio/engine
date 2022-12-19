@@ -1,3 +1,4 @@
+import * as util from './cdp-util.js';
 import { DomManager } from './dom.js';
 import { Frame } from './frame.js';
 import { FrameManager } from './frame-manager.js';
@@ -8,7 +9,6 @@ import { RemoteObject } from './remote-object.js';
 import { ScreenshotManager } from './screenshot-manager.js';
 import { Target } from './target.js';
 import { CdpCookie, CdpFrameTree, CdpLayoutMetrics, RemoteExpression } from './types.js';
-import * as util from './util.js';
 
 /**
  * Represents a page CDP target.

@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 
-import { asyncRegexpReplace } from './cdp-util.js';
 import { Exception } from '../exception.js';
+import { asyncRegexpReplace } from './cdp-util.js';
 import { ExecutionContext } from './execution-context.js';
 import { runtimeScripts, stubScripts } from './inject/index.js';
 import { Page } from './page.js';

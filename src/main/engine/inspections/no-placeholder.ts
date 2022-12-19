@@ -1,4 +1,4 @@
-import { ActionInspection, InspectionLevel, InspectionReport } from '../inspection.js';
+import { ActionInspection, InspectionLevel, InspectionReport } from '../model/inspection.js';
 import { Action } from '../model/index.js';
 
 export class NoPlaceholders extends ActionInspection {

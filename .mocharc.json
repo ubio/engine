@@ -1,10 +1,9 @@
 {
     "reporter": "spec",
-    "spec": "./out/**/*.test.js",
     "slow": 500,
     "timeout": 5000,
     "exit": true,
     "require": [
-        "dotenv/config"
+        "./out/test/dotenv.js"
     ]
 }

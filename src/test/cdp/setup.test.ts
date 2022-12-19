@@ -1,5 +1,5 @@
+import { startServer } from '../server.js';
 import { launcher, runtime } from './globals.js';
-import { startServer } from './server.js';
 
 before(async () => {
     await startServer();

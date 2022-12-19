@@ -1,3 +1,4 @@
+import multer from '@koa/multer';
 import fs from 'fs';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -12,6 +13,8 @@ const uploadsDir = path.resolve(process.cwd(), '.tmp/uploads');
 
 rimraf.sync(uploadsDir);
 fs.mkdirSync(uploadsDir, { recursive: true });
+
+const upload = multer({ dest: uploadsDir });
 
 export const server = new Koa();
 export const router = new Router();
@@ -75,6 +78,19 @@ router.post('/redirect', async ctx => {
     Object.assign(qs, params);
     parsed.search = '?' + querystring.stringify(qs);
     ctx.redirect(URL.format(parsed));
+});
+
+router.post('/upload', upload.single('myFile'), async ctx => {
+    const file = ctx.request.file;
+    const body = ctx.request.body as any;
+    const stat = fs.statSync(file.path);
+    const text = fs.readFileSync(file.path, 'utf8');
+    ctx.body = {
+        stat,
+        text: text.length > 1000 ? `<${(text.length / 1024).toFixed(2)} KB>` : text,
+        file: file.path,
+        field: body.myField,
+    };
 });
 
 router.get('/error/:status', async ctx => {

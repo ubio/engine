@@ -5,6 +5,7 @@ export * from './commons.js';
 export * from './context.js';
 export * from './definition.js';
 export * from './entity.js';
+export * from './inspection.js';
 export * from './list.js';
 export * from './matcher.js';
 export * from './module.js';

@@ -9,7 +9,9 @@
         "compile": "npm run clean && tsc",
         "dev": "npm run clean && tsc -b -w",
         "lint": "eslint . --ext=.js,.ts --cache",
-        "test": "NODE_ENV=test mocha",
+        "test": "run-s test:*",
+        "test:cdp": "NODE_ENV=test mocha './out/test/cdp/**/*.test.js'",
+        "test:engine": "NODE_ENV=test mocha './out/test/engine/**/*.test.js'",
         "preversion": "npm run lint && npm run compile",
         "postversion": "npm publish --access public && git push origin main --tags"
     },
@@ -20,11 +22,13 @@
         "out/main/**/*"
     ],
     "dependencies": {
+        "@koa/multer": "^3.0.2",
         "@types/diacritics": "^1.3.1",
         "@types/dotenv": "^8.2.0",
         "@types/fast-levenshtein": "^0.0.2",
         "@types/glob": "^8.0.0",
         "@types/jsonpointer": "^4.0.0",
+        "@types/koa__multer": "^2.0.4",
         "@types/node-fetch": "^2.6.2",
         "@types/rimraf": "^3.0.2",
         "@types/sanitize-html": "^2.8.0",
@@ -46,6 +50,7 @@
         "jsonpointer": "^5.0.1",
         "moment": "^2.29.4",
         "node-fetch": "^2.6.7",
+        "parse-color": "^1.0.0",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "sanitize-html": "^2.8.0",
@@ -67,6 +72,7 @@
         "koa-router2": "^1.3.1",
         "koa-static": "^5.0.0",
         "mocha": "^10.2.0",
+        "npm-run-all": "^4.1.5",
         "pre-commit": "^1.2.2",
         "typescript": "^4.9.4"
     },

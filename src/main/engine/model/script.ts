@@ -9,7 +9,7 @@ import { Logger } from '../../logger.js';
 import { ContextMatchTimer } from '../context-match-timer.js';
 import { Engine } from '../engine.js';
 import { ExtensionVersion } from '../extension.js';
-import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from '../inspection.js';
+import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from './inspection.js';
 import {
     BrowserService,
     FlowService,

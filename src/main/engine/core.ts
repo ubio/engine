@@ -16,8 +16,8 @@ export const coreExtension = new Extension(__dirname, {
     category: 'extension',
     version: pkg.version,
     modules: [
-        './matcher.js',
-        './definition.js',
+        './model/matcher.js',
+        './model/definition.js',
         './actions/**/*.js',
         './pipes/**/*.js',
         './inspections/**/*.js',

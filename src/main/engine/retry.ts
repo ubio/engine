@@ -1,5 +1,5 @@
 import { numberConfig } from '../config.js';
-import { Script } from './script.js';
+import { Script } from './model/index.js';
 
 const RETRY_TIMEOUT_MIN = numberConfig('RETRY_TIMEOUT_MIN', 3000);
 const RETRY_TIMEOUT_MAX = numberConfig('RETRY_TIMEOUT_MAX', 30000);

@@ -1,10 +1,11 @@
 import { Container } from 'inversify';
 
+import { Element } from '../element.js';
 import { Action } from './action.js';
 import { Context } from './context.js';
-import { Element } from './element.js';
-import * as model from './model/index.js';
+import { Entity } from './entity.js';
 import { Module, ModuleMetadata, parseModuleMetadata } from './module.js';
+import { getAllParams, ParamSpec } from './params.js';
 import { Pipeline } from './pipeline.js';
 import { Script } from './script.js';
 
@@ -14,7 +15,7 @@ import { Script } from './script.js';
  *
  * @internal
  */
-export abstract class Unit<P> extends model.Entity<P> {
+export abstract class Unit<P> extends Entity<P> {
     static $help = '';
 
     static get $metadata(): ModuleMetadata {
@@ -89,9 +90,9 @@ export abstract class Unit<P> extends model.Entity<P> {
      *
      * @public
      */
-    getParams(): model.ParamSpec[] {
+    getParams(): ParamSpec[] {
         // TODO cache those (params should remain static after first invocation)
-        return model.getAllParams(this.constructor.prototype);
+        return getAllParams(this.constructor.prototype);
     }
 
     /**
@@ -100,7 +101,7 @@ export abstract class Unit<P> extends model.Entity<P> {
      * @param value
      * @internal
      */
-    deserializeParam(param: model.ParamSpec, value: any): any {
+    deserializeParam(param: ParamSpec, value: any): any {
         switch (param.type) {
             case 'string':
             case 'enum':

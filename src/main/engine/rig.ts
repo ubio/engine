@@ -6,8 +6,7 @@ import { Element } from './element.js';
 import { Engine } from './engine.js';
 import { Extension } from './extension.js';
 import { FlowServiceMock } from './mocks/index.js';
-import { Pipeline } from './pipeline.js';
-import { Script } from './script.js';
+import { Pipeline, Script } from './model/index.js';
 import { BrowserService, FlowService, ProxyService } from './services/index.js';
 
 class UnexpectedSuccessError extends Error {

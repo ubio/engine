@@ -1,5 +1,5 @@
 import { Element } from '../element.js';
-import { Pipe } from '../pipe.js';
+import { Pipe } from '../model/index.js';
 
 export class NumberSum extends Pipe {
     static $type = 'Number.sum';

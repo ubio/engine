@@ -1,6 +1,6 @@
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { Pipe } from '../pipe.js';
+import { Pipe } from '../model/index.js';
 
 export class ListToArray extends Pipe {
     static $type = 'List.toArray';

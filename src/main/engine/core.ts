@@ -3,7 +3,7 @@ import path from 'path';
 
 import { Extension } from './extension.js';
 
-const pkgFile = path.join(__dirname, '../../package.json');
+const pkgFile = path.join(__dirname, '../../../package.json');
 const pkg = JSON.parse(fs.readFileSync(pkgFile, 'utf-8'));
 
 /**

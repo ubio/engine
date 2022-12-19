@@ -1,5 +1,5 @@
-import { Context } from '../context.js';
 import { ContextInspection, InspectionLevel, InspectionReport } from '../inspection.js';
+import { Context } from '../model/index.js';
 
 export class NoContextsWithoutMatchers extends ContextInspection {
 

@@ -1,4 +1,4 @@
-import { Extension } from './extension.js';
+import { Extension } from '../extension.js';
 
 /**
  * Metaprogramming interface for exposing library-related info on Action and Pipe prototypes.

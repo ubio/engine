@@ -2,7 +2,7 @@ import * as r from '@ubio/request';
 import Ajv from 'ajv';
 
 import { Action, params, util } from '.';
-import { Pipeline } from './pipeline.js';
+import { Pipeline } from './model/index.js';
 import { JsonSchema } from './schema.js';
 import { CredentialsConfig, CredentialsService } from './services/credentials.js';
 import { FetchResponseSpec } from './services/index.js';

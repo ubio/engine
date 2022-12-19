@@ -1,11 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import { ActionClass, UnresolvedAction } from '../action.js';
 import { coreExtension } from '../core.js';
 import { Engine } from '../engine.js';
 import { Extension, ExtensionVersion } from '../extension.js';
-import { Category } from '../model/index.js';
-import { PipeClass, UnresolvedPipe } from '../pipe.js';
+import { ActionClass, Category, PipeClass, UnresolvedAction, UnresolvedPipe } from '../model/index.js';
 import { groupBy } from '../util/index.js';
 
 /**

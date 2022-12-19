@@ -1,6 +1,4 @@
-import { Action } from './action.js';
-import { Context } from './context.js';
-import { Script } from './script.js';
+import { Action, Context, Script } from './model/index.js';
 
 export type InspectionNode = Script | Context | Action;
 

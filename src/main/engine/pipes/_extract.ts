@@ -1,7 +1,7 @@
 import { RemoteElementInfo } from '../../cdp/index.js';
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { Pipe } from '../pipe.js';
+import { Pipe } from '../model/index.js';
 
 export abstract class DomExtractPipe extends Pipe {
     abstract getDatum(info: RemoteElementInfo): any;

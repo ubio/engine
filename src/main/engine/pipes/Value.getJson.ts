@@ -2,8 +2,7 @@ import Json5 from 'json5';
 
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { params } from '../model/index.js';
-import { Pipe } from '../pipe.js';
+import { params, Pipe } from '../model/index.js';
 
 export class ValueGetJson extends Pipe {
     static $type = 'Value.getJson';

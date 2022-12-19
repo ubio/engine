@@ -1,6 +1,6 @@
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { Pipe } from '../pipe.js';
+import { Pipe } from '../model/index.js';
 import * as util from '../util/index.js';
 
 export class ValueIsEmpty extends Pipe {

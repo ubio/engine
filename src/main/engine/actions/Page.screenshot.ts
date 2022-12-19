@@ -1,5 +1,4 @@
-import { Action } from '../action.js';
-import { params } from '../model/index.js';
+import { Action, params } from '../model/index.js';
 
 export class ScreenshotAction extends Action {
     static $type = 'Page.screenshot';

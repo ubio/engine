@@ -1,5 +1,4 @@
-import { Context } from './context.js';
-import { Script } from './script.js';
+import { Context, Script } from './model/index.js';
 
 export const sessionHandlers: Set<SessionConstructor> = new Set();
 

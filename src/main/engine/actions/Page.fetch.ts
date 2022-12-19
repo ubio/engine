@@ -1,7 +1,5 @@
 import { Exception } from '../../exception.js';
-import { Action } from '../action.js';
-import { params } from '../model/index.js';
-import { Pipeline } from '../pipeline.js';
+import { Action, params, Pipeline } from '../model/index.js';
 import { FetchRequestSpec, FetchResponseSpec, FetchService } from '../services/index.js';
 
 export const RETRIABLE_ERRORS = ['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT', 'EPIPE', 'ERR_STREAM_DESTROYED'];

@@ -1,4 +1,4 @@
-import { Action } from '../action.js';
+import { Action } from '../model/index.js';
 import * as util from '../util/index.js';
 import { collectIfElseChain } from './Flow.if';
 

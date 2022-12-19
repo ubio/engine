@@ -2,9 +2,7 @@ import jsonPointer from 'jsonpointer';
 
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { params } from '../model/index.js';
-import { Pipe } from '../pipe.js';
-import { Pipeline } from '../pipeline.js';
+import { params, Pipe, Pipeline } from '../model/index.js';
 import * as util from '../util/index.js';
 
 export class ValueSetPath extends Pipe {

@@ -1,6 +1,6 @@
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { Pipe } from '../pipe.js';
+import { Pipe } from '../model/index.js';
 
 export class ListLength extends Pipe {
     static $type = 'List.length';

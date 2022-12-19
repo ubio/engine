@@ -4,8 +4,7 @@ import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
 // eslint-disable-next-line import/extensions
 import templateParser from '../grammars/template.js';
-import { params } from '../model/index.js';
-import { Pipe } from '../pipe.js';
+import { params, Pipe } from '../model/index.js';
 import * as util from '../util/index.js';
 
 export class FormatTemplate extends Pipe {

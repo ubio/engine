@@ -2,20 +2,20 @@ import Ajv from 'ajv';
 import assert from 'assert';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Logger } from '../logger.js';
+import { Logger } from '../../logger.js';
+import { RuntimeCtx } from '../ctx.js';
+import { Element } from '../element.js';
+import { migrateActionSpec } from '../migrations.js';
+import { retry, RetryOptions } from '../retry.js';
+import { JsonSchema } from '../schema.js';
+import { ReporterService, ResolverService } from '../services/index.js';
+import * as util from '../util/index.js';
 import { Context } from './context.js';
-import { RuntimeCtx } from './ctx.js';
-import { Element } from './element.js';
-import { migrateActionSpec } from './migrations.js';
-import * as model from './model/index.js';
+import { EntityList } from './list.js';
 import { Module } from './module.js';
 import { Pipe } from './pipe.js';
 import { Pipeline } from './pipeline.js';
-import { retry, RetryOptions } from './retry.js';
-import { JsonSchema } from './schema.js';
-import { ReporterService, ResolverService } from './services/index.js';
 import { Unit } from './unit.js';
-import * as util from './util/index.js';
 
 const ajv = new Ajv({
     messages: true,
@@ -655,7 +655,7 @@ export abstract class Action extends Unit<ActionList> {
 /**
  * @internal
  */
-export class ActionList extends model.EntityList<ActionOwner, Action> {
+export class ActionList extends EntityList<ActionOwner, Action> {
 
     create(_spec: any): Action {
         const spec = migrateActionSpec(util.cloneWithoutIdsCollision(_spec || {}, this.$script.$ids));

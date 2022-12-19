@@ -1,6 +1,4 @@
-import { Action } from '../action.js';
-import { params } from '../model/index.js';
-import { Pipeline } from '../pipeline.js';
+import { Action, params, Pipeline } from '../model/index.js';
 // import * as util from '../util';
 import { JsonSchema } from '../schema.js';
 import { UserAgentService } from '../services/user-agent.js';

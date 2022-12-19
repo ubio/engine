@@ -1,8 +1,8 @@
-import { Exception } from '../exception.js';
+import { Exception } from '../../exception.js';
+import * as util from '../util/index.js';
 import { Action } from './action.js';
-import { params } from './model/index.js';
+import * as params from './params.js';
 import { Pipeline } from './pipeline.js';
-import * as util from './util/index.js';
 
 export class MatcherAction extends Action {
     static $type = 'matcher';

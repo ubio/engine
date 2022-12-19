@@ -1,10 +1,10 @@
 import jsonPointer from 'jsonpointer';
 
+import * as util from '../util/index.js';
 import { Action } from './action.js';
 import { Context } from './context.js';
 import { Pipe } from './pipe.js';
 import { Script } from './script.js';
-import * as util from './util/index.js';
 
 export class ScriptSearch {
     script: Script;

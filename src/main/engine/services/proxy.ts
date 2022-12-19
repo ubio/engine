@@ -9,7 +9,7 @@ import { SessionHandler } from '../session.js';
 
 const PROXY_PORT = numberConfig('PROXY_PORT', 3128);
 const CA_CERTIFICATES = stringConfig('CA_CERTIFICATES', '');
-const caCert = readFileSync(path.join(__dirname, '../../../ca.crt'), 'utf-8');
+const caCert = readFileSync(path.join(__dirname, '../../../../ca.crt'), 'utf-8');
 
 @injectable()
 @SessionHandler()

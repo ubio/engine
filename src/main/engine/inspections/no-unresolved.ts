@@ -1,5 +1,5 @@
-import { Action } from '../action.js';
 import { ActionInspection, InspectionLevel, InspectionReport } from '../inspection.js';
+import { Action } from '../model/index.js';
 
 export class NoUnresolved extends ActionInspection {
 

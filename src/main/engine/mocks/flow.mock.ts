@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { injectable } from 'inversify';
 
-import { ScriptInput, ScriptOutput } from '../script.js';
+import { ScriptInput, ScriptOutput } from '../model/index.js';
 import { FlowService } from '../services/index.js';
 
 @injectable()

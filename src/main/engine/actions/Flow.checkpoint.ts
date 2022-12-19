@@ -1,4 +1,4 @@
-import { Action } from '../action.js';
+import { Action } from '../model/index.js';
 import { CheckpointService } from '../services/index.js';
 
 export class CheckpointAction extends Action {

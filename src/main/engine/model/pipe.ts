@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { RuntimeCtx } from '../ctx.js';
+import { Element } from '../element.js';
+import * as util from '../util/index.js';
 import { Action } from './action.js';
-import { RuntimeCtx } from './ctx.js';
-import { Element } from './element.js';
 import { Module } from './module.js';
 import { Pipeline } from './pipeline.js';
 import { Unit } from './unit.js';
-import * as util from './util/index.js';
 
 export interface PipeClass extends Module {
     new ($parent: Pipeline): Pipe;

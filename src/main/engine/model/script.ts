@@ -3,18 +3,13 @@ import { EventEmitter } from 'events';
 import jsonPointer from 'jsonpointer';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Configuration, numberConfig } from '../config.js';
-import { Exception } from '../exception.js';
-import { Logger } from '../logger.js';
-import { Action } from './action.js';
-import { Context, ContextList } from './context.js';
-import { ContextMatchTimer } from './context-match-timer.js';
-import { DefinitionAction } from './definition.js';
-import { Engine } from './engine.js';
-import { ExtensionVersion } from './extension.js';
-import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from './inspection.js';
-import * as model from './model/index.js';
-import { ScriptSearch, ScriptSearchOptions, ScriptSearchQuery, ScriptSearchResult } from './search.js';
+import { Configuration, numberConfig } from '../../config.js';
+import { Exception } from '../../exception.js';
+import { Logger } from '../../logger.js';
+import { ContextMatchTimer } from '../context-match-timer.js';
+import { Engine } from '../engine.js';
+import { ExtensionVersion } from '../extension.js';
+import { ActionInspection, ContextInspection, Inspection, InspectionNode, InspectionReport, ScriptInspection } from '../inspection.js';
 import {
     BrowserService,
     FlowService,
@@ -22,8 +17,14 @@ import {
     RegistryService,
     ReporterService,
     ResolverService,
-} from './services';
-import * as util from './util/index.js';
+} from '../services/index';
+import * as util from '../util/index.js';
+import { Action } from './action.js';
+import { IdDatabase } from './commons.js';
+import { Context, ContextList } from './context.js';
+import { DefinitionAction } from './definition.js';
+import { Entity } from './entity.js';
+import { ScriptSearch, ScriptSearchOptions, ScriptSearchQuery, ScriptSearchResult } from './search.js';
 
 const CONTEXT_MATCH_INTERVAL = numberConfig('CONTEXT_MATCH_INTERVAL', 100);
 const CONTEXT_MATCH_SLOW_MARGIN = numberConfig('CONTEXT_MATCH_SLOW_MARGIN', 3000);
@@ -53,7 +54,7 @@ const CONTEXT_MATCH_BATCH_SIZE = numberConfig('CONTEXT_MATCH_BATCH_SIZE', 30);
  *
  * @public
  */
-export class Script extends model.Entity<null> implements model.IdDatabase {
+export class Script extends Entity<null> implements IdDatabase {
 
     /**
      * @public

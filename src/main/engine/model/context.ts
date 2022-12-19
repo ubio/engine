@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ScriptException } from '../exception.js';
+import { ScriptException } from '../../exception.js';
+import { Element } from '../element.js';
+import * as util from '../util/index.js';
 import { Action, ActionList, DefinitionList, MatcherList } from './action.js';
-import { Element } from './element.js';
+import { Entity } from './entity.js';
+import { EntityList } from './list.js';
 import { MatcherAction } from './matcher.js';
-import * as model from './model/index.js';
 import { Script } from './script.js';
-import * as util from './util/index.js';
 
 export type ContextType = 'main' | 'context' | 'checkpoint';
 
@@ -20,7 +21,7 @@ export type ContextType = 'main' | 'context' | 'checkpoint';
  *
  * @public
  */
-export class Context extends model.Entity<ContextList> {
+export class Context extends Entity<ContextList> {
     /**
      * Unique ID of this action instance.
      * Must be unique within a Script, across all entities
@@ -452,7 +453,7 @@ export class Context extends model.Entity<ContextList> {
 /**
  * @internal
  */
-export class ContextList extends model.EntityList<Script, Context> {
+export class ContextList extends EntityList<Script, Context> {
     create(_spec: any): Context {
         const spec = util.cloneWithoutIdsCollision(_spec, this.$script.$ids);
         // Multiple "main" and "checkpoint" are not allowed;

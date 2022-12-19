@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { RuntimeCtx } from '../ctx.js';
+import { Element } from '../element.js';
+import { migratePipeSpec } from '../migrations.js';
+import { ResolverService } from '../services/index.js';
+import * as util from '../util/index.js';
 import { Action } from './action.js';
 import { Context } from './context.js';
-import { RuntimeCtx } from './ctx.js';
-import { Element } from './element.js';
-import { migratePipeSpec } from './migrations.js';
-import * as model from './model/index.js';
+import { EntityList } from './list.js';
 import { Pipe } from './pipe.js';
 import { Script } from './script.js';
-import { ResolverService } from './services/index.js';
 import { Unit } from './unit.js';
-import * as util from './util/index.js';
 
 /**
  * Encapsulates an array of pipes applied sequentially.
@@ -20,7 +20,7 @@ import * as util from './util/index.js';
  *
  * @public
  */
-export class Pipeline extends model.EntityList<Unit<any>, Pipe> {
+export class Pipeline extends EntityList<Unit<any>, Pipe> {
     /**
      * Unique ID of this action instance.
      * Must be unique within a Script, across all entities

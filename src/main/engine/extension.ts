@@ -8,10 +8,9 @@ import tar from 'tar';
 import { promisify } from 'util';
 
 import { Exception } from '../exception.js';
-import { Action, ActionClass } from './action.js';
 import { Engine } from './engine.js';
 import { Inspection, InspectionClass } from './inspection.js';
-import { Pipe, PipeClass } from './pipe.js';
+import { Action, ActionClass, Pipe, PipeClass } from './model/index.js';
 import { JsonSchema } from './schema.js';
 
 const globAsync = promisify(glob);

@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 
 import { Exception } from '../../exception.js';
-import { Script } from '../script.js';
+import { Script } from '../model/index.js';
 
 @injectable()
 export abstract class FlowService {

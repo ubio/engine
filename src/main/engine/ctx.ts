@@ -2,12 +2,8 @@ import jsonPointer from 'jsonpointer';
 import moment from 'moment';
 import fetch from 'node-fetch';
 
-import { Action } from './action.js';
-import { Context } from './context.js';
 import { Element } from './element.js';
-import { Pipe } from './pipe.js';
-import { Pipeline } from './pipeline.js';
-import { Script } from './script.js';
+import { Action, Context, Pipe, Pipeline, Script } from './model/index.js';
 import { ApiRequest, FetchService, ProxyService, ReporterService } from './services/index.js';
 import * as util from './util/index.js';
 

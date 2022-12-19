@@ -1,7 +1,6 @@
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { params } from '../model/index.js';
-import { Pipe } from '../pipe.js';
+import { params, Pipe } from '../model/index.js';
 
 export class ValuePeekInput extends Pipe {
     static $type = 'Value.peekInput';

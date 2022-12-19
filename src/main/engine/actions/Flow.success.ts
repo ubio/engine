@@ -1,4 +1,4 @@
-import { Action } from '../action.js';
+import { Action } from '../model/index.js';
 
 export class SuccessAction extends Action {
     static $type = 'Flow.success';

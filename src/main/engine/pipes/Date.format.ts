@@ -2,8 +2,7 @@ import moment from 'moment';
 
 import { RuntimeCtx } from '../ctx.js';
 import { Element } from '../element.js';
-import { params } from '../model/index.js';
-import { Pipe } from '../pipe.js';
+import { params, Pipe } from '../model/index.js';
 import * as util from '../util/index.js';
 
 const DEFAULT_INPUT_FORMAT = 'YYYY-MM-DD HH:mm:ss | YYYY-MM-DD HH:mm | YYYY-MM-DD';

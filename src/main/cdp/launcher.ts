@@ -3,7 +3,7 @@ import net from 'net';
 import os from 'os';
 import rimraf from 'rimraf';
 
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 
 const STANDARD_PATHS: { [index: string]: string } = {
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',

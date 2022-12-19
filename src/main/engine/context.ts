@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { ScriptException } from '../exception.js';
 import { Action, ActionList, DefinitionList, MatcherList } from './action.js';
 import { Element } from './element.js';
-import { ScriptException } from './exception.js';
 import { MatcherAction } from './matcher.js';
 import * as model from './model/index.js';
 import { Script } from './script.js';

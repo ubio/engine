@@ -1,4 +1,4 @@
-import { Exception } from '../../cdp/index.js';
+import { Exception } from '../../exception.js';
 import { IdDatabase, ObjectWithId } from './commons.js';
 import { Entity } from './entity.js';
 

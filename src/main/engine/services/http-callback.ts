@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { Exception } from '../../cdp/index.js';
+import { Exception } from '../../exception.js';
 
 @injectable()
 export class HttpCallbackService {

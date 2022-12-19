@@ -3,7 +3,8 @@ import { EventEmitter } from 'events';
 import jsonPointer from 'jsonpointer';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Configuration, Exception, Logger, numberConfig } from '../cdp/index.js';
+import { Configuration, Logger, numberConfig } from '../cdp/index.js';
+import { Exception } from '../exception.js';
 import { Action } from './action.js';
 import { Context, ContextList } from './context.js';
 import { ContextMatchTimer } from './context-match-timer.js';

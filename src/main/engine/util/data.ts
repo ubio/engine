@@ -2,7 +2,7 @@ import diacritics from 'diacritics';
 import jsonPointer from 'jsonpointer';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ScriptException } from '../exception.js';
+import { ScriptException } from '../../exception.js';
 import { assertScript } from './assert.js';
 
 export interface StringComparisonOptions {

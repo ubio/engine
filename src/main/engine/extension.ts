@@ -7,7 +7,7 @@ import semver from 'semver';
 import tar from 'tar';
 import { promisify } from 'util';
 
-import { Exception } from '../cdp/index.js';
+import { Exception } from '../exception.js';
 import { Action, ActionClass } from './action.js';
 import { Engine } from './engine.js';
 import { Inspection, InspectionClass } from './inspection.js';

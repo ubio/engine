@@ -1,4 +1,4 @@
-import { Exception } from '../cdp/index.js';
+import { Exception } from '../exception.js';
 import { Action } from './action.js';
 import { params } from './model/index.js';
 import { Pipeline } from './pipeline.js';

@@ -1,4 +1,4 @@
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 import { Frame } from './frame.js';
 import { ContentScript } from './inject/index.js';
 import { RemoteElement } from './remote-element.js';

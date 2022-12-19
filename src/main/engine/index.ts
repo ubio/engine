@@ -1,11 +1,6 @@
-import 'reflect-metadata';
-
-import * as uniproxy from '@ubio/uniproxy';
-
 import * as model from './model/index.js';
 import * as util from './util/index.js';
 
-export * from '@ubio/request';
 export * from './action';
 export * from './context';
 export * from './ctx';
@@ -26,4 +21,4 @@ export * from './services';
 export * from './session';
 
 const params = model.params;
-export { util, model, params, uniproxy };
+export { util, model, params };

@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 
 import { Browser } from './browser.js';
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 import { InterceptedRequest } from './interceptor.js';
 import { Page, PageNavigateOptions, PageWaitOptions } from './page.js';
 import { CdpFrame, CdpLifecycleEvent, CdpLoadingFailed, CdpRequestPaused, CdpRequestWillBeSent, CdpResponse, CdpResponseReceived, CdpTargetInfo, CdpTargetType } from './types.js';

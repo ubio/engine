@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
 
 import { Browser } from './browser.js';
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 import { Target } from './target.js';
 import { CdpTargetInfo } from './types.js';
 

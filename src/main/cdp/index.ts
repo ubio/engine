@@ -3,7 +3,6 @@ export * from './config';
 export * from './connection';
 export * from './constants';
 export * from './dom';
-export * from './exception';
 export * from './execution-context';
 export * from './frame-manager';
 export * from './frame';

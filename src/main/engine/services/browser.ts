@@ -4,12 +4,12 @@ import {
     booleanConfig,
     Browser,
     Configuration,
-    Exception,
     Logger,
     numberConfig,
     Page,
     stringConfig,
 } from '../../cdp/index.js';
+import { Exception } from '../../exception.js';
 import { util } from '..';
 import { SessionHandler } from '../session.js';
 

@@ -1,5 +1,5 @@
 import * as util from './cdp-util.js';
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 import { ExecutionContext } from './execution-context.js';
 import { Frame } from './frame.js';
 import { RemoteObject } from './remote-object.js';

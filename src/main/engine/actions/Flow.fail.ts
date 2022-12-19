@@ -1,5 +1,5 @@
+import { ScriptException } from '../../exception.js';
 import { Action } from '../action.js';
-import { ScriptException } from '../exception.js';
 import { params } from '../model/index.js';
 import { Pipeline } from '../pipeline.js';
 import * as util from '../util/index.js';

@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 import fetch from 'node-fetch';
 
+import { Exception } from '../exception.js';
 import { ConsoleLogger, Logger } from '../logger.js';
 import { Connection } from './connection.js';
-import { Exception } from './exception.js';
 import { Frame } from './frame.js';
 import { Interceptor, InterceptorHandler } from './interceptor.js';
 import { Page } from './page.js';

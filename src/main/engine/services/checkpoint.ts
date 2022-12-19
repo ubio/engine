@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 
-import { CdpCookie, Exception } from '../../cdp/index.js';
+import { CdpCookie } from '../../cdp/index.js';
+import { Exception } from '../../exception.js';
 import { BrowserService } from './browser.js';
 import { GlobalsService, GlobalValue } from './globals.js';
 

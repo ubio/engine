@@ -1,5 +1,5 @@
 import { convertHeadersToEntries, convertHeadersToObject } from './cdp-util.js';
-import { Exception } from './exception.js';
+import { Exception } from '../exception.js';
 import { Page } from './page.js';
 import {
     CdpHeaderEntry,

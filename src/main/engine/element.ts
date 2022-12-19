@@ -1,4 +1,5 @@
-import { Exception, RemoteElement, RemoteElementInfo, RemoteObject } from '../cdp/index.js';
+import { RemoteElement, RemoteElementInfo, RemoteObject } from '../cdp/index.js';
+import { Exception } from '../exception.js';
 import * as util from './util/index.js';
 
 /**

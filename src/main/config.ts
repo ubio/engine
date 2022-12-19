@@ -1,7 +1,7 @@
 // import assert from 'assert';
 import dotenv from 'dotenv';
 
-import { Exception } from '../exception.js';
+import { Exception } from './exception.js';
 
 dotenv.config();
 

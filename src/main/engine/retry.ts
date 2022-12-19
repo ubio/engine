@@ -1,4 +1,4 @@
-import { numberConfig } from '../cdp/index.js';
+import { numberConfig } from '../config.js';
 import { Script } from './script.js';
 
 const RETRY_TIMEOUT_MIN = numberConfig('RETRY_TIMEOUT_MIN', 3000);

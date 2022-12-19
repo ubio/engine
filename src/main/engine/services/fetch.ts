@@ -6,7 +6,8 @@ import nodeFetch, { RequestInit } from 'node-fetch';
 import querystring from 'querystring';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CdpHeaders, Logger } from '../../cdp/index.js';
+import { CdpHeaders } from '../../cdp/index.js';
+import { Logger } from '../../logger.js';
 import * as util from '../util/index.js';
 import { BlobService } from './blob.js';
 import { BrowserService } from './browser.js';

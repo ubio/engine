@@ -1,7 +1,7 @@
 import { OAuth2Agent, Request, RequestOptions } from '@ubio/request';
 import { inject, injectable } from 'inversify';
 
-import { Configuration, stringConfig } from '../../cdp/index.js';
+import { Configuration, stringConfig } from '../../config.js';
 
 const AC_API_URL = stringConfig('AC_API_URL', 'https://api.automationcloud.net');
 const AC_API_TOKEN_URL = stringConfig('AC_API_TOKEN_URL', '');

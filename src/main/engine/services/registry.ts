@@ -5,7 +5,8 @@ import rimraf from 'rimraf';
 import tar from 'tar';
 import { promisify } from 'util';
 
-import { Configuration, Logger, stringConfig } from '../../cdp/index.js';
+import { Configuration, stringConfig } from '../../config.js';
+import { Logger } from '../../logger.js';
 import { Extension, ExtensionManifest, ExtensionVersion } from '../extension.js';
 import { ApiRequest } from './api-request.js';
 

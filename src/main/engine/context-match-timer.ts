@@ -1,4 +1,5 @@
-import { Configuration, numberConfig, Page } from '../cdp/index.js';
+import { Page } from '../cdp/index.js';
+import { Configuration, numberConfig } from '../config.js';
 
 const CONTEXT_MATCH_TIMEOUT_MAX = numberConfig('CONTEXT_MATCH_TIMEOUT_MAX', 3 * 60000);
 const CONTEXT_MATCH_TIMEOUT_LOADED = numberConfig('CONTEXT_MATCH_TIMEOUT_LOADED', 60000);

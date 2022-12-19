@@ -1,5 +1,4 @@
 export * from './browser';
-export * from './config';
 export * from './connection';
 export * from './constants';
 export * from './dom';
@@ -10,7 +9,6 @@ export * from './input-manager';
 export * from './interceptor';
 export * from './keyboard';
 export * from './launcher';
-export * from '../logger';
 export * from './network-manager';
 export * from './page';
 export * from './remote-element';

@@ -1,6 +1,7 @@
 import { Container, decorate, injectable, interfaces } from 'inversify';
 
-import { Configuration, ConsoleLogger, EnvConfiguration, Logger } from '../cdp/index.js';
+import { Configuration, EnvConfiguration } from '../config.js';
+import { ConsoleLogger, Logger } from '../logger.js';
 import { Extension } from './extension.js';
 import {
     ApiRequest,

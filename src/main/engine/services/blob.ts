@@ -6,7 +6,7 @@ import rimraf from 'rimraf';
 import util from 'util';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Configuration, stringConfig } from '../../cdp/index.js';
+import { Configuration, stringConfig } from '../../config.js';
 import { SessionHandler } from '../session.js';
 import { createError } from '../util/index.js';
 

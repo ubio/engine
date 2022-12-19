@@ -1,15 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import {
-    booleanConfig,
-    Browser,
-    Configuration,
-    Logger,
-    numberConfig,
-    Page,
-    stringConfig,
-} from '../../cdp/index.js';
+import { Browser, Page } from '../../cdp/index.js';
+import { booleanConfig, Configuration, numberConfig, stringConfig } from '../../config.js';
 import { Exception } from '../../exception.js';
+import { Logger } from '../../logger.js';
 import { util } from '..';
 import { SessionHandler } from '../session.js';
 

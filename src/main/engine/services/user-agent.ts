@@ -1,6 +1,8 @@
 import { inject, injectable } from 'inversify';
 
-import { booleanConfig, Configuration, Logger, stringConfig, Target } from '../../cdp/index.js';
+import { Target } from '../../cdp/index.js';
+import { booleanConfig, Configuration, stringConfig } from '../../config.js';
+import { Logger } from '../../logger.js';
 import { SessionHandler } from '../session.js';
 import { BrowserService } from './browser.js';
 

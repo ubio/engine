@@ -3,7 +3,8 @@ import { readFileSync } from 'fs';
 import { inject, injectable } from 'inversify';
 import path from 'path';
 
-import { Configuration, Logger, numberConfig, stringConfig } from '../../cdp/index.js';
+import { Configuration, numberConfig, stringConfig } from '../../config.js';
+import { Logger } from '../../logger.js';
 import { SessionHandler } from '../session.js';
 
 const PROXY_PORT = numberConfig('PROXY_PORT', 3128);

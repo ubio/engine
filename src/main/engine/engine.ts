@@ -157,11 +157,16 @@ export class Engine {
         return services;
     }
 
+    getAllBindings() {
+        const map = (this.container as any)._bindingDictionary._map;
+        const bindings = [...map.values()] as interfaces.Binding<any>[][];
+        return bindings.flat();
+    }
+
     /**
      * Search for binding in enigne containers and in all extensions.
-     * @private
      */
-    protected findBinding<T>(serviceIdentifier: interfaces.Newable<T> | interfaces.Abstract<T>): T | null {
+    findBinding<T>(serviceIdentifier: interfaces.Newable<T> | interfaces.Abstract<T>): T | null {
         if (this.container.isBound(serviceIdentifier)) {
             return this.container.get(serviceIdentifier);
         }

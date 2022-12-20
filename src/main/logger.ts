@@ -7,7 +7,6 @@ export abstract class Logger {
     abstract warn(message: string, object?: any): void;
     abstract error(message: string, object?: any): void;
     abstract debug(message: string, object?: any): void;
-    abstract child(context: any): Logger;
 }
 
 export abstract class LoggerBase extends Logger {

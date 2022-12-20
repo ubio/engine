@@ -57,9 +57,7 @@ export class Target extends EventEmitter {
     }
 
     get logger() {
-        return this.browser.logger.child({
-            target: this.collectInfo(),
-        });
+        return this.browser.logger;
     }
 
     async getPage(): Promise<Page> {
@@ -102,7 +100,10 @@ export class Target extends EventEmitter {
             if (['CdpDisconnected', 'CdpTargetDetached'].includes(error.name)) {
                 return;
             }
-            this.browser.logger.error('Target init failed', { error });
+            this.browser.logger.error('Target init failed', {
+                error,
+                ...this.collectInfo(),
+            });
         }
     }
 
@@ -331,7 +332,9 @@ export class Target extends EventEmitter {
         this.loadingFailed = !!ev.frame.unreachableUrl;
         this.url = ev.frame.unreachableUrl || ev.frame.url;
         if (['iframe', 'page'].includes(this.type)) {
-            this.logger.debug(`Navigate (${this.type}) ${this.url}`);
+            this.logger.debug(`Navigate (${this.type}) ${this.url}`, {
+                ...this.collectInfo(),
+            });
         }
     }
 
@@ -360,7 +363,10 @@ export class Target extends EventEmitter {
                     return;
                 }
             } catch (error: any) {
-                this.logger.warn('Request interception failed', { error });
+                this.logger.warn('Request interception failed', {
+                    error,
+                    ...this.collectInfo(),
+                });
             }
         }
         const continuePayload = ireq.continue();

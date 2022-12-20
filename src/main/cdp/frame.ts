@@ -38,9 +38,7 @@ export class Frame extends EventEmitter {
     }
 
     get logger() {
-        return this.page.logger.child({
-            frame: this.collectLogInfo(),
-        });
+        return this.page.logger;
     }
 
     isMainFrame() {
@@ -133,7 +131,10 @@ export class Frame extends EventEmitter {
         this.mimeType = cdpFrame.mimeType;
         this.emit('navigate');
         if (['iframe', 'page'].includes(this.page.target.type)) {
-            this.logger.debug(`Navigate (${this.page.target.type}) ${this.url}`);
+            this.logger.debug(`Navigate (${this.page.target.type}) ${this.url}`, {
+                frameId: this.frameId,
+                url: this.url,
+            });
         }
     }
 
@@ -161,13 +162,6 @@ export class Frame extends EventEmitter {
 
     onExecutionContextsCleared() {
         this.clearExecutionContexts();
-    }
-
-    collectLogInfo() {
-        return {
-            frameId: this.frameId,
-            url: this.url,
-        };
     }
 
     async captureHtmlSnapshot(): Promise<string> {

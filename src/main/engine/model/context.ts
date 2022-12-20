@@ -201,9 +201,7 @@ export class Context extends Entity<ContextList> {
      * @internal
      */
     get $logger() {
-        return this.$script.$logger.child({
-            context: this._collectLogInfo(),
-        });
+        return this.$script.$logger;
     }
 
     // Resetting
@@ -436,16 +434,6 @@ export class Context extends Entity<ContextList> {
                 scriptError: true,
             });
         }
-    }
-
-    /**
-     * @internal
-     */
-    private _collectLogInfo() {
-        return {
-            contextId: this.id,
-            contextName: this.name,
-        };
     }
 
 }

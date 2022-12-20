@@ -155,9 +155,7 @@ export abstract class Action extends Unit<ActionList> {
      * @internal
      */
     get $logger() {
-        return this.$owner.$logger.child({
-            action: this.collectLogInfo(),
-        });
+        return this.$owner.$logger;
     }
 
     /**
@@ -638,18 +636,6 @@ export abstract class Action extends Unit<ActionList> {
         }
     }
 
-    /**
-     * Collects details for logging.
-     * @internal
-     */
-    protected collectLogInfo() {
-        return {
-            id: this.id,
-            type: this.type,
-            label: this.label,
-            contextId: this.$context.id,
-        };
-    }
 }
 
 /**

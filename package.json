@@ -20,7 +20,8 @@
         "lint"
     ],
     "files": [
-        "out/main/**/*"
+        "out/main/**/*",
+        "ca.crt"
     ],
     "dependencies": {
         "@koa/multer": "^3.0.2",

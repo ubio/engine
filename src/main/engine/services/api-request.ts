@@ -10,20 +10,18 @@ const AC_API_CLIENT_KEY = stringConfig('AC_API_CLIENT_KEY', '');
 
 @injectable()
 export class ApiRequest {
-    request!: Request;
+    protected request: Request | null = null;
 
     constructor(
         @inject(Configuration)
         protected config: Configuration,
-    ) {
-        this.setup();
-    }
+    ) {}
 
-    setup() {
-        this.request = new Request({
-            baseUrl: this.config.get(AC_API_URL),
-            auth: this.createAuthAgent(),
-        });
+    getRequest() {
+        if (this.request == null) {
+            this.request = this.createRequest();
+        }
+        return this.request;
     }
 
     createAuthAgent(): AuthAgent {
@@ -34,20 +32,27 @@ export class ApiRequest {
         });
     }
 
+    createRequest() {
+        return new Request({
+            baseUrl: this.config.get(AC_API_URL),
+            auth: this.createAuthAgent(),
+        });
+    }
+
     get(url: string, options: RequestOptions = {}) {
-        return this.request.get(url, options);
+        return this.getRequest().get(url, options);
     }
 
     post(url: string, options: RequestOptions = {}) {
-        return this.request.post(url, options);
+        return this.getRequest().post(url, options);
     }
 
     put(url: string, options: RequestOptions = {}) {
-        return this.request.put(url, options);
+        return this.getRequest().put(url, options);
     }
 
     delete(url: string, options: RequestOptions = {}) {
-        return this.request.delete(url, options);
+        return this.getRequest().delete(url, options);
     }
 
 }

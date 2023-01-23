@@ -1,0 +1,30 @@
+name: tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: automationcloud/chrome:node16-c98
+      env:
+        REDIS_HOST: redis
+        CHROME_PATH: /opt/latest/chrome
+        CHROME_PORT: "9123"
+        CHROME_ARGS: |
+            --headless
+            --no-sandbox
+            --disable-gpu-sandbox
+            --disable-gpu
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - run: npm ci
+      - run: chown -R node .
+      - run: npm run compile
+      - run: npm run lint
+      - run: npm test

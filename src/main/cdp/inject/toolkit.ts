@@ -126,7 +126,7 @@ export function toolkit(options: any = {}) {
         const window = document.defaultView!;
         // Remove by unique key, if provided
         if (key) {
-            const existingRects = document.querySelectorAll(`[data-ubio-rect="${key}"]`);
+            const existingRects = document.querySelectorAll(`[data-r1-rect="${key}"]`);
             for (const rect of existingRects) {
                 rect.parentNode!.removeChild(rect);
             }
@@ -134,8 +134,8 @@ export function toolkit(options: any = {}) {
         const box = el.getBoundingClientRect();
         const rect = document.createElement('div');
         document.documentElement!.appendChild(rect);
-        rect.setAttribute('data-ubio', '');
-        rect.setAttribute('data-ubio-rect', key || '_');
+        rect.setAttribute('data-r1', '');
+        rect.setAttribute('data-r1-rect', key || '_');
         rect.style.position = 'absolute';
         rect.style.zIndex = '999999999';
         rect.style.left = window.scrollX + box.left + 'px';
@@ -172,7 +172,7 @@ export function toolkit(options: any = {}) {
     }
 
     async function hideAllRects() {
-        const rects = document.querySelectorAll('[data-ubio-rect]');
+        const rects = document.querySelectorAll('[data-r1-rect]');
         for (const rect of rects) {
             rect.parentNode!.removeChild(rect);
         }

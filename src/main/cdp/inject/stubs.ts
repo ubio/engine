@@ -56,16 +56,15 @@ export function stubs() {
 
     function alertStub(message: string) {
         const root = getHostEl();
-        const existing = root.querySelectorAll('[data-ubio-alert]');
+        const existing = root.querySelectorAll('[data-r1-alert]');
         for (const el of existing) {
             el.parentNode!.removeChild(el);
         }
 
         const el = document.createElement('div');
         root.appendChild(el);
-        el.setAttribute('class', 'ubio ubio-alert');
-        el.setAttribute('data-ubio', '');
-        el.setAttribute('data-ubio-alert', '');
+        el.setAttribute('data-r1', '');
+        el.setAttribute('data-r1-alert', '');
         el.setAttribute('style',
             `
             position: fixed;

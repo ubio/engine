@@ -8,7 +8,8 @@ export interface KeyCodeInformation {
 export const keyDescriptions: Array<KeyCodeInformation> = [
     { key: 'Backspace', chars: '\b', keyCode: 8, code: 'Backspace' },
     { key: 'Tab', chars: '\t', keyCode: 9, code: 'Tab' },
-    { key: 'Enter', chars: '\n', keyCode: 13, code: 'Enter' },
+    { key: '\n', chars: '\n', keyCode: 13, code: 'Enter' }, // wrong key, should be merged with \r once scripts are migrated to use newEnter
+    { key: 'Enter', chars: '\r', keyCode: 13, code: 'Enter' },
     { key: ' ', chars: ' ', keyCode: 32, code: 'Space' },
     { key: '`', chars: '`~', keyCode: 192, code: 'Backquote' },
     { key: '1', chars: '1!¡⁄', keyCode: 49, code: 'Digit1' },

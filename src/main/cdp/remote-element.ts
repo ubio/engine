@@ -203,6 +203,7 @@ export class RemoteElement extends RemoteObject {
             blur = true,
             parallel = true,
             delay = 0,
+            newEnter = false,
         } = options;
         if (click) {
             await this.click(clickOptions);
@@ -217,7 +218,9 @@ export class RemoteElement extends RemoteObject {
             delay,
             parallel,
         });
-        if (enter) {
+        if (newEnter) {
+            await this.page.inputManager.print('\r');
+        } else if (enter) {
             await this.page.inputManager.print('\n');
         }
         if (blur) {
@@ -599,4 +602,5 @@ export interface TypeTextOptions {
     blur?: boolean;
     parallel?: boolean;
     delay?: number;
+    newEnter?: boolean;
 }

@@ -70,8 +70,10 @@ The exact algorithm is as follows:
     useFocus: boolean = true;
     @params.Boolean()
     useBlur: boolean = true;
-    @params.Boolean()
+    @params.Boolean({ label: 'Use Enter (deprecated)', help: 'Will be removed because wrong key (\\n) is used in the keyboard event. Use Enter instead.' })
     useEnter: boolean = false;
+    @params.Boolean({ label: 'Use Enter' })
+    useNewEnter: boolean = false;
     @params.Boolean()
     maskInput: boolean = false;
     @params.Number({
@@ -118,6 +120,7 @@ The exact algorithm is as follows:
             enter: this.useEnter,
             delay: this.delay,
             parallel: this.delay === 0,
+            newEnter: this.useNewEnter,
         });
         // Retry if input value does not match the requested value
         const { value: actualValue } = await el.getInfo(true);

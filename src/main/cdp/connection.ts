@@ -18,6 +18,9 @@ export class Connection {
     protected awaitingCommands: Map<number, CommandHandler> = new Map();
     protected nextCommandId: number = 1;
 
+    bytesSent = 0;
+    bytesReceived = 0;
+
     protected listeners = {
         onMessage: this.onMessage.bind(this),
         onClose: this.onClose.bind(this),
@@ -70,6 +73,8 @@ export class Connection {
         ws.removeListener('message', this.listeners.onMessage);
         ws.removeListener('close', this.listeners.onClose);
         this.ws = null;
+        this.bytesReceived = 0;
+        this.bytesSent = 0;
         this.browser.emit('disconnect');
         this.rejectAll(cmd => {
             return new Exception({
@@ -232,7 +237,9 @@ export class Connection {
             };
             awaitingCommands.set(id, handler);
             const message = { id, method, params, sessionId };
-            this.ws.send(JSON.stringify(message));
+            const payload = JSON.stringify(message);
+            this.bytesSent += Buffer.byteLength(payload);
+            this.ws.send(payload);
         });
     }
 
@@ -245,6 +252,7 @@ export class Connection {
     }
 
     protected onMessage(data: string) {
+        this.bytesReceived += Buffer.byteLength(data);
         const message = JSON.parse(data);
         if (message.id) {
             // Command response

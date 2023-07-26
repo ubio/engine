@@ -87,6 +87,7 @@ export const currencies: Currency[] = [
     { code: 'lkr', symbols: ['₨'], name: 'Sri Lanka Rupee', exponent: 2 },
     { code: 'lrd', symbols: ['lr$'], name: 'Liberia Dollar', exponent: 2 },
     { code: 'lsl', symbols: [], name: 'Lesotho Loti', exponent: 2 },
+    { code: 'ltl', symbols: ['lt'], name: 'Lithuanian Litas', exponent: 2 },
     { code: 'lyd', symbols: [], name: 'Libyan Dinar', exponent: 2 },
     { code: 'mad', symbols: ['dh', 'dhs'], name: 'Moroccan Dirham', exponent: 2 },
     { code: 'mdl', symbols: [], name: 'Moldovan Leu', exponent: 2 },

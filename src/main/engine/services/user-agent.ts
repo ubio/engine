@@ -1,18 +1,10 @@
 import { inject, injectable } from 'inversify';
 
 import { Target } from '../../cdp/index.js';
-import { booleanConfig, Configuration, stringConfig } from '../../config.js';
+import { Configuration } from '../../config.js';
 import { Logger } from '../../logger.js';
 import { SessionHandler } from '../session.js';
 import { BrowserService } from './browser.js';
-
-const UA_OVERRIDE_ENABLED = booleanConfig('UA_OVERRIDE_ENABLED', true);
-export const USER_AGENT = stringConfig(
-    'USER_AGENT',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' +
-        'Chrome/86.0.4240.198 Safari/537.36',
-);
-export const USER_AGENT_PLATFORM = stringConfig('USER_AGENT_PLATFORM', 'Win32');
 
 @injectable()
 @SessionHandler()
@@ -50,10 +42,7 @@ export class UserAgentService {
     }
 
     async applyToTarget(target: Target): Promise<void> {
-        if (!this.isEnabled()) {
-            return;
-        }
-        if (target.isPageTarget()) {
+        if (target.isPageTarget() && this.userAgent && this.platform) {
             const { userAgent, platform } = this;
             await target.send('Network.setUserAgentOverride', { userAgent, platform });
             await target.send('Emulation.setUserAgentOverride', { userAgent, platform }).catch(() => {});
@@ -67,9 +56,4 @@ export class UserAgentService {
     getDefaultPlatform() {
         return null;
     }
-
-    isEnabled() {
-        return this.config.get(UA_OVERRIDE_ENABLED);
-    }
-
 }

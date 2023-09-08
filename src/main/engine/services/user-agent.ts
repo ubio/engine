@@ -7,18 +7,18 @@ import { SessionHandler } from '../session.js';
 import { BrowserService } from './browser.js';
 
 const UA_OVERRIDE_ENABLED = booleanConfig('UA_OVERRIDE_ENABLED', true);
-const USER_AGENT = stringConfig(
+export const USER_AGENT = stringConfig(
     'USER_AGENT',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' +
         'Chrome/86.0.4240.198 Safari/537.36',
 );
-const USER_AGENT_PLATFORM = stringConfig('USER_AGENT_PLATFORM', 'Win32');
+export const USER_AGENT_PLATFORM = stringConfig('USER_AGENT_PLATFORM', 'Win32');
 
 @injectable()
 @SessionHandler()
 export class UserAgentService {
-    userAgent: string;
-    platform: string;
+    userAgent: string | null = null;
+    platform: string | null = null;
 
     constructor(
         @inject(BrowserService)
@@ -28,8 +28,6 @@ export class UserAgentService {
         @inject(Logger)
         protected logger: Logger,
     ) {
-        this.userAgent = this.getDefaultUserAgent();
-        this.platform = this.getDefaultPlatform();
         browser.addTargetInit(target => this.applyToTarget(target));
     }
 
@@ -63,11 +61,11 @@ export class UserAgentService {
     }
 
     getDefaultUserAgent() {
-        return this.config.get(USER_AGENT);
+        return null;
     }
 
     getDefaultPlatform() {
-        return this.config.get(USER_AGENT_PLATFORM);
+        return null;
     }
 
     isEnabled() {

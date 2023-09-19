@@ -8,3 +8,4 @@ encrypted.*
 plaintext.*
 package-lock.json
 .tmp/
+chrome-extensions/

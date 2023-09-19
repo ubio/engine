@@ -1,6 +1,7 @@
 import { ChildProcess, spawn } from 'child_process';
 import net from 'net';
 import os from 'os';
+import path from 'path';
 import rimraf from 'rimraf';
 
 import { Exception } from '../exception.js';
@@ -34,6 +35,8 @@ export class ChromeLauncher {
     getDefaultArgs() {
         // Note: these are based on puppeteer's defaults and should not be controversial
         // See also: https://peter.sh/experiments/chromium-command-line-switches/
+        const pathToCapsolverExtension = path.resolve('chrome-extensions', 'CapSolver');
+
         return [
             '--allow-pre-commit-input',
             '--disable-background-networking',
@@ -45,7 +48,7 @@ export class ChromeLauncher {
             '--disable-cloud-import',
             '--disable-default-apps',
             '--disable-dev-shm-usage',
-            '--disable-extensions',
+            `--disable-extensions-except=${pathToCapsolverExtension}`,
             '--disable-hang-monitor',
             '--disable-ipc-flooding-protection',
             '--disable-popup-blocking',

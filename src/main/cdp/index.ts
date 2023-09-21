@@ -17,3 +17,4 @@ export * from './screenshot-manager.js';
 export * from './target.js';
 export * from './types.js';
 export * from './cdp-util.js';
+export * from './capsolver-chrome-extension.js';

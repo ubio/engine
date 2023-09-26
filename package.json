@@ -21,7 +21,8 @@
     ],
     "files": [
         "out/main/**/*",
-        "ca.crt"
+        "ca.crt",
+        "chrome-extensions"
     ],
     "dependencies": {
         "@koa/multer": "^3.0.2",

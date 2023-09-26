@@ -27,6 +27,7 @@ export class ChromeLauncher {
             noDefaultArgs: false,
             terminateProcessOnExit: true,
             connectionTimeout: 5000,
+            chromeExtensions: [],
             ...options,
         };
     }
@@ -34,6 +35,7 @@ export class ChromeLauncher {
     getDefaultArgs() {
         // Note: these are based on puppeteer's defaults and should not be controversial
         // See also: https://peter.sh/experiments/chromium-command-line-switches/
+
         return [
             '--allow-pre-commit-input',
             '--disable-background-networking',
@@ -45,7 +47,6 @@ export class ChromeLauncher {
             '--disable-cloud-import',
             '--disable-default-apps',
             '--disable-dev-shm-usage',
-            '--disable-extensions',
             '--disable-hang-monitor',
             '--disable-ipc-flooding-protection',
             '--disable-popup-blocking',
@@ -69,6 +70,7 @@ export class ChromeLauncher {
             `--disk-cache-dir=${this.options.cacheDir}`,
             `--remote-debugging-port=${this.options.chromePort}`,
             `--remote-debugging-address=${this.options.chromeAddress}`,
+            `--disable-extensions-except=${this.options.chromeExtensions.join(',')}`,
             ...defaultArgs,
         ], args, ['about:blank']);
     }
@@ -193,4 +195,5 @@ interface ChromeLauncherOptions {
     noDefaultArgs: boolean;
     terminateProcessOnExit: boolean;
     connectionTimeout: number;
+    chromeExtensions: string[];
 }

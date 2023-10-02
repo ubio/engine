@@ -6,7 +6,7 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
-  "version": "1.4.0",
+  "version": "1.4.2",
   "permissions": [
     "storage",
     "scripting",
@@ -70,7 +70,7 @@
       "js": [
         "recaptcha-recognition.js"
       ],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true
     }

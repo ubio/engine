@@ -152,7 +152,7 @@ export class Target extends EventEmitter {
     }
 
     isPageTarget() {
-        return ['iframe', 'page', 'background_page'].includes(this.type);
+        return ['iframe', 'page'].includes(this.type);
     }
 
     isValidTarget(): boolean {

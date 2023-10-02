@@ -321,7 +321,7 @@ export class Connection {
 
     protected onAttachedToTarget(params: { sessionId: string; targetInfo: CdpTargetInfo }) {
         const { sessionId, targetInfo } = params;
-        if (!['iframe', 'page', 'background_page'].includes(targetInfo.type)) {
+        if (!['iframe', 'page'].includes(targetInfo.type)) {
             this.send({
                 method: 'Runtime.runIfWaitingForDebugger',
                 params: {}

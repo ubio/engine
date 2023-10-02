@@ -139,8 +139,8 @@ export class Connection {
         return target;
     }
 
-    protected attachIfNeeded({ targetId }: CdpTargetInfo) {
-        if (this.targetSessions.has(targetId)) {
+    protected attachIfNeeded({ targetId, type }: CdpTargetInfo) {
+        if (this.targetSessions.has(targetId) || type === 'background_page' || type === 'service_worker') {
             return;
         }
         this.sendAndForget({

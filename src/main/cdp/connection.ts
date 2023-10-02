@@ -139,8 +139,8 @@ export class Connection {
         return target;
     }
 
-    protected attachIfNeeded({ targetId }: CdpTargetInfo) {
-        if (this.targetSessions.has(targetId)) {
+    protected attachIfNeeded({ targetId, type }: CdpTargetInfo) {
+        if (this.targetSessions.has(targetId) || type === 'background_page' || type === 'service_worker') {
             return;
         }
         this.sendAndForget({
@@ -321,7 +321,7 @@ export class Connection {
 
     protected onAttachedToTarget(params: { sessionId: string; targetInfo: CdpTargetInfo }) {
         const { sessionId, targetInfo } = params;
-        if (!['iframe', 'page', 'background_page'].includes(targetInfo.type)) {
+        if (!['iframe', 'page'].includes(targetInfo.type)) {
             this.send({
                 method: 'Runtime.runIfWaitingForDebugger',
                 params: {}

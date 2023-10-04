@@ -24,8 +24,8 @@ export class UserAgentService {
     }
 
     async onSessionStart() {
-        this.userAgent = this.getDefaultUserAgent();
-        this.platform = this.getDefaultPlatform();
+        this.userAgent = null;
+        this.platform = null;
         await this.applyToAllTargets();
     }
 
@@ -49,11 +49,4 @@ export class UserAgentService {
         }
     }
 
-    getDefaultUserAgent() {
-        return null;
-    }
-
-    getDefaultPlatform() {
-        return null;
-    }
 }

@@ -23,8 +23,8 @@ Overrides User Agent and Platform visible to web pages.
         {
             type: 'Value.getJson',
             value: JSON.stringify({
-                userAgent: this.$userAgent.getDefaultUserAgent(),
-                platform: this.$userAgent.getDefaultPlatform(),
+                userAgent: '',
+                platform: '',
             }, null, 2)
         }
     ] as any;
@@ -49,8 +49,8 @@ Overrides User Agent and Platform visible to web pages.
     async exec() {
         const el = await this.retry(() => this.selectOne(this.pipeline));
         const {
-            userAgent = this.$userAgent.getDefaultUserAgent(),
-            platform = this.$userAgent.getDefaultPlatform(),
+            userAgent = null,
+            platform = null,
         } = this.validate(el.value);
         await this.$userAgent.setUserAgent(userAgent, platform);
     }

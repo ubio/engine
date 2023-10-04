@@ -89,6 +89,7 @@ export class InterceptedRequest {
         this.responseErrorReason = payload.responseErrorReason;
         this.responseStatusCode = payload.responseStatusCode;
         this.responseHeaders = payload.responseHeaders;
+        this.networkId = payload.networkId;
     }
 
     /**

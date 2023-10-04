@@ -26,7 +26,7 @@ export class CapsolverChromeExtension {
             const updatedJsonData = JSON.stringify(jsonData, null, 2);
             await fs.writeFile(filePath, updatedJsonData, { encoding: 'utf8' });
         } catch (error) {
-            this.logger.warn(`Updating api key failed: ${error}`);
+            this.logger.warn(`Updating api key ${key} in ${filePath} failed: ${error}`);
         }
     }
 }

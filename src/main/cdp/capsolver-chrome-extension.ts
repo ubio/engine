@@ -22,9 +22,11 @@ export class CapsolverChromeExtension {
         try {
             const rawData = await fs.readFile(filePath, { encoding: 'utf8' });
             const jsonData = JSON.parse(rawData);
-            jsonData.apiKey = key;
-            const updatedJsonData = JSON.stringify(jsonData, null, 2);
-            await fs.writeFile(filePath, updatedJsonData, { encoding: 'utf8' });
+            if (jsonData.apiKey !== key) {
+                jsonData.apiKey = key;
+                const updatedJsonData = JSON.stringify(jsonData, null, 2);
+                await fs.writeFile(filePath, updatedJsonData, { encoding: 'utf8' });
+            }
         } catch (error) {
             this.logger.warn(`Updating api key ${key} in ${filePath} failed: ${error}`);
         }

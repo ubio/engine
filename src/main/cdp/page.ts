@@ -147,7 +147,19 @@ export class Page {
     async clearBrowsingData() {
         await this.send('Storage.clearDataForOrigin', {
             origin: '*',
-            storageTypes: 'all',
+            storageTypes: [
+                'appcache',
+                'cookies',
+                'file_systems',
+                'indexeddb',
+                'local_storage',
+                'websql',
+                'service_workers',
+                'interest_groups',
+                'shared_storage',
+                'storage_buckets',
+                'other',
+            ].join(','),
         });
         await this.send('Network.clearBrowserCookies');
     }

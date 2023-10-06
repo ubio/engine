@@ -79,6 +79,21 @@ describe('CapsolverChromeExtension', () => {
 
             assert.equal(jsonData.apiKey, apiKey);
         });
+
+        it('should simulate 16 m1 workers concurrently adding API key to the same config', async () => {
+
+            const promises: Promise<void>[] = [];
+            for (let i = 0; i < 16; ++i) {
+                promises.push(capsolver.addApiKey());
+            }
+
+            await Promise.all(promises);
+
+            const rawData = await fs.readFile(configPath, { encoding: 'utf8' });
+            const jsonData = JSON.parse(rawData);
+
+            assert.equal(jsonData.apiKey, apiKey);
+        });
     });
 
     describe('removeApiKey', () => {

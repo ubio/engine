@@ -22,7 +22,7 @@ export class CapsolverChromeExtension {
         try {
             const rawData = await fs.readFile(filePath, { encoding: 'utf8' });
             const jsonData = JSON.parse(rawData);
-            if (jsonData.apiKey !== key) {
+            if (jsonData.apiKey && jsonData.apiKey !== key) {
                 jsonData.apiKey = key;
                 const updatedJsonData = JSON.stringify(jsonData, null, 2);
                 await fs.writeFile(filePath, updatedJsonData, { encoding: 'utf8' });

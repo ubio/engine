@@ -2,7 +2,7 @@
   "apiKey": "",
   "appId": "",
   "useCapsolver": true,
-  "manualSolving": false,
+  "manualSolving": true,
   "solvedCallback": "captchaSolvedCallback",
 
   "useProxy": false,

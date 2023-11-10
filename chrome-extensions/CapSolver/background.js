@@ -1,90 +1,90 @@
 "use strict";
 (() => {
-    var se = Object.create;
+    var le = Object.create;
     var P = Object.defineProperty;
-    var ie = Object.getOwnPropertyDescriptor;
-    var ce = Object.getOwnPropertyNames;
-    var le = Object.getPrototypeOf,
-        ue = Object.prototype.hasOwnProperty;
-    var pe = (e, t, n) => t in e ? P(e, t, {
+    var pe = Object.getOwnPropertyDescriptor;
+    var fe = Object.getOwnPropertyNames;
+    var de = Object.getPrototypeOf,
+        he = Object.prototype.hasOwnProperty;
+    var me = (e, t, n) => t in e ? P(e, t, {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: n
     }) : e[t] = n;
-    var E = (e, t) => () => (t || e((t = {
+    var O = (e, t) => () => (t || e((t = {
         exports: {}
     }).exports, t), t.exports);
-    var fe = (e, t, n, a) => {
+    var ge = (e, t, n, a) => {
         if (t && typeof t == "object" || typeof t == "function")
-            for (let o of ce(t)) !ue.call(e, o) && o !== n && P(e, o, {
+            for (let o of fe(t)) !he.call(e, o) && o !== n && P(e, o, {
                 get: () => t[o],
-                enumerable: !(a = ie(t, o)) || a.enumerable
+                enumerable: !(a = pe(t, o)) || a.enumerable
             });
         return e
     };
-    var F = (e, t, n) => (n = e != null ? se(le(e)) : {}, fe(t || !e || !e.__esModule ? P(n, "default", {
+    var K = (e, t, n) => (n = e != null ? le(de(e)) : {}, ge(t || !e || !e.__esModule ? P(n, "default", {
         value: e,
         enumerable: !0
     }) : n, e));
-    var C = (e, t, n) => (pe(e, typeof t != "symbol" ? t + "" : t, n), n);
-    var W = E((Ne, I) => {
+    var C = (e, t, n) => (me(e, typeof t != "symbol" ? t + "" : t, n), n);
+    var Q = O((Je, S) => {
         "use strict";
         var y = typeof Reflect == "object" ? Reflect : null,
-            O = y && typeof y.apply == "function" ? y.apply : function(t, n, a) {
+            D = y && typeof y.apply == "function" ? y.apply : function(t, n, a) {
                 return Function.prototype.apply.call(t, n, a)
             },
-            T;
-        y && typeof y.ownKeys == "function" ? T = y.ownKeys : Object.getOwnPropertySymbols ? T = function(t) {
+            w;
+        y && typeof y.ownKeys == "function" ? w = y.ownKeys : Object.getOwnPropertySymbols ? w = function(t) {
             return Object.getOwnPropertyNames(t).concat(Object.getOwnPropertySymbols(t))
-        } : T = function(t) {
+        } : w = function(t) {
             return Object.getOwnPropertyNames(t)
         };
 
-        function de(e) {
+        function ye(e) {
             console && console.warn && console.warn(e)
         }
-        var K = Number.isNaN || function(t) {
+        var j = Number.isNaN || function(t) {
             return t !== t
         };
 
         function i() {
             i.init.call(this)
         }
-        I.exports = i;
-        I.exports.once = ye;
+        S.exports = i;
+        S.exports.once = ke;
         i.EventEmitter = i;
         i.prototype._events = void 0;
         i.prototype._eventsCount = 0;
         i.prototype._maxListeners = void 0;
-        var D = 10;
+        var B = 10;
 
-        function k(e) {
+        function T(e) {
             if (typeof e != "function") throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof e)
         }
         Object.defineProperty(i, "defaultMaxListeners", {
             enumerable: !0,
             get: function() {
-                return D
+                return B
             },
             set: function(e) {
-                if (typeof e != "number" || e < 0 || K(e)) throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + e + ".");
-                D = e
+                if (typeof e != "number" || e < 0 || j(e)) throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + e + ".");
+                B = e
             }
         });
         i.init = function() {
             (this._events === void 0 || this._events === Object.getPrototypeOf(this)._events) && (this._events = Object.create(null), this._eventsCount = 0), this._maxListeners = this._maxListeners || void 0
         };
         i.prototype.setMaxListeners = function(t) {
-            if (typeof t != "number" || t < 0 || K(t)) throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + t + ".");
+            if (typeof t != "number" || t < 0 || j(t)) throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + t + ".");
             return this._maxListeners = t, this
         };
 
-        function B(e) {
+        function H(e) {
             return e._maxListeners === void 0 ? i.defaultMaxListeners : e._maxListeners
         }
         i.prototype.getMaxListeners = function() {
-            return B(this)
+            return H(this)
         };
         i.prototype.emit = function(t) {
             for (var n = [], a = 1; a < arguments.length; a++) n.push(arguments[a]);
@@ -100,35 +100,35 @@
             }
             var h = r[t];
             if (h === void 0) return !1;
-            if (typeof h == "function") O(h, this, n);
+            if (typeof h == "function") D(h, this, n);
             else
-                for (var l = h.length, g = q(h, l), a = 0; a < l; ++a) O(g[a], this, n);
+                for (var u = h.length, m = W(h, u), a = 0; a < u; ++a) D(m[a], this, n);
             return !0
         };
 
-        function j(e, t, n, a) {
+        function U(e, t, n, a) {
             var o, r, s;
-            if (k(n), r = e._events, r === void 0 ? (r = e._events = Object.create(null), e._eventsCount = 0) : (r.newListener !== void 0 && (e.emit("newListener", t, n.listener ? n.listener : n), r = e._events), s = r[t]), s === void 0) s = r[t] = n, ++e._eventsCount;
-            else if (typeof s == "function" ? s = r[t] = a ? [n, s] : [s, n] : a ? s.unshift(n) : s.push(n), o = B(e), o > 0 && s.length > o && !s.warned) {
+            if (T(n), r = e._events, r === void 0 ? (r = e._events = Object.create(null), e._eventsCount = 0) : (r.newListener !== void 0 && (e.emit("newListener", t, n.listener ? n.listener : n), r = e._events), s = r[t]), s === void 0) s = r[t] = n, ++e._eventsCount;
+            else if (typeof s == "function" ? s = r[t] = a ? [n, s] : [s, n] : a ? s.unshift(n) : s.push(n), o = H(e), o > 0 && s.length > o && !s.warned) {
                 s.warned = !0;
                 var c = new Error("Possible EventEmitter memory leak detected. " + s.length + " " + String(t) + " listeners added. Use emitter.setMaxListeners() to increase limit");
-                c.name = "MaxListenersExceededWarning", c.emitter = e, c.type = t, c.count = s.length, de(c)
+                c.name = "MaxListenersExceededWarning", c.emitter = e, c.type = t, c.count = s.length, ye(c)
             }
             return e
         }
         i.prototype.addListener = function(t, n) {
-            return j(this, t, n, !1)
+            return U(this, t, n, !1)
         };
         i.prototype.on = i.prototype.addListener;
         i.prototype.prependListener = function(t, n) {
-            return j(this, t, n, !0)
+            return U(this, t, n, !0)
         };
 
-        function he() {
+        function Ce() {
             if (!this.fired) return this.target.removeListener(this.type, this.wrapFn), this.fired = !0, arguments.length === 0 ? this.listener.call(this.target) : this.listener.apply(this.target, arguments)
         }
 
-        function H(e, t, n) {
+        function N(e, t, n) {
             var a = {
                     fired: !1,
                     wrapFn: void 0,
@@ -136,18 +136,18 @@
                     type: t,
                     listener: n
                 },
-                o = he.bind(a);
+                o = Ce.bind(a);
             return o.listener = n, a.wrapFn = o, o
         }
         i.prototype.once = function(t, n) {
-            return k(n), this.on(t, H(this, t, n)), this
+            return T(n), this.on(t, N(this, t, n)), this
         };
         i.prototype.prependOnceListener = function(t, n) {
-            return k(n), this.prependListener(t, H(this, t, n)), this
+            return T(n), this.prependListener(t, N(this, t, n)), this
         };
         i.prototype.removeListener = function(t, n) {
             var a, o, r, s, c;
-            if (k(n), o = this._events, o === void 0) return this;
+            if (T(n), o = this._events, o === void 0) return this;
             if (a = o[t], a === void 0) return this;
             if (a === n || a.listener === n) --this._eventsCount === 0 ? this._events = Object.create(null) : (delete o[t], o.removeListener && this.emit("removeListener", t, a.listener || n));
             else if (typeof a != "function") {
@@ -156,7 +156,7 @@
                         c = a[s].listener, r = s;
                         break
                     } if (r < 0) return this;
-                r === 0 ? a.shift() : ge(a, r), a.length === 1 && (o[t] = a[0]), o.removeListener !== void 0 && this.emit("removeListener", t, c || n)
+                r === 0 ? a.shift() : be(a, r), a.length === 1 && (o[t] = a[0]), o.removeListener !== void 0 && this.emit("removeListener", t, c || n)
             }
             return this
         };
@@ -177,24 +177,24 @@
             return this
         };
 
-        function N(e, t, n) {
+        function q(e, t, n) {
             var a = e._events;
             if (a === void 0) return [];
             var o = a[t];
-            return o === void 0 ? [] : typeof o == "function" ? n ? [o.listener || o] : [o] : n ? me(o) : q(o, o.length)
+            return o === void 0 ? [] : typeof o == "function" ? n ? [o.listener || o] : [o] : n ? ve(o) : W(o, o.length)
         }
         i.prototype.listeners = function(t) {
-            return N(this, t, !0)
+            return q(this, t, !0)
         };
         i.prototype.rawListeners = function(t) {
-            return N(this, t, !1)
+            return q(this, t, !1)
         };
         i.listenerCount = function(e, t) {
-            return typeof e.listenerCount == "function" ? e.listenerCount(t) : U.call(e, t)
+            return typeof e.listenerCount == "function" ? e.listenerCount(t) : V.call(e, t)
         };
-        i.prototype.listenerCount = U;
+        i.prototype.listenerCount = V;
 
-        function U(e) {
+        function V(e) {
             var t = this._events;
             if (t !== void 0) {
                 var n = t[e];
@@ -204,25 +204,25 @@
             return 0
         }
         i.prototype.eventNames = function() {
-            return this._eventsCount > 0 ? T(this._events) : []
+            return this._eventsCount > 0 ? w(this._events) : []
         };
 
-        function q(e, t) {
+        function W(e, t) {
             for (var n = new Array(t), a = 0; a < t; ++a) n[a] = e[a];
             return n
         }
 
-        function ge(e, t) {
+        function be(e, t) {
             for (; t + 1 < e.length; t++) e[t] = e[t + 1];
             e.pop()
         }
 
-        function me(e) {
+        function ve(e) {
             for (var t = new Array(e.length), n = 0; n < t.length; ++n) t[n] = e[n].listener || e[n];
             return t
         }
 
-        function ye(e, t) {
+        function ke(e, t) {
             return new Promise(function(n, a) {
                 function o(s) {
                     e.removeListener(t, r), a(s)
@@ -231,19 +231,19 @@
                 function r() {
                     typeof e.removeListener == "function" && e.removeListener("error", o), n([].slice.call(arguments))
                 }
-                V(e, t, r, {
+                z(e, t, r, {
                     once: !0
-                }), t !== "error" && Ce(e, o, {
+                }), t !== "error" && xe(e, o, {
                     once: !0
                 })
             })
         }
 
-        function Ce(e, t, n) {
-            typeof e.on == "function" && V(e, "error", t, n)
+        function xe(e, t, n) {
+            typeof e.on == "function" && z(e, "error", t, n)
         }
 
-        function V(e, t, n, a) {
+        function z(e, t, n, a) {
             if (typeof e.on == "function") a.once ? e.once(t, n) : e.on(t, n);
             else if (typeof e.addEventListener == "function") e.addEventListener(t, function o(r) {
                 a.once && e.removeEventListener(t, o), n(r)
@@ -251,7 +251,7 @@
             else throw new TypeError('The "emitter" argument must be of type EventEmitter. Received type ' + typeof e)
         }
     });
-    var G = E((We, p) => {
+    var X = O((et, p) => {
         p.exports.boot = function(e) {
             return e
         };
@@ -298,11 +298,11 @@
             return e
         }
     });
-    var $ = F(W());
-    var M, x = 0,
-        u = new Array(256);
-    for (let e = 0; e < 256; e++) u[e] = (e + 256).toString(16).substring(1);
-    var be = (() => {
+    var J = K(Q());
+    var _, R = 0,
+        l = new Array(256);
+    for (let e = 0; e < 256; e++) l[e] = (e + 256).toString(16).substring(1);
+    var we = (() => {
             let e = typeof crypto != "undefined" ? crypto : typeof window != "undefined" ? window.crypto || window.msCrypto : void 0;
             if (e !== void 0) {
                 if (e.randomBytes !== void 0) return e.randomBytes;
@@ -317,22 +317,22 @@
                 return n
             }
         })(),
-        z = 4096;
+        $ = 4096;
 
-    function Q() {
-        (M === void 0 || x + 16 > z) && (x = 0, M = be(z));
-        let e = Array.prototype.slice.call(M, x, x += 16);
-        return e[6] = e[6] & 15 | 64, e[8] = e[8] & 63 | 128, u[e[0]] + u[e[1]] + u[e[2]] + u[e[3]] + "-" + u[e[4]] + u[e[5]] + "-" + u[e[6]] + u[e[7]] + "-" + u[e[8]] + u[e[9]] + "-" + u[e[10]] + u[e[11]] + u[e[12]] + u[e[13]] + u[e[14]] + u[e[15]]
+    function G() {
+        (_ === void 0 || R + 16 > $) && (R = 0, _ = we($));
+        let e = Array.prototype.slice.call(_, R, R += 16);
+        return e[6] = e[6] & 15 | 64, e[8] = e[8] & 63 | 128, l[e[0]] + l[e[1]] + l[e[2]] + l[e[3]] + "-" + l[e[4]] + l[e[5]] + "-" + l[e[6]] + l[e[7]] + "-" + l[e[8]] + l[e[9]] + "-" + l[e[10]] + l[e[11]] + l[e[12]] + l[e[13]] + l[e[14]] + l[e[15]]
     }
-    var ve = {
+    var Te = {
             undefined: () => 0,
             boolean: () => 4,
             number: () => 8,
             string: e => 2 * e.length,
-            object: e => e ? Object.keys(e).reduce((t, n) => S(n) + S(e[n]) + t, 0) : 0
+            object: e => e ? Object.keys(e).reduce((t, n) => A(n) + A(e[n]) + t, 0) : 0
         },
-        S = e => ve[typeof e](e),
-        b = class extends $.EventEmitter {
+        A = e => Te[typeof e](e),
+        b = class extends J.EventEmitter {
             constructor(t) {
                 super(), this.setMaxListeners(1 / 0), this.wall = t, t.listen(n => {
                     Array.isArray(n) ? n.forEach(a => this._emit(a)) : this._emit(n)
@@ -366,44 +366,44 @@
                 this._sending = !0;
                 let t = this._sendingQueue.shift(),
                     n = t[0],
-                    a = `${n.event}.${Q()}`,
+                    a = `${n.event}.${G()}`,
                     o = a + ".result";
                 return new Promise((r, s) => {
                     let c = [],
-                        h = l => {
-                            if (l !== void 0 && l._chunkSplit) {
-                                let g = l._chunkSplit;
-                                c = [...c, ...l.data], g.lastChunk && (this.off(o, h), r(c))
-                            } else this.off(o, h), r(l)
+                        h = u => {
+                            if (u !== void 0 && u._chunkSplit) {
+                                let m = u._chunkSplit;
+                                c = [...c, ...u.data], m.lastChunk && (this.off(o, h), r(c))
+                            } else this.off(o, h), r(u)
                         };
                     this.on(o, h);
                     try {
-                        let l = t.map(g => ({
-                            ...g,
+                        let u = t.map(m => ({
+                            ...m,
                             payload: {
-                                data: g.payload,
+                                data: m.payload,
                                 eventResponseKey: o
                             }
                         }));
-                        this.wall.send(l)
-                    } catch (l) {
-                        let g = "Message length exceeded maximum allowed length.";
-                        if (l.message === g && Array.isArray(n.payload)) {
-                            let _ = S(n);
-                            if (_ > this._maxMessageSize) {
-                                let w = Math.ceil(_ / this._maxMessageSize),
-                                    oe = Math.ceil(n.payload.length / w),
-                                    A = n.payload;
-                                for (let L = 0; L < w; L++) {
-                                    let re = Math.min(A.length, oe);
+                        this.wall.send(u)
+                    } catch (u) {
+                        let m = "Message length exceeded maximum allowed length.";
+                        if (u.message === m && Array.isArray(n.payload)) {
+                            let E = A(n);
+                            if (E > this._maxMessageSize) {
+                                let x = Math.ceil(E / this._maxMessageSize),
+                                    ce = Math.ceil(n.payload.length / x),
+                                    F = n.payload;
+                                for (let I = 0; I < x; I++) {
+                                    let ue = Math.min(F.length, ce);
                                     this.wall.send([{
                                         event: n.event,
                                         payload: {
                                             _chunkSplit: {
-                                                count: w,
-                                                lastChunk: L === w - 1
+                                                count: x,
+                                                lastChunk: I === x - 1
                                             },
-                                            data: A.splice(0, re)
+                                            data: F.splice(0, ue)
                                         }
                                     }])
                                 }
@@ -414,13 +414,13 @@
                 })
             }
         };
-    var ne = F(G());
-    var we = chrome.runtime.getURL("assets/config.json");
-    async function Te() {
+    var se = K(X());
+    var Re = chrome.runtime.getURL("assets/config.json");
+    async function Le() {
         let e = await chrome.storage.local.get("defaultConfig");
         if (e.defaultConfig) return e.defaultConfig;
         let t = {},
-            a = await (await fetch(we)).json();
+            a = await (await fetch(Re)).json();
         return a && (t = a, chrome.storage.local.set({
             defaultConfig: t
         })), t
@@ -490,17 +490,17 @@
             textCaptchaSourceAttribute: "capsolver-image-to-text-source",
             textCaptchaResultAttribute: "capsolver-image-to-text-result"
         },
-        J = {
+        Z = {
             proxyType: ["socks5", "http", "https", "socks4"],
             mode: ["click", "token"]
         };
-    async function X() {
-        let e = await Te(),
+    async function Y() {
+        let e = await Le(),
             t = Object.keys(e);
         for (let n of t)
-            if (!(n === "proxyType" && !J[n].includes(e[n]))) {
+            if (!(n === "proxyType" && !Z[n].includes(e[n]))) {
                 {
-                    if (n.endsWith("Mode") && !J.mode.includes(e[n])) continue;
+                    if (n.endsWith("Mode") && !Z.mode.includes(e[n])) continue;
                     if (n === "port") {
                         if (typeof e[n] != "number") continue;
                         v[n] = e[n]
@@ -509,14 +509,14 @@
                 Reflect.has(v, n) && typeof v[n] == typeof e[n] && (v[n] = e[n])
             } return v
     }
-    var ke = X(),
+    var Me = Y(),
         d = {
-            default: ke,
+            default: Me,
             async get(e) {
                 return (await this.getAll())[e]
             },
             async getAll() {
-                let e = await X(),
+                let e = await Y(),
                     t = await chrome.storage.local.get("config");
                 return d.joinConfig(e, t.config)
             },
@@ -537,7 +537,7 @@
             }
         };
 
-    function Z(e) {
+    function ee(e) {
         e.on("storage.get", ({
             data: t,
             respond: n
@@ -574,7 +574,7 @@
         })
     }
 
-    function Y(e) {
+    function te(e) {
         e.on("log", ({
             data: t,
             respond: n
@@ -582,7 +582,7 @@
             console.log(`[BEX] ${t.message}`, ...t.data || []), n()
         })
     }
-    var R = class {
+    var L = class {
         constructor(t) {
             C(this, "baseURL");
             this.baseURL = t
@@ -618,7 +618,7 @@
             });
             C(this, "http");
             for (let n in this.options) this.options[n] = t[n] === void 0 ? this.options[n] : t[n];
-            this.http = new R(this.options.service)
+            this.http = new L(this.options.service)
         }
         static async API(t) {
             let n = await d.getAll();
@@ -654,8 +654,8 @@
             });
             let a = await d.getAll();
             if (a.appId && (t.appId = a.appId), a.useProxy) {
-                let l = await this.getProxyParams(t.task);
-                Object.assign(t.task, l)
+                let u = await this.getProxyParams(t.task);
+                Object.assign(t.task, u)
             }
             let o = await this.createTask(t),
                 {
@@ -665,11 +665,11 @@
                 c = n.timeout === void 0 ? this.options.defaultTimeout : n.timeout,
                 h = n.pollingInterval === void 0 ? this.options.pollingInterval : n.pollingInterval;
             for (; !(this.getTime() - s > c);) {
-                await new Promise(g => setTimeout(g, h * 1e3));
-                let l = await this.getTaskSolution({
+                await new Promise(m => setTimeout(m, h * 1e3));
+                let u = await this.getTaskSolution({
                     taskId: r
                 });
-                if (l.status === "ready") return l
+                if (u.status === "ready") return u
             }
             throw new Error("Timeout " + c + " seconds reached")
         }
@@ -679,7 +679,7 @@
                 clientKey: this.options.apiKey,
                 ...t
             });
-            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorDescription) || "createTask fail\uFF01");
+            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorCode) || "createTask fail\uFF01");
             if (!n.data.taskId) throw new Error("taskIs is empty!");
             return n.data
         }
@@ -691,7 +691,7 @@
                 clientKey: this.options.apiKey,
                 taskId: t
             });
-            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorDescription) || "getTaskResult fail\uFF01");
+            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorCode) || "getTaskResult fail\uFF01");
             return n.data
         }
         async createRecognitionTask(t) {
@@ -711,49 +711,98 @@
         }
     };
 
-    function te(e, t, n) {
+    function Ie(e) {
+        chrome.contextMenus.update("capsolver-mark-image", {
+            enabled: e
+        })
+    }
+
+    function Pe(e) {
+        chrome.contextMenus.update("capsolver-mark-result", {
+            enabled: e
+        })
+    }
+
+    function M(e, t) {
+        return new Promise(n => {
+            chrome.tabs.query({
+                active: !0,
+                currentWindow: !0
+            }).then(a => {
+                let o = a.find(s => s.id === e),
+                    r = o == null ? void 0 : o.url;
+                r || n(!1), r && chrome.tabs.sendMessage(e, {
+                    command: t
+                }, s => {
+                    n(s)
+                })
+            })
+        })
+    }
+    async function Se(e) {
+        return await M(e, "image2Text:canMarkImage")
+    }
+    async function _e(e) {
+        return await M(e, "image2Text:canMarkInput")
+    }
+    async function ne(e) {
+        M(e, "image2Text:markedImage")
+    }
+    async function ae(e) {
+        M(e, "image2Text:markedResult")
+    }
+    async function k(e) {
+        let t = await Se(e),
+            n = await _e(e);
+        Ie(t), Pe(n)
+    }
+
+    function re(e, t, n) {
         let {
             action: a
         } = e;
         return d.getAll().then(o => {
             switch (a) {
                 case "solver":
-                    o[`${e.captchaType}Mode`] === "click" ? Le(e).then(r => {
+                    o[`${e.captchaType}Mode`] === "click" ? Fe(e).then(r => {
                         n({
                             response: r
                         })
-                    }) : Re(e, o).then(r => {
+                    }) : Ee(e, o).then(r => {
                         n({
                             response: r
                         })
                     });
                     break;
                 case "execute":
-                    ee({
+                    oe({
                         command: "execute"
                     });
                     break;
                 case "solved":
-                    ee({
+                    oe({
                         response: {
                             action: "solved"
                         }
                     });
                     break;
                 case "callback":
-                    xe(o);
+                    Ae(o);
+                    break;
+                case "updateMenu":
+                    k(t.tab.id);
                     break
             }
         }), a === "solver"
     }
-    async function ee(e) {
+    async function oe(e) {
         let t = await chrome.tabs.query({
             currentWindow: !0,
             active: !0
         });
         for (let n of t) chrome.tabs.sendMessage(n.id, e)
     }
-    async function xe(e) {
+    async function Ae(e) {
         let t = await chrome.tabs.query({
             currentWindow: !0,
             active: !0
@@ -769,7 +818,7 @@
             }
         })
     }
-    async function Re(e, t) {
+    async function Ee(e, t) {
         let {
             captchaType: n,
             widgetId: a,
@@ -784,13 +833,13 @@
         };
         if (!o) return s.error = "params is error!", s;
         try {
-            s.response = await Pe(n, o, t)
+            s.response = await Oe(n, o, t)
         } catch (c) {
             s.error = String(c)
         }
         return s
     }
-    async function Le(e) {
+    async function Fe(e) {
         let {
             captchaType: t,
             params: n,
@@ -804,40 +853,40 @@
         if (!n) return o.error = "params is error!", o;
         n.hasOwnProperty("index") && (o.index = n.index), n.hasOwnProperty("id") && (o.id = n.id);
         try {
-            o.response = await Ie(t, n)
+            o.response = await Ke(t, n)
         } catch (r) {
             o.error = String(r)
         }
         return o
     }
-    async function Pe(e, t, n) {
+    async function Oe(e, t, n) {
         let a = {
             code: "",
             status: "processing"
         };
         switch (e) {
             case "hCaptcha": {
-                let o = await Me(t);
+                let o = await De(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "reCaptcha": {
-                let o = await Se(t);
+                let o = await Be(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "funCaptcha": {
-                let o = await Ae(t);
+                let o = await He(t);
                 a.code = o.solution.token, a.status = o.status;
                 break
             }
             case "reCaptcha3": {
-                let o = await _e(t);
+                let o = await je(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "cloudflare": {
-                let o = await Ee(t);
+                let o = await Ue(t);
                 a.code = o.solution.token, a.status = o.status;
                 break
             }
@@ -846,28 +895,28 @@
         }
         return a
     }
-    async function Ie(e, t) {
+    async function Ke(e, t) {
         let n = {
             status: "processing"
         };
         switch (e) {
             case "funCaptcha": {
-                let a = await Fe(t);
+                let a = await Ne(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "hCaptcha": {
-                let a = await Oe(t);
+                let a = await qe(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "reCaptcha": {
-                let a = await De(t);
+                let a = await Ve(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "textCaptcha": {
-                let a = await Ke(t);
+                let a = await We(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
@@ -876,7 +925,7 @@
         }
         return n
     }
-    async function Me(e) {
+    async function De(e) {
         return await (await f.API()).createTaskResult({
             task: {
                 type: "HCaptchaTaskProxyLess",
@@ -885,19 +934,20 @@
             }
         })
     }
-    async function Se(e) {
+    async function Be(e) {
         return await (await f.API()).createTaskResult({
             task: {
                 type: "ReCaptchaV2TaskProxyLess",
                 websiteURL: e.url,
                 websiteKey: e.sitekey,
+                invisible: e.invisible,
                 enterprisePayload: {
                     s: e.s
                 }
             }
         })
     }
-    async function _e(e) {
+    async function je(e) {
         return await (await f.API()).createTaskResult({
             task: {
                 type: "ReCaptchaV3TaskProxyLess",
@@ -910,7 +960,7 @@
             }
         })
     }
-    async function Ae(e) {
+    async function He(e) {
         return await (await f.API()).createTaskResult({
             task: {
                 type: "FunCaptchaTaskProxyLess",
@@ -919,7 +969,7 @@
             }
         })
     }
-    async function Ee(e) {
+    async function Ue(e) {
         return await (await f.API()).createTaskResult({
             task: {
                 type: "",
@@ -931,7 +981,7 @@
             }
         })
     }
-    async function Fe(e) {
+    async function Ne(e) {
         return await (await f.API()).createRecognitionTask({
             task: {
                 type: "FunCaptchaClassification",
@@ -940,7 +990,7 @@
             }
         })
     }
-    async function Oe(e) {
+    async function qe(e) {
         return await (await f.API()).createRecognitionTask({
             task: {
                 type: "HCaptchaClassification",
@@ -949,7 +999,7 @@
             }
         })
     }
-    async function De(e) {
+    async function Ve(e) {
         return await (await f.API()).createRecognitionTask({
             task: {
                 type: "ReCaptchaV2Classification",
@@ -958,7 +1008,7 @@
             }
         })
     }
-    async function Ke(e) {
+    async function We(e) {
         return await (await f.API()).createRecognitionTask({
             task: {
                 type: "ImageToTextTask",
@@ -969,12 +1019,47 @@
     chrome.runtime.onConnect.addListener(() => {
         console.log("CapSolver is connect")
     });
-    chrome.runtime.onMessage.addListener(te);
-    var ae = (0, ne.bexBackground)(e => {
-        Y(e), Z(e)
+    chrome.runtime.onMessage.addListener(re);
+
+    function ze() {
+        chrome.contextMenus.removeAll(() => {
+            chrome.contextMenus.create({
+                title: "capsolver mark image as captcha",
+                contexts: ["all"],
+                id: "capsolver-mark-image",
+                enabled: !0
+            }), chrome.contextMenus.create({
+                title: "select an input for the captcha result",
+                contexts: ["editable"],
+                id: "capsolver-mark-result",
+                enabled: !1
+            })
+        })
+    }
+    chrome.tabs.onActivated.addListener(({
+        tabId: e
+    }) => {
+        k(e)
     });
-    var m = {},
-        Be = e => {
+    chrome.tabs.onUpdated.addListener((e, t) => {
+        t.status === "complete" && k(e)
+    });
+    chrome.contextMenus.onClicked.addListener((e, t) => {
+        switch (e.menuItemId) {
+            case "capsolver-mark-image":
+                ne(t.id);
+                break;
+            case "capsolver-mark-result":
+                ae(t.id);
+                break
+        }
+    });
+    ze();
+    var ie = (0, se.bexBackground)(e => {
+        te(e), ee(e)
+    });
+    var g = {},
+        Qe = e => {
             let t = e.sender.tab,
                 n;
             if (e.name.indexOf(":") > -1) {
@@ -982,40 +1067,40 @@
                 n = o[1], e.name = o[0]
             }
             t !== void 0 && (n = t.id);
-            let a = m[n];
-            return a || (a = m[n] = {}), a[e.name] = {
+            let a = g[n];
+            return a || (a = g[n] = {}), a[e.name] = {
                 port: e,
                 connected: !0,
                 listening: !1
             }, a[e.name]
         };
     chrome.runtime.onConnect.addListener(e => {
-        let t = Be(e);
+        let t = Qe(e);
         t.port.onDisconnect.addListener(() => {
             t.connected = !1
         });
         let n = new b({
             listen(a) {
-                for (let o in m) {
-                    let r = m[o];
+                for (let o in g) {
+                    let r = g[o];
                     r.app && !r.app.listening && (r.app.listening = !0, r.app.port.onMessage.addListener(a)), r.contentScript && !r.contentScript.listening && (r.contentScript.port.onMessage.addListener(a), r.contentScript.listening = !0)
                 }
             },
             send(a) {
-                for (let o in m) {
-                    let r = m[o];
+                for (let o in g) {
+                    let r = g[o];
                     r.app && r.app.connected && r.app.port.postMessage(a), r.contentScript && r.contentScript.connected && r.contentScript.port.postMessage(a)
                 }
             }
         });
-        ae(n, m);
-        for (let a in m) {
-            let o = m[a];
-            o.app && o.contentScript && je(o.app, o.contentScript)
+        ie(n, g);
+        for (let a in g) {
+            let o = g[a];
+            o.app && o.contentScript && $e(o.app, o.contentScript)
         }
     });
 
-    function je(e, t) {
+    function $e(e, t) {
         e.port.onMessage.addListener(n => {
             t.connected && t.port.postMessage(n)
         }), t.port.onMessage.addListener(n => {

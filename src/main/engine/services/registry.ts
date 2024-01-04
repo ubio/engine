@@ -42,7 +42,7 @@ export class RegistryService {
     }
 
     async loadExtension(name: string, versionRange: string): Promise<Extension> {
-        return await this._loadExtensionWithRetry(name, versionRange, 1);
+        return await this._loadExtensionWithRetry(name, versionRange, 3);
     }
 
     protected async _loadExtensionWithRetry(

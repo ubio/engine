@@ -106,6 +106,9 @@ export class RuntimeCtx {
         }
     }
 
+    getMobileDeviceHostname() {
+        return process.env.MOBILE_DEVICE_HOSTNAME ?? '';
+    }
 }
 
 export type IntrospectionResult = IntrospectionResultPipe | IntrospectionResultPipeline;

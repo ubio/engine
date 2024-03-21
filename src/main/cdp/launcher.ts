@@ -149,7 +149,7 @@ export class ChromeLauncher {
     }
 
     async tryConnect() {
-        const { chromePort } = this.options;
+        const { chromePort, chromeAddress } = this.options;
         return new Promise<void>((resolve, reject) => {
             const onConnect = () => {
                 socket.destroy();
@@ -160,7 +160,7 @@ export class ChromeLauncher {
                 reject(err);
             };
             const socket = net.createConnection({
-                host: '127.0.0.1',
+                host: chromeAddress,
                 port: chromePort,
             });
             socket.on('connect', onConnect);

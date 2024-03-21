@@ -5,6 +5,7 @@ import { booleanConfig, Configuration, numberConfig, stringConfig } from '../../
 import { Exception } from '../../exception.js';
 import { Logger } from '../../logger.js';
 import { util } from '..';
+import { PlaywrightService } from '../services/playwright.js';
 import { SessionHandler } from '../session.js';
 
 const CDP_TIMEOUT = numberConfig('CDP_TIMEOUT', 120000);
@@ -23,6 +24,8 @@ export class BrowserService extends Browser {
         logger: Logger,
         @inject(Configuration)
         protected _config: Configuration,
+        @inject(PlaywrightService)
+        protected playwright: PlaywrightService,
     ) {
         super({ logger });
         this.syncConfig();
@@ -62,6 +65,7 @@ export class BrowserService extends Browser {
             });
         }
         this.emit('attached');
+        this.playwright.setCurrentPage(targetId);
     }
 
     isAttached(): boolean {

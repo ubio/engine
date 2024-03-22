@@ -10,8 +10,8 @@ import { SessionHandler } from '../session.js';
 
 const CDP_TIMEOUT = numberConfig('CDP_TIMEOUT', 120000);
 const NAVIGATION_TIMEOUT = numberConfig('NAVIGATION_TIMEOUT', 30000);
-const CHROME_PORT = numberConfig('CHROME_PORT', 9123);
-const CHROME_ADDRESS = stringConfig('CHROME_ADDRESS', '127.0.0.1');
+export const CHROME_PORT = numberConfig('CHROME_PORT', 9123);
+export const CHROME_ADDRESS = stringConfig('CHROME_ADDRESS', '127.0.0.1');
 const SUSPEND_TARGETS = booleanConfig('SUSPEND_TARGETS', true);
 
 @injectable()

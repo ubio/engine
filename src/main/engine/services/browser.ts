@@ -65,7 +65,7 @@ export class BrowserService extends Browser {
             });
         }
         this.emit('attached');
-        this.playwright.setCurrentPage(targetId);
+        await this.playwright.setCurrentPage(targetId);
     }
 
     isAttached(): boolean {

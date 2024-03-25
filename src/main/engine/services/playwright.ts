@@ -26,8 +26,13 @@ export class PlaywrightService {
     }
 
     async setCurrentPage(targetId: string) {
-        if (!this.getContext()) {
+        if (!this.browser?.isConnected()) {
             await this.connectOverCDP();
+
+            if (!this.getContext()) {
+                this.logger.warn(`Browser not running, failed to attach to ${targetId}`);
+                return;
+            }
         }
 
         for (const page of this.getContext()!.pages()) {

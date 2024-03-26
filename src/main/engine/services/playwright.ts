@@ -35,6 +35,13 @@ export class PlaywrightService {
             const pageTargetId = await this.getPageTargetId(page);
             if (pageTargetId) {
                 this.cachedPages.set(pageTargetId, page);
+                page.on('close', async page => {
+                    for (const [key, value] of this.cachedPages) {
+                        if (value === page) {
+                            this.cachedPages.delete(key);
+                        }
+                    }
+                });
             }
         });
         this.currentPage = this.context.pages()[0];

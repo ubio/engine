@@ -33,12 +33,16 @@ export class PlaywrightService {
         this.context = this.browser.contexts()[0];
         this.context.on('page', async page => {
             const pageTargetId = await this.getPageTargetId(page);
-            this.cachedPages.set(pageTargetId, page);
+            if (pageTargetId) {
+                this.cachedPages.set(pageTargetId, page);
+            }
         });
         this.currentPage = this.context.pages()[0];
         for (const page of this.context.pages()) {
             const pageTargetId = await this.getPageTargetId(page);
-            this.cachedPages.set(pageTargetId, page);
+            if (pageTargetId) {
+                this.cachedPages.set(pageTargetId, page);
+            }
         }
     }
 
@@ -70,11 +74,17 @@ export class PlaywrightService {
     }
 
     protected async getPageTargetId(page: Page) {
-        const session = await page.context().newCDPSession(page);
-        const { targetInfo } = await session.send('Target.getTargetInfo');
-        await session.detach();
+        let targetId = null;
+        try {
+            const session = await page.context().newCDPSession(page);
+            const { targetInfo } = await session.send('Target.getTargetInfo');
+            await session.detach();
+            targetId = targetInfo.targetId;
+        } catch (error) {
+            this.logger.warn(`Failed to get page target ID`, error);
+        }
 
-        return targetInfo.targetId;
+        return targetId;
     }
 
     getCurrentPage() {

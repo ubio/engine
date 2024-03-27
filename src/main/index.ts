@@ -12,3 +12,5 @@ export * from './config.js';
 export {
     uniproxy
 };
+
+export * as playwrigth from 'playwright';

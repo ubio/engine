@@ -13,3 +13,4 @@ export * from './registry.js';
 export * from './reporter.js';
 export * from './resolver.js';
 export * from './user-agent.js';
+export * from './playwright.js';

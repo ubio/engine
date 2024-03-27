@@ -5,12 +5,13 @@ import { booleanConfig, Configuration, numberConfig, stringConfig } from '../../
 import { Exception } from '../../exception.js';
 import { Logger } from '../../logger.js';
 import { util } from '..';
+import { PlaywrightService } from '../services/playwright.js';
 import { SessionHandler } from '../session.js';
 
 const CDP_TIMEOUT = numberConfig('CDP_TIMEOUT', 120000);
 const NAVIGATION_TIMEOUT = numberConfig('NAVIGATION_TIMEOUT', 30000);
-const CHROME_PORT = numberConfig('CHROME_PORT', 9123);
-const CHROME_ADDRESS = stringConfig('CHROME_ADDRESS', '127.0.0.1');
+export const CHROME_PORT = numberConfig('CHROME_PORT', 9123);
+export const CHROME_ADDRESS = stringConfig('CHROME_ADDRESS', '127.0.0.1');
 const SUSPEND_TARGETS = booleanConfig('SUSPEND_TARGETS', true);
 
 @injectable()
@@ -23,6 +24,8 @@ export class BrowserService extends Browser {
         logger: Logger,
         @inject(Configuration)
         protected _config: Configuration,
+        @inject(PlaywrightService)
+        protected playwright: PlaywrightService,
     ) {
         super({ logger });
         this.syncConfig();
@@ -62,6 +65,7 @@ export class BrowserService extends Browser {
             });
         }
         this.emit('attached');
+        await this.playwright.setCurrentPage(targetId);
     }
 
     isAttached(): boolean {

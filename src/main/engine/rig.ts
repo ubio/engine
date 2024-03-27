@@ -23,13 +23,14 @@ export class TestRig {
     launcher: ChromeLauncher;
 
     chromePort = Number(process.env.CHROME_PORT) || 9123;
-    chromeAddress = process.env.CHROME_PORT || '127.0.0.1';
-    chromePath = process.env.CHROME_PATH || undefined;
-    chromeArgs = process.env.CHROME_ARGS || '';
+    chromeAddress = process.env.CHROME_ADDRESS ?? '127.0.0.1';
+    chromePath = process.env.CHROME_PATH ?? undefined;
+    chromeArgs = process.env.CHROME_ARGS ?? '';
 
     constructor() {
         this.engine = new Engine();
         this.launcher = new ChromeLauncher({
+            chromeAddress: this.chromeAddress,
             chromePort: this.chromePort,
             chromePath: this.chromePath,
             userDataDir: path.resolve(process.cwd(), '.tmp/chromedata'),

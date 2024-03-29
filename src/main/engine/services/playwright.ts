@@ -24,12 +24,16 @@ export class PlaywrightService {
     }
 
     async connectOverCDP(options?: ConnectOverCDPOptions) {
+        if (this.browser) {
+            await this.browser.close();
+        }
+
         this.browser = await chromium.connectOverCDP(this.endpointUrl, options);
         this.browser.on('disconnected', async () => {
             await this.disconnect();
         });
-        this.context = this.browser.contexts()[0];
-        if (this.context) {
+        if (this.browser.contexts().length > 0) {
+            this.context = this.browser.contexts()[0];
             this.context.on('page', async page => {
                 const pageTargetId = await this.getPageTargetId(page);
                 if (pageTargetId) {

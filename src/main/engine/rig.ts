@@ -7,7 +7,7 @@ import { Engine } from './engine.js';
 import { Extension } from './extension.js';
 import { FlowServiceMock } from './mocks/index.js';
 import { Pipeline, Script } from './model/index.js';
-import { BrowserService, FlowService, ProxyService } from './services/index.js';
+import { BrowserService, FlowService, PlaywrightService, ProxyService } from './services/index.js';
 
 class UnexpectedSuccessError extends Error {
     code: string = 'UnexpectedSuccess';
@@ -26,6 +26,8 @@ export class TestRig {
     chromeAddress = process.env.CHROME_ADDRESS ?? '127.0.0.1';
     chromePath = process.env.CHROME_PATH ?? undefined;
     chromeArgs = process.env.CHROME_ARGS ?? '';
+
+    browserContextId?: string;
 
     constructor() {
         this.engine = new Engine();
@@ -95,9 +97,13 @@ export class TestRig {
         return this.engine.get(ProxyService);
     }
 
+    get playwright() {
+        return this.engine.get(PlaywrightService);
+    }
+
     async openNewTab() {
-        const { browserContextId } = await this.browser.createBrowserContext();
-        const tab = await this.browser.newTab(browserContextId);
+        this.browserContextId = (await this.browser.createBrowserContext()).browserContextId;
+        const tab = await this.browser.newTab(this.browserContextId);
         await this.browser.attach(tab.target.targetId);
         for (const other of this.browser.attachedTargets()) {
             if (other.targetId !== tab.target.targetId) {

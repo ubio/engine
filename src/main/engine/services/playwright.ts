@@ -9,6 +9,7 @@ import { CHROME_ADDRESS, CHROME_PORT } from './browser.js';
 export class PlaywrightService {
     protected browser?: Browser;
     protected context?: BrowserContext;
+    protected targetId?: string;
     protected currentPage?: Page;
     protected cachedPages = new Map<string, Page>();
     protected endpointUrl: string;
@@ -24,28 +25,45 @@ export class PlaywrightService {
 
     async connectOverCDP(options?: ConnectOverCDPOptions) {
         this.browser = await chromium.connectOverCDP(this.endpointUrl, options);
-        this.browser.on('disconnected', () => {
-            this.browser = undefined;
-            this.context = undefined;
-            this.currentPage = undefined;
-            this.cachedPages.clear();
+        this.browser.on('disconnected', async () => {
+            await this.disconnect();
         });
         this.context = this.browser.contexts()[0];
-        this.context.on('page', async page => {
-            const pageTargetId = await this.getPageTargetId(page);
-            if (pageTargetId) {
-                this.cachedPages.set(pageTargetId, page);
-                page.on('close', async page => {
-                    for (const [key, value] of this.cachedPages) {
-                        if (value === page) {
-                            this.cachedPages.delete(key);
+        if (this.context) {
+            this.context.on('page', async page => {
+                const pageTargetId = await this.getPageTargetId(page);
+                if (pageTargetId) {
+                    this.cachedPages.set(pageTargetId, page);
+                    page.on('close', async page => {
+                        for (const [key, value] of this.cachedPages) {
+                            if (value === page) {
+                                this.cachedPages.delete(key);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            });
+
+            await this.fillCacheForAllPages(this.context.pages());
+            if (!this.targetId) {
+                this.currentPage = this.context.pages()[0];
+            } else {
+                this.currentPage = this.cachedPages.get(this.targetId);
             }
-        });
-        this.currentPage = this.context.pages()[0];
-        for (const page of this.context.pages()) {
+        }
+    }
+
+    async disconnect() {
+        await this.browser?.close();
+        this.browser = undefined;
+        this.context = undefined;
+        this.currentPage = undefined;
+        this.targetId = undefined;
+        this.cachedPages.clear();
+    }
+
+    protected async fillCacheForAllPages(pages: Page[]) {
+        for (const page of pages) {
             const pageTargetId = await this.getPageTargetId(page);
             if (pageTargetId) {
                 this.cachedPages.set(pageTargetId, page);
@@ -54,6 +72,8 @@ export class PlaywrightService {
     }
 
     async setCurrentPage(targetId: string) {
+        this.currentPage = undefined;
+        this.targetId = targetId;
         if (!this.browser) {
             await this.connectOverCDP();
 

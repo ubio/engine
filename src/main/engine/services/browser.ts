@@ -50,11 +50,22 @@ export class BrowserService extends Browser {
         });
     }
 
+    override async connect() {
+        await super.connect();
+        await this.playwright.connectOverCDP();
+    }
+
+    override async disconnect(): Promise<void> {
+        super.disconnect();
+        await this.playwright.disconnect();
+    }
+
     getChromePort() {
         return this._config.get(CHROME_PORT);
     }
 
     async attach(targetId: string): Promise<void> {
+        const playwrightSetCurrentPagePromise = this.playwright.setCurrentPage(targetId);
         this.detach();
         this._currentPage = await this.getPage(targetId);
         if (!this._currentPage) {
@@ -65,7 +76,7 @@ export class BrowserService extends Browser {
             });
         }
         this.emit('attached');
-        await this.playwright.setCurrentPage(targetId);
+        await playwrightSetCurrentPagePromise;
     }
 
     isAttached(): boolean {

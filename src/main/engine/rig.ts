@@ -76,7 +76,7 @@ export class TestRig {
     async afterEach() {
         await this.engine.finishSession();
         await this.closeTab();
-        this.browser.disconnect();
+        await this.browser.disconnect();
     }
 
     get browser() {

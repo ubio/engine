@@ -75,8 +75,8 @@ export class BrowserService extends Browser {
                 retry: true,
             });
         }
-        this.emit('attached');
         await playwrightSetCurrentPagePromise;
+        this.emit('attached');
     }
 
     isAttached(): boolean {

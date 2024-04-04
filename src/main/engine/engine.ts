@@ -20,6 +20,7 @@ import {
     ResolverService,
     UserAgentService,
 } from './services';
+import { PlaywrightService } from './services/playwright.js';
 import { sessionHandlers, SessionLifecycleHandler } from './session.js';
 
 // CDP modules need to be decorated
@@ -71,6 +72,7 @@ export class Engine {
         this.container.bind(ReporterService).toSelf().inSingletonScope();
         this.container.bind(ResolverService).toSelf().inSingletonScope();
         this.container.bind(UserAgentService).toSelf().inSingletonScope();
+        this.container.bind(PlaywrightService).toSelf().inSingletonScope();
     }
 
     /**

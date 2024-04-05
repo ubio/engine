@@ -108,6 +108,11 @@ export class BrowserService extends Browser {
         return this._currentPage;
     }
 
+    getCurrentPlaywrightPage() {
+        util.assertPlayback(this.playwright.getCurrentPage(), `No attached Playwright page`);
+        return this.playwright.getCurrentPage()!;
+    }
+
     async openNewTab() {
         const tab = await this.newTab();
         await this.attach(tab.target.targetId);

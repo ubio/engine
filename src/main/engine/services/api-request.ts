@@ -55,4 +55,11 @@ export class ApiRequest {
         return this.getRequest().delete(url, options);
     }
 
+    send(method: string, url: string, options: RequestOptions = {}) {
+        return this.getRequest().send(method, url, options);
+    }
+
+    getFile(url: string, type: string, options: RequestOptions = {}) {
+        return this.getRequest().getFile(url, type, options);
+    }
 }

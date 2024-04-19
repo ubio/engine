@@ -59,7 +59,7 @@ export class ApiRequest {
         return this.getRequest().send(method, url, options);
     }
 
-    getFile(url: string, type: string, options: RequestOptions = {}) {
-        return this.getRequest().getFile(url, type, options);
+    getBlob(url: string, contentType: string, options: RequestOptions = {}) {
+        return this.getRequest().getBlob(url, contentType, options);
     }
 }

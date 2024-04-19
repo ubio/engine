@@ -39,7 +39,7 @@
         "@types/tar": "^6.1.3",
         "@types/uuid": "^9.0.0",
         "@types/ws": "^8.5.3",
-        "@ubio/request": "^3.5.0",
+        "@ubio/request": "^3.6.0",
         "@ubio/uniproxy": "^2.4.0",
         "ajv": "^6.12.6",
         "diacritics": "^1.3.0",

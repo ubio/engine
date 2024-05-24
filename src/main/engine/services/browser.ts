@@ -108,9 +108,23 @@ export class BrowserService extends Browser {
         return this._currentPage;
     }
 
+    /**
+     * @deprecated Use fetchCurrentPlaywrightPage instead. It attempts to set the Playwright current page if it wasn't set previously.
+     */
     getCurrentPlaywrightPage() {
         util.assertPlayback(this.playwright.getCurrentPage(), `No attached Playwright page`);
         return this.playwright.getCurrentPage()!;
+    }
+
+    async fetchCurrentPlaywrightPage() {
+        let currentPage = this.playwright.getCurrentPage();
+
+        if (!currentPage && this._currentPage?.target?.targetId) {
+            await this.playwright.setCurrentPage(this._currentPage?.target.targetId);
+            currentPage = this.playwright.getCurrentPage();
+        }
+        util.assertPlayback(currentPage, `No attached Playwright page`);
+        return currentPage!;
     }
 
     async openNewTab() {

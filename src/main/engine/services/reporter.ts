@@ -4,7 +4,7 @@ export type ReportingLevel = 'debug' | 'info' | 'error' | 'mute';
 
 @injectable()
 export class ReporterService {
-    static LEVELS: ReportingLevel[] = ['debug', 'info', 'error', 'mute'];
+    static readonly LEVELS: ReportingLevel[] = ['debug', 'info', 'error', 'mute'];
 
     checkLevel(requested: ReportingLevel, desired: ReportingLevel) {
         return ReporterService.LEVELS.indexOf(requested) >= ReporterService.LEVELS.indexOf(desired);
@@ -23,6 +23,7 @@ export interface ScreenshotSpec {
     maxHeight?: number;
     minWidth?: number;
     maxWidth?: number;
+    quality?: number;
 }
 
 export interface EventData {

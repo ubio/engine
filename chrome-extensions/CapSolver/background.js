@@ -1,134 +1,134 @@
 "use strict";
 (() => {
-    var se = Object.create;
-    var P = Object.defineProperty;
-    var ie = Object.getOwnPropertyDescriptor;
-    var ce = Object.getOwnPropertyNames;
-    var le = Object.getPrototypeOf,
-        ue = Object.prototype.hasOwnProperty;
-    var pe = (e, t, n) => t in e ? P(e, t, {
+    var Re = Object.create;
+    var D = Object.defineProperty;
+    var Le = Object.getOwnPropertyDescriptor;
+    var Me = Object.getOwnPropertyNames;
+    var Ie = Object.getPrototypeOf,
+        Pe = Object.prototype.hasOwnProperty;
+    var Se = (e, t, n) => t in e ? D(e, t, {
         enumerable: !0,
         configurable: !0,
         writable: !0,
         value: n
     }) : e[t] = n;
-    var E = (e, t) => () => (t || e((t = {
+    var V = (e, t) => () => (t || e((t = {
         exports: {}
     }).exports, t), t.exports);
-    var fe = (e, t, n, a) => {
+    var Ae = (e, t, n, a) => {
         if (t && typeof t == "object" || typeof t == "function")
-            for (let o of ce(t)) !ue.call(e, o) && o !== n && P(e, o, {
+            for (let o of Me(t)) !Pe.call(e, o) && o !== n && D(e, o, {
                 get: () => t[o],
-                enumerable: !(a = ie(t, o)) || a.enumerable
+                enumerable: !(a = Le(t, o)) || a.enumerable
             });
         return e
     };
-    var F = (e, t, n) => (n = e != null ? se(le(e)) : {}, fe(t || !e || !e.__esModule ? P(n, "default", {
+    var z = (e, t, n) => (n = e != null ? Re(Ie(e)) : {}, Ae(t || !e || !e.__esModule ? D(n, "default", {
         value: e,
         enumerable: !0
     }) : n, e));
-    var C = (e, t, n) => (pe(e, typeof t != "symbol" ? t + "" : t, n), n);
-    var W = E((Ne, I) => {
+    var v = (e, t, n) => (Se(e, typeof t != "symbol" ? t + "" : t, n), n);
+    var ae = V((ft, B) => {
         "use strict";
-        var y = typeof Reflect == "object" ? Reflect : null,
-            O = y && typeof y.apply == "function" ? y.apply : function(t, n, a) {
+        var k = typeof Reflect == "object" ? Reflect : null,
+            G = k && typeof k.apply == "function" ? k.apply : function(t, n, a) {
                 return Function.prototype.apply.call(t, n, a)
             },
-            T;
-        y && typeof y.ownKeys == "function" ? T = y.ownKeys : Object.getOwnPropertySymbols ? T = function(t) {
+            S;
+        k && typeof k.ownKeys == "function" ? S = k.ownKeys : Object.getOwnPropertySymbols ? S = function(t) {
             return Object.getOwnPropertyNames(t).concat(Object.getOwnPropertySymbols(t))
-        } : T = function(t) {
+        } : S = function(t) {
             return Object.getOwnPropertyNames(t)
         };
 
-        function de(e) {
+        function _e(e) {
             console && console.warn && console.warn(e)
         }
-        var K = Number.isNaN || function(t) {
+        var $ = Number.isNaN || function(t) {
             return t !== t
         };
 
-        function i() {
-            i.init.call(this)
+        function c() {
+            c.init.call(this)
         }
-        I.exports = i;
-        I.exports.once = ye;
-        i.EventEmitter = i;
-        i.prototype._events = void 0;
-        i.prototype._eventsCount = 0;
-        i.prototype._maxListeners = void 0;
-        var D = 10;
+        B.exports = c;
+        B.exports.once = Fe;
+        c.EventEmitter = c;
+        c.prototype._events = void 0;
+        c.prototype._eventsCount = 0;
+        c.prototype._maxListeners = void 0;
+        var Q = 10;
 
-        function k(e) {
+        function A(e) {
             if (typeof e != "function") throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof e)
         }
-        Object.defineProperty(i, "defaultMaxListeners", {
+        Object.defineProperty(c, "defaultMaxListeners", {
             enumerable: !0,
             get: function() {
-                return D
+                return Q
             },
             set: function(e) {
-                if (typeof e != "number" || e < 0 || K(e)) throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + e + ".");
-                D = e
+                if (typeof e != "number" || e < 0 || $(e)) throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + e + ".");
+                Q = e
             }
         });
-        i.init = function() {
+        c.init = function() {
             (this._events === void 0 || this._events === Object.getPrototypeOf(this)._events) && (this._events = Object.create(null), this._eventsCount = 0), this._maxListeners = this._maxListeners || void 0
         };
-        i.prototype.setMaxListeners = function(t) {
-            if (typeof t != "number" || t < 0 || K(t)) throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + t + ".");
+        c.prototype.setMaxListeners = function(t) {
+            if (typeof t != "number" || t < 0 || $(t)) throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + t + ".");
             return this._maxListeners = t, this
         };
 
-        function B(e) {
-            return e._maxListeners === void 0 ? i.defaultMaxListeners : e._maxListeners
+        function J(e) {
+            return e._maxListeners === void 0 ? c.defaultMaxListeners : e._maxListeners
         }
-        i.prototype.getMaxListeners = function() {
-            return B(this)
+        c.prototype.getMaxListeners = function() {
+            return J(this)
         };
-        i.prototype.emit = function(t) {
+        c.prototype.emit = function(t) {
             for (var n = [], a = 1; a < arguments.length; a++) n.push(arguments[a]);
             var o = t === "error",
-                r = this._events;
-            if (r !== void 0) o = o && r.error === void 0;
+                s = this._events;
+            if (s !== void 0) o = o && s.error === void 0;
             else if (!o) return !1;
             if (o) {
-                var s;
-                if (n.length > 0 && (s = n[0]), s instanceof Error) throw s;
-                var c = new Error("Unhandled error." + (s ? " (" + s.message + ")" : ""));
-                throw c.context = s, c
+                var r;
+                if (n.length > 0 && (r = n[0]), r instanceof Error) throw r;
+                var i = new Error("Unhandled error." + (r ? " (" + r.message + ")" : ""));
+                throw i.context = r, i
             }
-            var h = r[t];
-            if (h === void 0) return !1;
-            if (typeof h == "function") O(h, this, n);
+            var u = s[t];
+            if (u === void 0) return !1;
+            if (typeof u == "function") G(u, this, n);
             else
-                for (var l = h.length, g = q(h, l), a = 0; a < l; ++a) O(g[a], this, n);
+                for (var l = u.length, d = te(u, l), a = 0; a < l; ++a) G(d[a], this, n);
             return !0
         };
 
-        function j(e, t, n, a) {
-            var o, r, s;
-            if (k(n), r = e._events, r === void 0 ? (r = e._events = Object.create(null), e._eventsCount = 0) : (r.newListener !== void 0 && (e.emit("newListener", t, n.listener ? n.listener : n), r = e._events), s = r[t]), s === void 0) s = r[t] = n, ++e._eventsCount;
-            else if (typeof s == "function" ? s = r[t] = a ? [n, s] : [s, n] : a ? s.unshift(n) : s.push(n), o = B(e), o > 0 && s.length > o && !s.warned) {
-                s.warned = !0;
-                var c = new Error("Possible EventEmitter memory leak detected. " + s.length + " " + String(t) + " listeners added. Use emitter.setMaxListeners() to increase limit");
-                c.name = "MaxListenersExceededWarning", c.emitter = e, c.type = t, c.count = s.length, de(c)
+        function Z(e, t, n, a) {
+            var o, s, r;
+            if (A(n), s = e._events, s === void 0 ? (s = e._events = Object.create(null), e._eventsCount = 0) : (s.newListener !== void 0 && (e.emit("newListener", t, n.listener ? n.listener : n), s = e._events), r = s[t]), r === void 0) r = s[t] = n, ++e._eventsCount;
+            else if (typeof r == "function" ? r = s[t] = a ? [n, r] : [r, n] : a ? r.unshift(n) : r.push(n), o = J(e), o > 0 && r.length > o && !r.warned) {
+                r.warned = !0;
+                var i = new Error("Possible EventEmitter memory leak detected. " + r.length + " " + String(t) + " listeners added. Use emitter.setMaxListeners() to increase limit");
+                i.name = "MaxListenersExceededWarning", i.emitter = e, i.type = t, i.count = r.length, _e(i)
             }
             return e
         }
-        i.prototype.addListener = function(t, n) {
-            return j(this, t, n, !1)
+        c.prototype.addListener = function(t, n) {
+            return Z(this, t, n, !1)
         };
-        i.prototype.on = i.prototype.addListener;
-        i.prototype.prependListener = function(t, n) {
-            return j(this, t, n, !0)
+        c.prototype.on = c.prototype.addListener;
+        c.prototype.prependListener = function(t, n) {
+            return Z(this, t, n, !0)
         };
 
-        function he() {
+        function Ue() {
             if (!this.fired) return this.target.removeListener(this.type, this.wrapFn), this.fired = !0, arguments.length === 0 ? this.listener.call(this.target) : this.listener.apply(this.target, arguments)
         }
 
-        function H(e, t, n) {
+        function X(e, t, n) {
             var a = {
                     fired: !1,
                     wrapFn: void 0,
@@ -136,39 +136,39 @@
                     type: t,
                     listener: n
                 },
-                o = he.bind(a);
+                o = Ue.bind(a);
             return o.listener = n, a.wrapFn = o, o
         }
-        i.prototype.once = function(t, n) {
-            return k(n), this.on(t, H(this, t, n)), this
+        c.prototype.once = function(t, n) {
+            return A(n), this.on(t, X(this, t, n)), this
         };
-        i.prototype.prependOnceListener = function(t, n) {
-            return k(n), this.prependListener(t, H(this, t, n)), this
+        c.prototype.prependOnceListener = function(t, n) {
+            return A(n), this.prependListener(t, X(this, t, n)), this
         };
-        i.prototype.removeListener = function(t, n) {
-            var a, o, r, s, c;
-            if (k(n), o = this._events, o === void 0) return this;
+        c.prototype.removeListener = function(t, n) {
+            var a, o, s, r, i;
+            if (A(n), o = this._events, o === void 0) return this;
             if (a = o[t], a === void 0) return this;
             if (a === n || a.listener === n) --this._eventsCount === 0 ? this._events = Object.create(null) : (delete o[t], o.removeListener && this.emit("removeListener", t, a.listener || n));
             else if (typeof a != "function") {
-                for (r = -1, s = a.length - 1; s >= 0; s--)
-                    if (a[s] === n || a[s].listener === n) {
-                        c = a[s].listener, r = s;
+                for (s = -1, r = a.length - 1; r >= 0; r--)
+                    if (a[r] === n || a[r].listener === n) {
+                        i = a[r].listener, s = r;
                         break
-                    } if (r < 0) return this;
-                r === 0 ? a.shift() : ge(a, r), a.length === 1 && (o[t] = a[0]), o.removeListener !== void 0 && this.emit("removeListener", t, c || n)
+                    } if (s < 0) return this;
+                s === 0 ? a.shift() : Ee(a, s), a.length === 1 && (o[t] = a[0]), o.removeListener !== void 0 && this.emit("removeListener", t, i || n)
             }
             return this
         };
-        i.prototype.off = i.prototype.removeListener;
-        i.prototype.removeAllListeners = function(t) {
+        c.prototype.off = c.prototype.removeListener;
+        c.prototype.removeAllListeners = function(t) {
             var n, a, o;
             if (a = this._events, a === void 0) return this;
             if (a.removeListener === void 0) return arguments.length === 0 ? (this._events = Object.create(null), this._eventsCount = 0) : a[t] !== void 0 && (--this._eventsCount === 0 ? this._events = Object.create(null) : delete a[t]), this;
             if (arguments.length === 0) {
-                var r = Object.keys(a),
-                    s;
-                for (o = 0; o < r.length; ++o) s = r[o], s !== "removeListener" && this.removeAllListeners(s);
+                var s = Object.keys(a),
+                    r;
+                for (o = 0; o < s.length; ++o) r = s[o], r !== "removeListener" && this.removeAllListeners(r);
                 return this.removeAllListeners("removeListener"), this._events = Object.create(null), this._eventsCount = 0, this
             }
             if (n = a[t], typeof n == "function") this.removeListener(t, n);
@@ -177,24 +177,24 @@
             return this
         };
 
-        function N(e, t, n) {
+        function Y(e, t, n) {
             var a = e._events;
             if (a === void 0) return [];
             var o = a[t];
-            return o === void 0 ? [] : typeof o == "function" ? n ? [o.listener || o] : [o] : n ? me(o) : q(o, o.length)
+            return o === void 0 ? [] : typeof o == "function" ? n ? [o.listener || o] : [o] : n ? Oe(o) : te(o, o.length)
         }
-        i.prototype.listeners = function(t) {
-            return N(this, t, !0)
+        c.prototype.listeners = function(t) {
+            return Y(this, t, !0)
         };
-        i.prototype.rawListeners = function(t) {
-            return N(this, t, !1)
+        c.prototype.rawListeners = function(t) {
+            return Y(this, t, !1)
         };
-        i.listenerCount = function(e, t) {
-            return typeof e.listenerCount == "function" ? e.listenerCount(t) : U.call(e, t)
+        c.listenerCount = function(e, t) {
+            return typeof e.listenerCount == "function" ? e.listenerCount(t) : ee.call(e, t)
         };
-        i.prototype.listenerCount = U;
+        c.prototype.listenerCount = ee;
 
-        function U(e) {
+        function ee(e) {
             var t = this._events;
             if (t !== void 0) {
                 var n = t[e];
@@ -203,106 +203,106 @@
             }
             return 0
         }
-        i.prototype.eventNames = function() {
-            return this._eventsCount > 0 ? T(this._events) : []
+        c.prototype.eventNames = function() {
+            return this._eventsCount > 0 ? S(this._events) : []
         };
 
-        function q(e, t) {
+        function te(e, t) {
             for (var n = new Array(t), a = 0; a < t; ++a) n[a] = e[a];
             return n
         }
 
-        function ge(e, t) {
+        function Ee(e, t) {
             for (; t + 1 < e.length; t++) e[t] = e[t + 1];
             e.pop()
         }
 
-        function me(e) {
+        function Oe(e) {
             for (var t = new Array(e.length), n = 0; n < t.length; ++n) t[n] = e[n].listener || e[n];
             return t
         }
 
-        function ye(e, t) {
+        function Fe(e, t) {
             return new Promise(function(n, a) {
-                function o(s) {
-                    e.removeListener(t, r), a(s)
+                function o(r) {
+                    e.removeListener(t, s), a(r)
                 }
 
-                function r() {
+                function s() {
                     typeof e.removeListener == "function" && e.removeListener("error", o), n([].slice.call(arguments))
                 }
-                V(e, t, r, {
+                ne(e, t, s, {
                     once: !0
-                }), t !== "error" && Ce(e, o, {
+                }), t !== "error" && Ke(e, o, {
                     once: !0
                 })
             })
         }
 
-        function Ce(e, t, n) {
-            typeof e.on == "function" && V(e, "error", t, n)
+        function Ke(e, t, n) {
+            typeof e.on == "function" && ne(e, "error", t, n)
         }
 
-        function V(e, t, n, a) {
+        function ne(e, t, n, a) {
             if (typeof e.on == "function") a.once ? e.once(t, n) : e.on(t, n);
-            else if (typeof e.addEventListener == "function") e.addEventListener(t, function o(r) {
-                a.once && e.removeEventListener(t, o), n(r)
+            else if (typeof e.addEventListener == "function") e.addEventListener(t, function o(s) {
+                a.once && e.removeEventListener(t, o), n(s)
             });
             else throw new TypeError('The "emitter" argument must be of type EventEmitter. Received type ' + typeof e)
         }
     });
-    var G = E((We, p) => {
-        p.exports.boot = function(e) {
+    var ie = V((mt, f) => {
+        f.exports.boot = function(e) {
             return e
         };
-        p.exports.ssrMiddleware = function(e) {
+        f.exports.ssrMiddleware = function(e) {
             return e
         };
-        p.exports.configure = function(e) {
+        f.exports.configure = function(e) {
             return e
         };
-        p.exports.preFetch = function(e) {
+        f.exports.preFetch = function(e) {
             return e
         };
-        p.exports.route = function(e) {
+        f.exports.route = function(e) {
             return e
         };
-        p.exports.store = function(e) {
+        f.exports.store = function(e) {
             return e
         };
-        p.exports.bexBackground = function(e) {
+        f.exports.bexBackground = function(e) {
             return e
         };
-        p.exports.bexContent = function(e) {
+        f.exports.bexContent = function(e) {
             return e
         };
-        p.exports.bexDom = function(e) {
+        f.exports.bexDom = function(e) {
             return e
         };
-        p.exports.ssrProductionExport = function(e) {
+        f.exports.ssrProductionExport = function(e) {
             return e
         };
-        p.exports.ssrCreate = function(e) {
+        f.exports.ssrCreate = function(e) {
             return e
         };
-        p.exports.ssrListen = function(e) {
+        f.exports.ssrListen = function(e) {
             return e
         };
-        p.exports.ssrClose = function(e) {
+        f.exports.ssrClose = function(e) {
             return e
         };
-        p.exports.ssrServeStaticContent = function(e) {
+        f.exports.ssrServeStaticContent = function(e) {
             return e
         };
-        p.exports.ssrRenderPreloadTag = function(e) {
+        f.exports.ssrRenderPreloadTag = function(e) {
             return e
         }
     });
-    var $ = F(W());
-    var M, x = 0,
-        u = new Array(256);
-    for (let e = 0; e < 256; e++) u[e] = (e + 256).toString(16).substring(1);
-    var be = (() => {
+    var re = z(ae());
+    var j, _ = 0,
+        p = new Array(256);
+    for (let e = 0; e < 256; e++) p[e] = (e + 256).toString(16).substring(1);
+    var De = (() => {
             let e = typeof crypto != "undefined" ? crypto : typeof window != "undefined" ? window.crypto || window.msCrypto : void 0;
             if (e !== void 0) {
                 if (e.randomBytes !== void 0) return e.randomBytes;
@@ -317,22 +317,22 @@
                 return n
             }
         })(),
-        z = 4096;
+        oe = 4096;
 
-    function Q() {
-        (M === void 0 || x + 16 > z) && (x = 0, M = be(z));
-        let e = Array.prototype.slice.call(M, x, x += 16);
-        return e[6] = e[6] & 15 | 64, e[8] = e[8] & 63 | 128, u[e[0]] + u[e[1]] + u[e[2]] + u[e[3]] + "-" + u[e[4]] + u[e[5]] + "-" + u[e[6]] + u[e[7]] + "-" + u[e[8]] + u[e[9]] + "-" + u[e[10]] + u[e[11]] + u[e[12]] + u[e[13]] + u[e[14]] + u[e[15]]
+    function se() {
+        (j === void 0 || _ + 16 > oe) && (_ = 0, j = De(oe));
+        let e = Array.prototype.slice.call(j, _, _ += 16);
+        return e[6] = e[6] & 15 | 64, e[8] = e[8] & 63 | 128, p[e[0]] + p[e[1]] + p[e[2]] + p[e[3]] + "-" + p[e[4]] + p[e[5]] + "-" + p[e[6]] + p[e[7]] + "-" + p[e[8]] + p[e[9]] + "-" + p[e[10]] + p[e[11]] + p[e[12]] + p[e[13]] + p[e[14]] + p[e[15]]
     }
-    var ve = {
+    var Be = {
             undefined: () => 0,
             boolean: () => 4,
             number: () => 8,
             string: e => 2 * e.length,
-            object: e => e ? Object.keys(e).reduce((t, n) => S(n) + S(e[n]) + t, 0) : 0
+            object: e => e ? Object.keys(e).reduce((t, n) => q(n) + q(e[n]) + t, 0) : 0
         },
-        S = e => ve[typeof e](e),
-        b = class extends $.EventEmitter {
+        q = e => Be[typeof e](e),
+        R = class extends re.EventEmitter {
             constructor(t) {
                 super(), this.setMaxListeners(1 / 0), this.wall = t, t.listen(n => {
                     Array.isArray(n) ? n.forEach(a => this._emit(a)) : this._emit(n)
@@ -366,44 +366,44 @@
                 this._sending = !0;
                 let t = this._sendingQueue.shift(),
                     n = t[0],
-                    a = `${n.event}.${Q()}`,
+                    a = `${n.event}.${se()}`,
                     o = a + ".result";
-                return new Promise((r, s) => {
-                    let c = [],
-                        h = l => {
+                return new Promise((s, r) => {
+                    let i = [],
+                        u = l => {
                             if (l !== void 0 && l._chunkSplit) {
-                                let g = l._chunkSplit;
-                                c = [...c, ...l.data], g.lastChunk && (this.off(o, h), r(c))
-                            } else this.off(o, h), r(l)
+                                let d = l._chunkSplit;
+                                i = [...i, ...l.data], d.lastChunk && (this.off(o, u), s(i))
+                            } else this.off(o, u), s(l)
                         };
-                    this.on(o, h);
+                    this.on(o, u);
                     try {
-                        let l = t.map(g => ({
-                            ...g,
+                        let l = t.map(d => ({
+                            ...d,
                             payload: {
-                                data: g.payload,
+                                data: d.payload,
                                 eventResponseKey: o
                             }
                         }));
                         this.wall.send(l)
                     } catch (l) {
-                        let g = "Message length exceeded maximum allowed length.";
-                        if (l.message === g && Array.isArray(n.payload)) {
-                            let _ = S(n);
-                            if (_ > this._maxMessageSize) {
-                                let w = Math.ceil(_ / this._maxMessageSize),
-                                    oe = Math.ceil(n.payload.length / w),
-                                    A = n.payload;
-                                for (let L = 0; L < w; L++) {
-                                    let re = Math.min(A.length, oe);
+                        let d = "Message length exceeded maximum allowed length.";
+                        if (l.message === d && Array.isArray(n.payload)) {
+                            let x = q(n);
+                            if (x > this._maxMessageSize) {
+                                let w = Math.ceil(x / this._maxMessageSize),
+                                    y = Math.ceil(n.payload.length / w),
+                                    F = n.payload;
+                                for (let I = 0; I < w; I++) {
+                                    let K = Math.min(F.length, y);
                                     this.wall.send([{
                                         event: n.event,
                                         payload: {
                                             _chunkSplit: {
                                                 count: w,
-                                                lastChunk: L === w - 1
+                                                lastChunk: I === w - 1
                                             },
-                                            data: A.splice(0, re)
+                                            data: F.splice(0, K)
                                         }
                                     }])
                                 }
@@ -414,18 +414,39 @@
                 })
             }
         };
-    var ne = F(G());
-    var we = chrome.runtime.getURL("assets/config.json");
-    async function Te() {
-        let e = await chrome.storage.local.get("defaultConfig");
+    var ke = z(ie());
+    var je = chrome.runtime.getURL("assets/config.js"),
+        le, U = (le = globalThis.browser) != null ? le : globalThis.chrome;
+    async function qe() {
+        let e = await U.storage.local.get("defaultConfig");
         if (e.defaultConfig) return e.defaultConfig;
         let t = {},
-            a = await (await fetch(we)).json();
-        return a && (t = a, chrome.storage.local.set({
+            n = ["DelayTime", "RepeatTimes", "port"],
+            a = ["enabledFor", "useCapsolver", "manualSolving", "useProxy"],
+            o = /\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm,
+            i = (await (await fetch(je)).text()).replace(o, ""),
+            u = i.slice(i.indexOf("{") + 1, i.lastIndexOf("}")),
+            l = JSON.stringify(u).replaceAll('\\"', "'").replaceAll("\\n", "").replaceAll('"', "").replaceAll(" ", ""),
+            d = l.indexOf("blackUrlList"),
+            x = l.slice(d),
+            w = x.indexOf("],"),
+            y = x.slice(0, w + 1);
+        l.replace(y, "").split(",").forEach(ve => {
+            let [P, W] = ve.split(":");
+            if (P && W) {
+                let T = W.replaceAll("'", "").replaceAll('"', "");
+                for (let b = 0; b < n.length; b++) P.endsWith(n[b]) && (T = Number(T));
+                for (let b = 0; b < a.length; b++) P.startsWith(a[b]) && (T = T === "true");
+                t[P] = T
+            }
+        }), y = y.replaceAll("'", "").replaceAll('"', "");
+        let K = y.indexOf(":["),
+            Te = y.slice(K + 2, y.length - 1);
+        return t.blackUrlList = Te.split(","), U.storage.local.set({
             defaultConfig: t
-        })), t
+        }), t
     }
-    var v = {
+    var L = {
             manualSolving: !1,
             apiKey: "",
             appId: "",
@@ -437,6 +458,7 @@
             enabledForRecaptcha: !0,
             enabledForFunCaptcha: !0,
             enabledForDataDome: !1,
+            enabledForAwsCaptcha: !0,
             useProxy: !1,
             proxyType: "http",
             hostOrIp: "",
@@ -454,6 +476,7 @@
             reCaptcha3DelayTime: 0,
             reCaptcha3Collapse: !1,
             reCaptcha3RepeatTimes: 10,
+            reCaptcha3TaskType: "ReCaptchaV3TaskProxyLess",
             hCaptchaMode: "click",
             hCaptchaDelayTime: 0,
             hCaptchaCollapse: !1,
@@ -479,8 +502,7 @@
             datadomeCollapse: !1,
             datadomeDelayTime: 0,
             datadomeRepeatTimes: 10,
-            enabledForAws: !1,
-            awsMode: "click",
+            awsCaptchaMode: "click",
             awsCollapse: !1,
             awsDelayTime: 0,
             awsRepeatTimes: 10,
@@ -490,40 +512,40 @@
             textCaptchaSourceAttribute: "capsolver-image-to-text-source",
             textCaptchaResultAttribute: "capsolver-image-to-text-result"
         },
-        J = {
+        ce = {
             proxyType: ["socks5", "http", "https", "socks4"],
             mode: ["click", "token"]
         };
-    async function X() {
-        let e = await Te(),
+    async function ue() {
+        let e = await qe(),
             t = Object.keys(e);
         for (let n of t)
-            if (!(n === "proxyType" && !J[n].includes(e[n]))) {
+            if (!(n === "proxyType" && !ce[n].includes(e[n]))) {
                 {
-                    if (n.endsWith("Mode") && !J.mode.includes(e[n])) continue;
+                    if (n.endsWith("Mode") && !ce.mode.includes(e[n])) continue;
                     if (n === "port") {
-                        if (typeof e[n] != "number") continue;
-                        v[n] = e[n]
+                        if (typeof e.port != "number") continue;
+                        L.port = e.port
                     }
                 }
-                Reflect.has(v, n) && typeof v[n] == typeof e[n] && (v[n] = e[n])
-            } return v
+                Reflect.has(L, n) && typeof L[n] == typeof e[n] && (L[n] = e[n])
+            } return L
     }
-    var ke = X(),
-        d = {
-            default: ke,
+    var Ne = ue(),
+        g = {
+            default: Ne,
             async get(e) {
                 return (await this.getAll())[e]
             },
             async getAll() {
-                let e = await X(),
-                    t = await chrome.storage.local.get("config");
-                return d.joinConfig(e, t.config)
+                let e = await ue(),
+                    t = await U.storage.local.get("config");
+                return g.joinConfig(e, t.config)
             },
             async set(e) {
-                let t = await d.getAll(),
-                    n = d.joinConfig(t, e);
-                return chrome.storage.local.set({
+                let t = await g.getAll(),
+                    n = g.joinConfig(t, e);
+                return U.storage.local.set({
                     config: n
                 })
             },
@@ -537,54 +559,26 @@
             }
         };
 
-    function Z(e) {
-        e.on("storage.get", ({
-            data: t,
-            respond: n
-        }) => {
-            let {
-                key: a
-            } = t;
-            a === null ? chrome.storage.local.get(null, o => {
-                n(Object.values(o))
-            }) : chrome.storage.local.get([a], o => {
-                n(o[a])
-            })
-        }), e.on("storage.set", ({
-            data: t,
-            respond: n
-        }) => {
-            chrome.storage.local.set({
-                [t.key]: t.value
-            }, () => {
-                n()
-            })
-        }), e.on("storage.remove", ({
-            data: t,
-            respond: n
-        }) => {
-            chrome.storage.local.remove(t.key, () => {
-                n()
-            })
-        }), e.on("config", async ({
+    function pe(e) {
+        e.on("config", async ({
             respond: t
         }) => {
-            let n = await d.getAll();
+            let n = await g.getAll();
             t(n).then()
         })
     }
 
-    function Y(e) {
+    function fe(e) {
         e.on("log", ({
             data: t,
             respond: n
         }) => {
-            console.log(`[BEX] ${t.message}`, ...t.data || []), n()
+            n()
         })
     }
-    var R = class {
+    var E = class {
         constructor(t) {
-            C(this, "baseURL");
+            v(this, "baseURL");
             this.baseURL = t
         }
         async post(t, n, a) {
@@ -607,29 +601,29 @@
             return this.baseURL + t
         }
     };
-    var f = class {
+    var h = class {
         constructor(t) {
-            C(this, "options", {
+            v(this, "options", {
                 apiKey: "",
                 service: "https://api.capsolver.com",
                 defaultTimeout: 120,
                 pollingInterval: 5,
                 recaptchaTimeout: 600
             });
-            C(this, "http");
+            v(this, "http");
             for (let n in this.options) this.options[n] = t[n] === void 0 ? this.options[n] : t[n];
-            this.http = new R(this.options.service)
+            this.http = new E(this.options.service)
         }
         static async API(t) {
-            let n = await d.getAll();
+            let n = await g.getAll();
             if (!(t != null && t.apiKey) && !(n != null && n.apiKey)) throw new Error("Capsover: No API Kye set up yet!");
-            return new f({
+            return new h({
                 apiKey: n.apiKey,
                 ...t
             })
         }
         async getProxyParams(t) {
-            let n = await d.getAll();
+            let n = await g.getAll();
             return {
                 proxyType: n.proxyType,
                 proxyAddress: n.hostOrIp,
@@ -652,145 +646,203 @@
                 timeout: this.options.defaultTimeout,
                 pollingInterval: this.options.pollingInterval
             });
-            let a = await d.getAll();
+            let a = await g.getAll();
             if (a.appId && (t.appId = a.appId), a.useProxy) {
                 let l = await this.getProxyParams(t.task);
                 Object.assign(t.task, l)
             }
             let o = await this.createTask(t),
                 {
-                    taskId: r
+                    taskId: s
                 } = o,
-                s = this.getTime(),
-                c = n.timeout === void 0 ? this.options.defaultTimeout : n.timeout,
-                h = n.pollingInterval === void 0 ? this.options.pollingInterval : n.pollingInterval;
-            for (; !(this.getTime() - s > c);) {
-                await new Promise(g => setTimeout(g, h * 1e3));
+                r = this.getTime(),
+                i = n.timeout === void 0 ? this.options.defaultTimeout : n.timeout,
+                u = n.pollingInterval === void 0 ? this.options.pollingInterval : n.pollingInterval;
+            for (; !(this.getTime() - r > i);) {
+                await new Promise(d => setTimeout(d, u * 1e3));
                 let l = await this.getTaskSolution({
-                    taskId: r
+                    taskId: s
                 });
                 if (l.status === "ready") return l
             }
-            throw new Error("Timeout " + c + " seconds reached")
+            throw new Error("Timeout " + i + " seconds reached")
         }
         async createTask(t) {
-            var a, o, r;
-            let n = await this.http.post("/createTask", {
-                clientKey: this.options.apiKey,
-                ...t
-            });
-            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorDescription) || "createTask fail\uFF01");
-            if (!n.data.taskId) throw new Error("taskIs is empty!");
-            return n.data
+            var r, i, u, l;
+            let n = (r = globalThis.browser) != null ? r : globalThis.chrome,
+                a = await n.storage.local.get("platform"),
+                o = await n.storage.local.get("version"),
+                s = await this.http.post("/createTask", {
+                    clientKey: this.options.apiKey,
+                    source: a.platform,
+                    version: o.version,
+                    ...t
+                });
+            if (s.status !== 200 || ((i = s.data) == null ? void 0 : i.errorCode) || ((u = s.data) == null ? void 0 : u.errorId)) throw new Error(((l = s.data) == null ? void 0 : l.errorCode) || "createTask fail\uFF01");
+            if (!s.data.taskId) throw new Error("taskIs is empty!");
+            return s.data
         }
         async getTaskSolution({
             taskId: t
         }) {
-            var a, o, r;
+            var a, o, s;
             let n = await this.http.post("/getTaskResult", {
                 clientKey: this.options.apiKey,
                 taskId: t
             });
-            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((r = n.data) == null ? void 0 : r.errorDescription) || "getTaskResult fail\uFF01");
+            if (n.status !== 200 || ((a = n.data) == null ? void 0 : a.errorCode) || ((o = n.data) == null ? void 0 : o.errorId)) throw new Error(((s = n.data) == null ? void 0 : s.errorCode) || "getTaskResult fail\uFF01");
             return n.data
         }
         async createRecognitionTask(t) {
-            var o, r, s;
-            let n = await d.getAll();
+            var i, u, l, d;
+            let n = await g.getAll(),
+                a = (i = globalThis.browser) != null ? i : globalThis.chrome,
+                o = await a.storage.local.get("platform"),
+                s = await a.storage.local.get("version");
             n.appId && (t.appId = n.appId);
-            let a = await this.http.post("/createTask", {
+            let r = await this.http.post("/createTask", {
                 clientKey: this.options.apiKey,
+                source: o.platform,
+                version: s.version,
                 ...t
             });
-            if (a.status !== 200 || ((o = a.data) == null ? void 0 : o.errorCode) || ((r = a.data) == null ? void 0 : r.errorId) !== 0) throw new Error(((s = a.data) == null ? void 0 : s.errorDescription) || "createTask fail\uFF01");
-            if (!a.data.taskId) throw new Error("taskIs is empty!");
-            return a.data
+            if (r.status !== 200 || ((u = r.data) == null ? void 0 : u.errorCode) || ((l = r.data) == null ? void 0 : l.errorId) !== 0) throw new Error(((d = r.data) == null ? void 0 : d.errorCode) || "createTask fail\uFF01");
+            if (!r.data.taskId) throw new Error("taskIs is empty!");
+            return r.data
         }
         getTime() {
             return parseInt(String(Date.now() / 1e3))
         }
     };
 
-    function te(e, t, n) {
+    function He(e) {
+        chrome.contextMenus.update("capsolver-mark-image", {
+            enabled: e
+        })
+    }
+
+    function We(e) {
+        chrome.contextMenus.update("capsolver-mark-result", {
+            enabled: e
+        })
+    }
+
+    function O(e, t) {
+        var a;
+        let n = (a = globalThis.browser) != null ? a : globalThis.chrome;
+        return new Promise(o => {
+            n.tabs.query({
+                active: !0,
+                currentWindow: !0
+            }).then(s => {
+                if (globalThis != null && globalThis.browser) browser.tabs.sendMessage(e, {
+                    command: t
+                }).then(r => {
+                    o(r)
+                });
+                else {
+                    let r = s.find(u => u.id === e);
+                    (r == null ? void 0 : r.url) || o(!1), chrome.tabs.sendMessage(e, {
+                        command: t
+                    }, u => {
+                        o(u)
+                    })
+                }
+            })
+        })
+    }
+    async function Ve(e) {
+        return await O(e, "image2Text:canMarkImage")
+    }
+    async function ze(e) {
+        return await O(e, "image2Text:canMarkInput")
+    }
+    async function de(e) {
+        O(e, "image2Text:markedImage")
+    }
+    async function he(e) {
+        O(e, "image2Text:markedResult")
+    }
+    async function M(e) {
+        let t = await Ve(e),
+            n = await ze(e);
+        He(t), We(n)
+    }
+    var be = "",
+        C = {};
+
+    function Ce(e, t, n) {
         let {
             action: a
         } = e;
-        return d.getAll().then(o => {
+        return g.getAll().then(o => {
             switch (a) {
                 case "solver":
-                    o[`${e.captchaType}Mode`] === "click" ? Le(e).then(r => {
+                    o[`${e.captchaType}Mode`] === "click" ? Qe(e).then(s => {
                         n({
-                            response: r
+                            response: s
                         })
-                    }) : Re(e, o).then(r => {
+                    }) : Ge(e, o).then(s => {
                         n({
-                            response: r
+                            response: s
                         })
                     });
                     break;
                 case "execute":
-                    ee({
+                    me({
                         command: "execute"
                     });
                     break;
                 case "solved":
-                    ee({
+                    me({
                         response: {
-                            action: "solved"
+                            action: "solved",
+                            callback: o.solvedCallback
                         }
                     });
                     break;
-                case "callback":
-                    xe(o);
+                case "updateMenu":
+                    M(t.tab.id);
+                    break;
+                case "getWebsiteUrl":
+                    be = e.websiteUrl;
+                    break;
+                case "setWebsiteMetadata":
+                    C = e.metadata;
                     break
             }
         }), a === "solver"
     }
-    async function ee(e) {
-        let t = await chrome.tabs.query({
+    var ye, ge = (ye = globalThis.browser) != null ? ye : globalThis.chrome;
+    async function me(e) {
+        let t = await ge.tabs.query({
             currentWindow: !0,
             active: !0
         });
-        for (let n of t) chrome.tabs.sendMessage(n.id, e)
+        for (let n of t) ge.tabs.sendMessage(n.id, e)
     }
-    async function xe(e) {
-        let t = await chrome.tabs.query({
-            currentWindow: !0,
-            active: !0
-        });
-        for (let n of t) chrome.scripting.executeScript({
-            args: [e],
-            target: {
-                tabId: n.id
-            },
-            world: "MAIN",
-            func: a => {
-                window[a.solvedCallback] && window[a.solvedCallback]()
-            }
-        })
-    }
-    async function Re(e, t) {
+    async function Ge(e, t) {
         let {
             captchaType: n,
             widgetId: a,
             params: o,
-            action: r
-        } = e, s = {
-            action: r,
+            action: s
+        } = e, r = {
+            action: s,
             request: {
                 captchaType: n,
                 widgetId: a
             }
         };
-        if (!o) return s.error = "params is error!", s;
+        if (!o) return r.error = "params is error!", r;
         try {
-            s.response = await Pe(n, o, t)
-        } catch (c) {
-            s.error = String(c)
+            r.response = await $e(n, o, t)
+        } catch (i) {
+            r.error = String(i)
         }
-        return s
+        return r
     }
-    async function Le(e) {
+    async function Qe(e) {
         let {
             captchaType: t,
             params: n,
@@ -804,40 +856,40 @@
         if (!n) return o.error = "params is error!", o;
         n.hasOwnProperty("index") && (o.index = n.index), n.hasOwnProperty("id") && (o.id = n.id);
         try {
-            o.response = await Ie(t, n)
-        } catch (r) {
-            o.error = String(r)
+            o.response = await Je(t, n)
+        } catch (s) {
+            o.error = String(s)
         }
         return o
     }
-    async function Pe(e, t, n) {
+    async function $e(e, t, n) {
         let a = {
             code: "",
             status: "processing"
         };
         switch (e) {
             case "hCaptcha": {
-                let o = await Me(t);
+                let o = await Ze(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "reCaptcha": {
-                let o = await Se(t);
+                let o = await Xe(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "funCaptcha": {
-                let o = await Ae(t);
+                let o = await et(t);
                 a.code = o.solution.token, a.status = o.status;
                 break
             }
             case "reCaptcha3": {
-                let o = await _e(t);
+                let o = await Ye(t);
                 a.code = o.solution.gRecaptchaResponse, a.status = o.status;
                 break
             }
             case "cloudflare": {
-                let o = await Ee(t);
+                let o = await tt(t);
                 a.code = o.solution.token, a.status = o.status;
                 break
             }
@@ -846,28 +898,34 @@
         }
         return a
     }
-    async function Ie(e, t) {
+    async function Je(e, t) {
+        t.url = be;
         let n = {
             status: "processing"
         };
         switch (e) {
             case "funCaptcha": {
-                let a = await Fe(t);
+                let a = await nt(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "hCaptcha": {
-                let a = await Oe(t);
+                let a = await at(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "reCaptcha": {
-                let a = await De(t);
+                let a = await ot(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
             case "textCaptcha": {
-                let a = await Ke(t);
+                let a = await st(t);
+                n.status = a.status, n.solution = a.solution;
+                break
+            }
+            case "awsCaptcha": {
+                let a = await rt(t);
                 n.status = a.status, n.solution = a.solution;
                 break
             }
@@ -876,42 +934,58 @@
         }
         return n
     }
-    async function Me(e) {
-        return await (await f.API()).createTaskResult({
+    async function Ze(e) {
+        return await (await h.API()).createTaskResult({
             task: {
                 type: "HCaptchaTaskProxyLess",
-                websiteURL: e.url,
+                websiteURL: e.websiteURL,
                 websiteKey: e.sitekey
             }
         })
     }
-    async function Se(e) {
-        return await (await f.API()).createTaskResult({
-            task: {
-                type: "ReCaptchaV2TaskProxyLess",
-                websiteURL: e.url,
-                websiteKey: e.sitekey,
-                enterprisePayload: {
-                    s: e.s
-                }
+    async function Xe(e) {
+        var a;
+        let t = await h.API();
+        ((a = e.websiteURL) == null ? void 0 : a.indexOf("tbi.com.iq")) !== -1 && (e.websiteURL = "https://apps.tbi.com.iq/dollar/register.aspx");
+        let n = {
+            type: "ReCaptchaV2TaskProxyLess",
+            websiteURL: e.websiteURL,
+            websiteKey: e.sitekey,
+            invisible: e.invisible,
+            enterprisePayload: {
+                s: e.s
+            },
+            metadata: {
+                pageURL: C.pageURL,
+                title: C.title
             }
+        };
+        return e.action && (n.pageAction = e.action), await t.createTaskResult({
+            task: n
         })
     }
-    async function _e(e) {
-        return await (await f.API()).createTaskResult({
+    async function Ye(e) {
+        var a;
+        let t = await h.API(),
+            n = await g.getAll();
+        return ((a = e.websiteURL) == null ? void 0 : a.indexOf("tbi.com.iq")) !== -1 && (e.websiteURL = "https://apps.tbi.com.iq/dollar/register.aspx"), await t.createTaskResult({
             task: {
-                type: "ReCaptchaV3TaskProxyLess",
-                websiteURL: e.url,
+                type: n.reCaptcha3TaskType,
+                websiteURL: e.websiteURL,
                 websiteKey: e.sitekey,
                 pageAction: e.action,
                 enterprisePayload: {
                     s: e.s
+                },
+                metadata: {
+                    pageURL: C.pageURL,
+                    title: C.title
                 }
             }
         })
     }
-    async function Ae(e) {
-        return await (await f.API()).createTaskResult({
+    async function et(e) {
+        return await (await h.API()).createTaskResult({
             task: {
                 type: "FunCaptchaTaskProxyLess",
                 websiteURL: e.websiteURL,
@@ -919,8 +993,8 @@
             }
         })
     }
-    async function Ee(e) {
-        return await (await f.API()).createTaskResult({
+    async function tt(e) {
+        return await (await h.API()).createTaskResult({
             task: {
                 type: "",
                 websiteURL: e.websiteURL,
@@ -931,50 +1005,115 @@
             }
         })
     }
-    async function Fe(e) {
-        return await (await f.API()).createRecognitionTask({
+    async function nt(e) {
+        return await (await h.API()).createRecognitionTask({
             task: {
                 type: "FunCaptchaClassification",
                 images: [e.image],
-                question: e.question
+                question: e.question,
+                websiteURL: e.url
             }
         })
     }
-    async function Oe(e) {
-        return await (await f.API()).createRecognitionTask({
+    async function at(e) {
+        return await (await h.API()).createRecognitionTask({
             task: {
                 type: "HCaptchaClassification",
                 queries: e.queries,
-                question: e.question
+                question: e.question,
+                websiteURL: e.url
             }
         })
     }
-    async function De(e) {
-        return await (await f.API()).createRecognitionTask({
-            task: {
-                type: "ReCaptchaV2Classification",
-                image: e.image,
-                question: e.question
+    async function ot(e) {
+        var a;
+        let t = await h.API();
+        ((a = e.url) == null ? void 0 : a.indexOf("tbi.com.iq")) !== -1 && (e.url = "https://apps.tbi.com.iq/dollar/register.aspx");
+        let n = {
+            type: "ReCaptchaV2Classification",
+            image: e.image,
+            question: e.question,
+            websiteURL: e.url,
+            metadata: {
+                pageURL: C.pageURL,
+                title: C.title
             }
+        };
+        return await t.createRecognitionTask({
+            task: n
         })
     }
-    async function Ke(e) {
-        return await (await f.API()).createRecognitionTask({
+    async function st(e) {
+        return await (await h.API()).createRecognitionTask({
             task: {
                 type: "ImageToTextTask",
-                body: e.body
+                body: e.body,
+                websiteURL: e.url
             }
         })
     }
-    chrome.runtime.onConnect.addListener(() => {
-        console.log("CapSolver is connect")
+    async function rt(e) {
+        return await (await h.API()).createRecognitionTask({
+            task: {
+                type: "AwsWafClassification",
+                images: e.question === "aws:toycarcity:carcity" ? [e.image] : e.image,
+                question: e.question,
+                websiteURL: e.url
+            }
+        })
+    }
+    var we, H = (we = globalThis.browser) != null ? we : globalThis.chrome,
+        N = "";
+    async function it() {
+        let e = chrome.runtime.getURL("manifest.json");
+        return (await (await fetch(e)).json()).version
+    }
+    chrome.runtime.onConnect.addListener(async () => {
+        N || (N = await it()), H.storage.local.set({
+            version: N
+        })
     });
-    chrome.runtime.onMessage.addListener(te);
-    var ae = (0, ne.bexBackground)(e => {
-        Y(e), Z(e)
+    chrome.runtime.onMessage.addListener(Ce);
+
+    function ct() {
+        chrome.contextMenus.removeAll(() => {
+            chrome.contextMenus.create({
+                title: "capsolver mark image as captcha",
+                contexts: ["all"],
+                id: "capsolver-mark-image",
+                enabled: !0
+            }), chrome.contextMenus.create({
+                title: "select an input for the captcha result",
+                contexts: ["editable"],
+                id: "capsolver-mark-result",
+                enabled: !1
+            })
+        })
+    }
+    H.tabs.onActivated.addListener(({
+        tabId: e
+    }) => {
+        M(e)
+    });
+    H.tabs.onUpdated.addListener((e, t) => {
+        t.status === "complete" && M(e)
+    });
+    chrome.contextMenus.onClicked.addListener((e, t) => {
+        switch (e.menuItemId) {
+            case "capsolver-mark-image":
+                de(t.id);
+                break;
+            case "capsolver-mark-result":
+                he(t.id);
+                break
+        }
+    });
+    ct();
+    var xe = (0, ke.bexBackground)(e => {
+        fe(e), pe(e)
     });
     var m = {},
-        Be = e => {
+        lt = e => {
             let t = e.sender.tab,
                 n;
             if (e.name.indexOf(":") > -1) {
@@ -990,32 +1129,32 @@
             }, a[e.name]
         };
     chrome.runtime.onConnect.addListener(e => {
-        let t = Be(e);
+        let t = lt(e);
         t.port.onDisconnect.addListener(() => {
             t.connected = !1
         });
-        let n = new b({
+        let n = new R({
             listen(a) {
                 for (let o in m) {
-                    let r = m[o];
-                    r.app && !r.app.listening && (r.app.listening = !0, r.app.port.onMessage.addListener(a)), r.contentScript && !r.contentScript.listening && (r.contentScript.port.onMessage.addListener(a), r.contentScript.listening = !0)
+                    let s = m[o];
+                    s.app && !s.app.listening && (s.app.listening = !0, s.app.port.onMessage.addListener(a)), s.contentScript && !s.contentScript.listening && (s.contentScript.port.onMessage.addListener(a), s.contentScript.listening = !0)
                 }
             },
             send(a) {
                 for (let o in m) {
-                    let r = m[o];
-                    r.app && r.app.connected && r.app.port.postMessage(a), r.contentScript && r.contentScript.connected && r.contentScript.port.postMessage(a)
+                    let s = m[o];
+                    s.app && s.app.connected && s.app.port.postMessage(a), s.contentScript && s.contentScript.connected && s.contentScript.port.postMessage(a)
                 }
             }
         });
-        ae(n, m);
+        xe(n, m);
         for (let a in m) {
             let o = m[a];
-            o.app && o.contentScript && je(o.app, o.contentScript)
+            o.app && o.contentScript && ut(o.app, o.contentScript)
         }
     });
 
-    function je(e, t) {
+    function ut(e, t) {
         e.port.onMessage.addListener(n => {
             t.connected && t.port.postMessage(n)
         }), t.port.onMessage.addListener(n => {

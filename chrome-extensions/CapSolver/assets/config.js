@@ -35,7 +35,7 @@ export const defaultConfig = {
   enabledForAwsCaptcha: true,
 
   // Task type: click or token
-  reCaptchaMode: 'token',
+  reCaptchaMode: 'click',
   hCaptchaMode: 'token',
 
   // Delay before solving captcha

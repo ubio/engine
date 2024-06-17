@@ -468,7 +468,7 @@
             enabledForBlacklistControl: !1,
             blackUrlList: [],
             isInBlackList: !1,
-            reCaptchaMode: "token",
+            reCaptchaMode: "click",
             reCaptchaDelayTime: 0,
             reCaptchaCollapse: !1,
             reCaptchaRepeatTimes: 10,

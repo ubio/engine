@@ -477,7 +477,7 @@
             reCaptcha3Collapse: !1,
             reCaptcha3RepeatTimes: 10,
             reCaptcha3TaskType: "ReCaptchaV3TaskProxyLess",
-            hCaptchaMode: "token",
+            hCaptchaMode: "click",
             hCaptchaDelayTime: 0,
             hCaptchaCollapse: !1,
             hCaptchaRepeatTimes: 10,

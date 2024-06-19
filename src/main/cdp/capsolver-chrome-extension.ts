@@ -17,7 +17,7 @@ export class CapsolverChromeExtension {
     }
 
     protected async modifyApiKey(key: string) {
-        const filePath = `${this.extensionPath}/assets/config.json`;
+        const filePath = `${this.extensionPath}/assets/config.js`;
 
         try {
             const rawData = await fs.readFile(filePath, { encoding: 'utf8' });

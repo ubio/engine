@@ -3,14 +3,14 @@ import * as fs from 'fs/promises';
 import { tmpdir } from 'os';
 import path from 'path';
 
-import { CapsolverChromeExtension } from '../../../main/cdp/capsolver-chrome-extension';
+import { CapsolverChromeExtension, loadConfigFromJs, saveConfigToJs } from '../../../main/cdp/capsolver-chrome-extension';
 
 
 describe('CapsolverChromeExtension', () => {
     let capsolver: CapsolverChromeExtension;
     const extensionPath = path.join(tmpdir(), 'my-extension-folder');
     const assetsPath = path.join(extensionPath, 'assets');
-    const configPath = path.join(assetsPath, 'config.json');
+    const configPath = path.join(assetsPath, 'config.js');
     const apiKey = 'test-api-key';
 
     before(async () => {
@@ -24,46 +24,55 @@ describe('CapsolverChromeExtension', () => {
     beforeEach(async () => {
         capsolver = new CapsolverChromeExtension(extensionPath, apiKey);
 
-        const defaultConfig = {
-            apiKey: '',
-            appId: '',
-            useCapsolver: true,
-            manualSolving: false,
-            solvedCallback: 'captchaSolvedCallback',
-            useProxy: false,
-            proxyType: 'http',
-            hostOrIp: '',
-            port: '',
-            proxyLogin: '',
-            proxyPassword: '',
+        const defaultConfig = `export const defaultConfig = {
+  apiKey: '',
 
-            enabledForBlacklistControl: false,
-            blackUrlList: [],
+  appId: '',
 
-            enabledForRecaptcha: true,
-            enabledForRecaptchaV3: true,
-            enabledForHCaptcha: true,
-            enabledForFunCaptcha: true,
-            enabledForImageToText: true,
+  useCapsolver: true,
 
-            reCaptchaMode: 'click',
-            hCaptchaMode: 'click',
+  manualSolving: false,
 
-            reCaptchaDelayTime: 0,
-            hCaptchaDelayTime: 0,
-            textCaptchaDelayTime: 0,
+  solvedCallback: 'captchaSolvedCallback',
 
-            reCaptchaRepeatTimes: 10,
-            reCaptcha3RepeatTimes: 10,
-            hCaptchaRepeatTimes: 10,
-            funCaptchaRepeatTimes: 10,
-            textCaptchaRepeatTimes: 10,
+  useProxy: false,
+  proxyType: 'http',
+  hostOrIp: '',
+  port: '',
+  proxyLogin: '',
+  proxyPassword: '',
 
-            textCaptchaSourceAttribute: 'capsolver-image-to-text-source',
-            textCaptchaResultAttribute: 'capsolver-image-to-text-result'
+  enabledForBlacklistControl: false,
+  blackUrlList: [],
 
-        };
-        await fs.writeFile(configPath, JSON.stringify(defaultConfig, null, 2), { encoding: 'utf8' });
+  enabledForRecaptcha: true,
+  enabledForRecaptchaV3: true,
+  enabledForHCaptcha: true,
+  enabledForFunCaptcha: true,
+  enabledForImageToText: true,
+  enabledForAwsCaptcha: true,
+
+  reCaptchaMode: 'click',
+  hCaptchaMode: 'click',
+
+  reCaptchaDelayTime: 0,
+  hCaptchaDelayTime: 0,
+  textCaptchaDelayTime: 0,
+  awsDelayTime: 0,
+
+  reCaptchaRepeatTimes: 10,
+  reCaptcha3RepeatTimes: 10,
+  hCaptchaRepeatTimes: 10,
+  funCaptchaRepeatTimes: 10,
+  textCaptchaRepeatTimes: 10,
+  awsRepeatTimes: 10,
+
+  reCaptcha3TaskType: 'ReCaptchaV3TaskProxyLess',
+
+  textCaptchaSourceAttribute: 'capsolver-image-to-text-source',
+  textCaptchaResultAttribute: 'capsolver-image-to-text-result',
+};`;
+        await saveConfigToJs(configPath, defaultConfig);
     });
 
     afterEach(async () => {
@@ -74,10 +83,9 @@ describe('CapsolverChromeExtension', () => {
         it('should add the API key to the config file', async () => {
             await capsolver.addApiKey();
 
-            const rawData = await fs.readFile(configPath, { encoding: 'utf8' });
-            const jsonData = JSON.parse(rawData);
+            const config = await loadConfigFromJs(configPath);
 
-            assert.equal(jsonData.apiKey, apiKey);
+            assert.equal(config.apiKey, apiKey);
         });
 
         it('should simulate 16 m1 workers concurrently adding API key to the same config', async () => {
@@ -89,10 +97,9 @@ describe('CapsolverChromeExtension', () => {
 
             await Promise.all(promises);
 
-            const rawData = await fs.readFile(configPath, { encoding: 'utf8' });
-            const jsonData = JSON.parse(rawData);
+            const config = await loadConfigFromJs(configPath);
 
-            assert.equal(jsonData.apiKey, apiKey);
+            assert.equal(config.apiKey, apiKey);
         });
     });
 
@@ -102,10 +109,9 @@ describe('CapsolverChromeExtension', () => {
 
             await capsolver.removeApiKey();
 
-            const rawData = await fs.readFile(configPath, { encoding: 'utf8' });
-            const jsonData = JSON.parse(rawData);
+            const config = await loadConfigFromJs(configPath);
 
-            assert.equal(jsonData.apiKey, '');
+            assert.equal(config.apiKey, '');
         });
     });
 });

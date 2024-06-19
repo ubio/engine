@@ -15,7 +15,10 @@ export async function loadConfigFromJs(configPath: string) {
 }
 
 export async function saveConfigToJs(configPath: string, json: string) {
-    await fs.writeFile(configPath, `export const defaultConfig = ${json}`, { encoding: 'utf8' });
+    // ensure erasing '"' from keys
+    // (CapSolver background.js would parse "better" that way)
+    const js = json.replace(/['"](.+)['"]:/g, '$1:');
+    await fs.writeFile(configPath, `export const defaultConfig = ${js}`, { encoding: 'utf8' });
 }
 
 export class CapsolverChromeExtension {

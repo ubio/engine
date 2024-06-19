@@ -14,10 +14,8 @@ export async function loadConfigFromJs(configPath: string) {
     return jsonData;
 }
 
-export async function saveConfigToJs(configPath: string, json: any) {
-    // replace everytring before "{" and after "}"
-    const jsonOnly = json.replace(/.*=\s*|;.*|[\n\r\t\s]/g, '');
-    await fs.writeFile(configPath, `export const defaultConfig = ${jsonOnly}`, { encoding: 'utf8' });
+export async function saveConfigToJs(configPath: string, json: string) {
+    await fs.writeFile(configPath, `export const defaultConfig = ${json}`, { encoding: 'utf8' });
 }
 
 export class CapsolverChromeExtension {

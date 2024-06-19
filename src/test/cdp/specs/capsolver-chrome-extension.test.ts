@@ -3,11 +3,12 @@ import * as fs from 'fs/promises';
 import { tmpdir } from 'os';
 import path from 'path';
 
-import { CapsolverChromeExtension, loadConfigFromJs, saveConfigToJs } from '../../../main/cdp/capsolver-chrome-extension';
+import { CapsolverChromeExtension, loadConfigFromJs } from '../../../main/cdp/capsolver-chrome-extension';
 
 
 describe('CapsolverChromeExtension', () => {
     let capsolver: CapsolverChromeExtension;
+    const originalConfigPath = path.join(__dirname, '..', '..', '..', '..', 'chrome-extensions', 'CapSolver', 'assets', 'config.js');
     const extensionPath = path.join(tmpdir(), 'my-extension-folder');
     const assetsPath = path.join(extensionPath, 'assets');
     const configPath = path.join(assetsPath, 'config.js');
@@ -24,55 +25,8 @@ describe('CapsolverChromeExtension', () => {
     beforeEach(async () => {
         capsolver = new CapsolverChromeExtension(extensionPath, apiKey);
 
-        const defaultConfig = `export const defaultConfig = {
-  apiKey: '',
-
-  appId: '',
-
-  useCapsolver: true,
-
-  manualSolving: false,
-
-  solvedCallback: 'captchaSolvedCallback',
-
-  useProxy: false,
-  proxyType: 'http',
-  hostOrIp: '',
-  port: '',
-  proxyLogin: '',
-  proxyPassword: '',
-
-  enabledForBlacklistControl: false,
-  blackUrlList: [],
-
-  enabledForRecaptcha: true,
-  enabledForRecaptchaV3: true,
-  enabledForHCaptcha: true,
-  enabledForFunCaptcha: true,
-  enabledForImageToText: true,
-  enabledForAwsCaptcha: true,
-
-  reCaptchaMode: 'click',
-  hCaptchaMode: 'click',
-
-  reCaptchaDelayTime: 0,
-  hCaptchaDelayTime: 0,
-  textCaptchaDelayTime: 0,
-  awsDelayTime: 0,
-
-  reCaptchaRepeatTimes: 10,
-  reCaptcha3RepeatTimes: 10,
-  hCaptchaRepeatTimes: 10,
-  funCaptchaRepeatTimes: 10,
-  textCaptchaRepeatTimes: 10,
-  awsRepeatTimes: 10,
-
-  reCaptcha3TaskType: 'ReCaptchaV3TaskProxyLess',
-
-  textCaptchaSourceAttribute: 'capsolver-image-to-text-source',
-  textCaptchaResultAttribute: 'capsolver-image-to-text-result',
-};`;
-        await saveConfigToJs(configPath, defaultConfig);
+        const defaultConfig = await fs.readFile(originalConfigPath, { encoding: 'utf8' });
+        await fs.writeFile(configPath, defaultConfig, { encoding: 'utf8' });
     });
 
     afterEach(async () => {

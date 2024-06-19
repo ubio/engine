@@ -17,15 +17,14 @@ export class CapsolverChromeExtension {
     }
 
     protected async modifyApiKey(key: string) {
-        const filePath = `${this.extensionPath}/assets/config.js`;
+        const filePath = `${this.extensionPath}/assets/config`;
 
         try {
-            const rawData = await fs.readFile(filePath, { encoding: 'utf8' });
-            const jsonData = JSON.parse(rawData);
-            if (jsonData.apiKey !== key) {
-                jsonData.apiKey = key;
-                const updatedJsonData = JSON.stringify(jsonData, null, 2);
-                await fs.writeFile(filePath, updatedJsonData, { encoding: 'utf8' });
+            const { defaultConfig } = await import(`${filePath}.mjs`);
+            if (defaultConfig.apiKey !== key) {
+                defaultConfig.apiKey = key;
+                const updatedJsonData = 'export const defaultConfig = ' + JSON.stringify(defaultConfig, null, 2);
+                await fs.writeFile(`${filePath}.js`, updatedJsonData, { encoding: 'utf8' });
             }
         } catch (error) {
             this.logger.warn(`Updating api key ${key} in ${filePath} failed: ${error}`);

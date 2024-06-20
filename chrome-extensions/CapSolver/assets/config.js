@@ -9,7 +9,7 @@ export const defaultConfig = {
   useCapsolver: true,
 
   // Solve captcha manually
-  manualSolving: false,
+  manualSolving: true,
 
   // Captcha solved callback function name
   solvedCallback: 'captchaSolvedCallback',

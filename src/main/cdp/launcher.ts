@@ -59,6 +59,7 @@ export class ChromeLauncher {
             '--no-experiments',
             '--password-store=basic',
             '--use-mock-keychain',
+            '--disable-search-engine-choice-screen',
         ];
     }
 

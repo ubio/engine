@@ -41,7 +41,7 @@ export function scriptError(message: string, details?: any): Error {
  * @param details Optional JSON details.
  * @public
  */
-export function assertPlayback(condition: any, message: string, details?: any): void {
+export function assertPlayback(condition: any, message: string, details?: any): asserts condition {
     if (!condition) {
         throw playbackError(message, details);
     }

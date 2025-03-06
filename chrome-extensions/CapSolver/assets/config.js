@@ -29,8 +29,6 @@ export const defaultConfig = {
   // Is captcha enabled by default or not
   enabledForRecaptcha: true,
   enabledForRecaptchaV3: true,
-  enabledForHCaptcha: true,
-  enabledForFunCaptcha: true,
   enabledForImageToText: true,
   enabledForAwsCaptcha: true,
   enabledForCloudflare: true,

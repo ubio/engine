@@ -6,10 +6,11 @@
     "48": "icons/icon-48x48.png",
     "128": "icons/icon-128x128.png"
   },
-  "version": "1.13.1",
+  "version": "1.15.3",
   "permissions": [
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "webRequest"
   ],
   "host_permissions": [
     "*://*/*"
@@ -38,19 +39,6 @@
         "my-content-script.js",
         "image-to-text.js"
       ]
-    },
-    {
-      "matches": [
-        "*://*.arkoselabs.com/*",
-        "*://*.funcaptcha.com/fc/*",
-        "*://*.openai.com/fc/*"
-      ],
-      "js": [
-        "funcaptcha-recognition.js"
-      ],
-      "run_at": "document_start",
-      "all_frames": true,
-      "match_about_blank": true
     },
     {
       "matches": [
@@ -115,5 +103,5 @@
   ],
   "name": "Captcha Solver: Auto captcha solving service",
   "short_name": "Captcha Solver: Auto captcha solving service",
-  "description": "Automatically solve reCAPTCHA, hCaptcha, FunCaptcha, AWS WAF, and more types on any webpage."
+  "description": "AI-powered CAPTCHA solver solution designed for Web Scraping."
 }

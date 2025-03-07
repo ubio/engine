@@ -29,10 +29,9 @@ export const defaultConfig = {
   // Is captcha enabled by default or not
   enabledForRecaptcha: true,
   enabledForRecaptchaV3: true,
-  enabledForHCaptcha: true,
-  enabledForFunCaptcha: true,
   enabledForImageToText: true,
   enabledForAwsCaptcha: true,
+  enabledForCloudflare: true,
 
   // Task type: click or token
   reCaptchaMode: 'click',
@@ -57,4 +56,6 @@ export const defaultConfig = {
 
   textCaptchaSourceAttribute: 'capsolver-image-to-text-source', // ImageToText source img's attribute name
   textCaptchaResultAttribute: 'capsolver-image-to-text-result', // ImageToText result element's attribute name
+
+  textCaptchaModule: 'common', // ImageToText module
 };

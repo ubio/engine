@@ -1,14 +1,14 @@
-const domain = 'awswaf.com';
-const awsListeningList = [
+var domain = 'awswaf.com';
+var awsListeningList = [
   '/problem',
   '/verify',
 ];
 
 (function () {
-  let origFetch = window.fetch;
+  var origFetch = window.fetch;
   window.fetch = async function (...args) {
-    const _url = args[0];
-    const response = await origFetch(...args);
+    var _url = args[0];
+    var response = await origFetch(...args);
 
     response
       .clone()

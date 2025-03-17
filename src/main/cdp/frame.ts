@@ -165,7 +165,9 @@ export class Frame extends EventEmitter {
     }
 
     async captureHtmlSnapshot(): Promise<string> {
-        await this.page.waitForReady({ timeout: 5000, rejectHttpErrors: false }).catch(_err => {});
+        await this.page.waitForReady({ timeout: 5000, rejectHttpErrors: false }).catch(error => {
+            this.logger.warn('Capture html snapshot: Failed waiting for page to be ready', { error });
+        });
         await this.htmlSnapshotPopulateFrameIds();
         const snapshot = await this.htmlSnapshotEvalWithFrameRefs();
         return await this.htmlSnapshotResolveFrameRefs(snapshot);

@@ -27,11 +27,16 @@ then children won't be able to execute.
     @params.Pipeline()
     pipeline!: Pipeline;
 
+    @params.Boolean()
+    staticScope: boolean = false;
+
     $iteration: number | null = null;
+    $elements: Element[] | null = null;
 
     override reset() {
         super.reset();
         this.$iteration = null;
+        this.$elements = null;
     }
 
     override hasChildren() {
@@ -63,8 +68,19 @@ then children won't be able to execute.
     }
 
     async getCurrentElement(): Promise<Element | null> {
-        const elements = await this.retry(() => this.selectAll(this.pipeline));
+        const elements = await this.captureScope();
         return this.$iteration == null ? null : elements[this.$iteration];
+    }
+
+    async captureScope() {
+        if (this.staticScope && this.$elements != null) {
+            return this.$elements;
+        }
+        const elements = await this.retry(() => this.selectAll(this.pipeline));
+        if (this.staticScope) {
+            this.$elements = elements;
+        }
+        return elements;
     }
 
     nextIndex() {

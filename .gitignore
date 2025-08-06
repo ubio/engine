@@ -3,6 +3,7 @@ node_modules/
 yarn.lock
 .eslintcache
 .DS_Store
+.idea
 static/build
 
 .env*

@@ -37,8 +37,9 @@ export class ExecutionContext {
         readonly frame: Frame,
         readonly executionContextId: string,
     ) {
-        this.target.addListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        this.target.addListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
+        // Runtime events removed to avoid requiring Runtime.enable (bot detection)
+        // this.target.addListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
+        // this.target.addListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
     }
 
     /**
@@ -231,8 +232,9 @@ export class ExecutionContext {
 
     protected onDestroyed() {
         this.isAlive = false;
-        this.target.removeListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        this.target.removeListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
+        // Runtime events removed to avoid requiring Runtime.enable (bot detection)
+        // this.target.removeListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
+        // this.target.removeListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
     }
 }
 

@@ -66,11 +66,7 @@ export class Frame extends EventEmitter {
 
     async getDefaultExecutionContext(): Promise<ExecutionContext> {
         if (!this._defaultExecCtx) {
-            throw new Exception({
-                name: 'NoExecutionContext',
-                message: 'Default execution context is not ready',
-                retry: true,
-            });
+            return await this.getCurrentExecutionContext();
         }
         return this._defaultExecCtx;
     }

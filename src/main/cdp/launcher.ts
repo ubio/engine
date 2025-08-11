@@ -41,6 +41,7 @@ export class ChromeLauncher {
             '--disable-background-networking',
             '--disable-background-timer-throttling',
             '--disable-backgrounding-occluded-windows',
+            '--disable-blink-features=AutomationControlled',
             '--disable-breakpad',
             '--disable-client-side-phishing-detection',
             '--disable-cloud-import',

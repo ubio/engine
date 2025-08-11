@@ -96,7 +96,7 @@ export class Target extends EventEmitter {
                 maxTotalBufferSize: 100 * 1024 * 1204,
                 maxResourceBufferSize: 50 * 1024 * 1204,
             });
-            // await this.send('Runtime.enable');
+
             for (const fn of this.browser.targetInitFns) {
                 await fn(this);
             }

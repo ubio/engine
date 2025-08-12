@@ -36,11 +36,7 @@ export class ExecutionContext {
     constructor(
         readonly frame: Frame,
         readonly executionContextId: string,
-    ) {
-        // Runtime events removed to avoid requiring Runtime.enable (bot detection)
-        // this.target.addListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        // this.target.addListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
-    }
+    ) { }
 
     /**
      * @returns The page this execution context belongs to.
@@ -232,9 +228,6 @@ export class ExecutionContext {
 
     protected onDestroyed() {
         this.isAlive = false;
-        // Runtime events removed to avoid requiring Runtime.enable (bot detection)
-        // this.target.removeListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        // this.target.removeListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
     }
 }
 

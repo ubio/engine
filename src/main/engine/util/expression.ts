@@ -43,8 +43,7 @@ export function compileSyncJs(expr: string, ...args: string[]): Function {
 
 // tslint:disable-next-line ban-types
 export function compileAsyncJs(expr: string, ...args: string[]): Function {
-    const asyncParams = args.length > 0 ? args.join(',') : globals.join(',');
-    return new Function(...args, `return (async (${asyncParams}) => { ${expr} })(${args.join(',')})`);
+    return new Function(...args, `return (async (${globals.join(',')}) => { ${expr} })(${args.join(',')})`);
 }
 
 export function compileJavaScript(code: string, timeout: number = 60000) {

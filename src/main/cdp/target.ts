@@ -2,7 +2,6 @@ import { EventEmitter } from 'events';
 
 import { Exception } from '../exception.js';
 import { Browser } from './browser.js';
-import { stubs } from './inject/stubs.js';
 import { InterceptedRequest } from './interceptor.js';
 import { Page, PageNavigateOptions, PageWaitOptions } from './page.js';
 import { CdpFrame, CdpLifecycleEvent, CdpLoadingFailed, CdpRequestPaused, CdpRequestWillBeSent, CdpResponse, CdpResponseReceived, CdpTargetInfo, CdpTargetType } from './types.js';
@@ -85,18 +84,13 @@ export class Target extends EventEmitter {
             await this.send('Fetch.enable');
             await this.send('Page.enable');
             await this.send('Page.setLifecycleEventsEnabled', { enabled: true });
-
-            await this.send('Page.addScriptToEvaluateOnNewDocument', {
-                source: `(${stubs.toString()})()`
-            });
-
             const { frameTree } = await this.send('Page.getFrameTree');
             this.attachedPage = new Page(this, frameTree);
             await this.send('Network.enable', {
                 maxTotalBufferSize: 100 * 1024 * 1204,
                 maxResourceBufferSize: 50 * 1024 * 1204,
             });
-
+            await this.send('Runtime.enable');
             for (const fn of this.browser.targetInitFns) {
                 await fn(this);
             }

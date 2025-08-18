@@ -17,7 +17,7 @@ describe('PlaywrightService', () => {
         assert(playwrightPage?.title, page.target.title);
     });
 
-    it.skip('changes page when active target is switched', async () => {
+    it('changes page when active target is switched', async () => {
         const page = await runtime.browser.newTab(runtime.browserContextId);
         await runtime.browser.attach(page.target.targetId);
         await runtime.goto('/select.html');

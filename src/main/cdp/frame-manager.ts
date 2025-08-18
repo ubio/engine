@@ -25,6 +25,9 @@ export class FrameManager {
         target.on('Page.navigatedWithinDocument', ev => this.onNavigatedWithinDocument(ev.frameId, ev.url));
         target.on('Page.frameDetached', ev => this.onFrameDetached(ev.frameId, ev.reason));
         target.on('Page.frameStoppedLoading', ev => this.onFrameStoppedLoading(ev.frameId));
+        target.on('Runtime.executionContextCreated', ev => this.onExecutionContextCreated(ev.context));
+        target.on('Runtime.executionContextDestroyed', ev => this.onExecutionContextDestroyed(ev.executionContextId));
+        target.on('Runtime.executionContextsCleared', () => this.onExecutionContextsCleared());
     }
 
     getFrameById(id: string): Frame | undefined {

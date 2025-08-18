@@ -66,7 +66,11 @@ export class Frame extends EventEmitter {
 
     async getDefaultExecutionContext(): Promise<ExecutionContext> {
         if (!this._defaultExecCtx) {
-            return await this.getCurrentExecutionContext();
+            throw new Exception({
+                name: 'NoExecutionContext',
+                message: 'Default execution context is not ready',
+                retry: true,
+            });
         }
         return this._defaultExecCtx;
     }
@@ -77,21 +81,18 @@ export class Frame extends EventEmitter {
     }
 
     async evaluate(pageFn: RemoteExpression, ...args: any[]): Promise<RemoteObject> {
-        return await this.withRetryOnContextLoss(async execContext => {
-            return await execContext.evaluate(pageFn, ...args);
-        });
+        const execContext = await this.getCurrentExecutionContext();
+        return await execContext.evaluate(pageFn, ...args);
     }
 
     async evaluateElement(pageFn: RemoteExpression, ...args: any[]): Promise<RemoteElement | null> {
-        return await this.withRetryOnContextLoss(async execContext => {
-            return await execContext.evaluateElement(pageFn, ...args);
-        });
+        const execContext = await this.getCurrentExecutionContext();
+        return await execContext.evaluateElement(pageFn, ...args);
     }
 
     async evaluateJson(pageFn: RemoteExpression, ...args: any[]): Promise<any> {
-        return await this.withRetryOnContextLoss(async execContext => {
-            return await execContext.evaluateJson(pageFn, ...args);
-        });
+        const execContext = await this.getCurrentExecutionContext();
+        return await execContext.evaluateJson(pageFn, ...args);
     }
 
     async document(): Promise<RemoteElement> {
@@ -161,21 +162,6 @@ export class Frame extends EventEmitter {
 
     onExecutionContextsCleared() {
         this.clearExecutionContexts();
-    }
-
-    private async withRetryOnContextLoss<T>(fn: (ctx: ExecutionContext) => Promise<T>): Promise<T> {
-        let ctx = await this.getCurrentExecutionContext();
-        try {
-            return await fn(ctx);
-        } catch (err: any) {
-            if (/Cannot find context with specified id/.test(err.message)) {
-                // Recreate isolated world and retry once
-                this._isolatedWorld = null;
-                ctx = await this.getCurrentExecutionContext();
-                return await fn(ctx);
-            }
-            throw err;
-        }
     }
 
     async captureHtmlSnapshot(): Promise<string> {

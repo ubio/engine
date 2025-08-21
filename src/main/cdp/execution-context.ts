@@ -36,10 +36,7 @@ export class ExecutionContext {
     constructor(
         readonly frame: Frame,
         readonly executionContextId: string,
-    ) {
-        this.target.addListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        this.target.addListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
-    }
+    ) { }
 
     /**
      * @returns The page this execution context belongs to.
@@ -231,8 +228,6 @@ export class ExecutionContext {
 
     protected onDestroyed() {
         this.isAlive = false;
-        this.target.removeListener('Runtime.executionContextsCleared', this.listeners.onExecutionContextsCleared);
-        this.target.removeListener('Runtime.executionContextDestroyed', this.listeners.onExecutionContextDestroyed);
     }
 }
 

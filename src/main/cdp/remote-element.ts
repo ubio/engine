@@ -2,6 +2,7 @@ import { Exception } from '../exception.js';
 import * as util from './cdp-util.js';
 import { ExecutionContext } from './execution-context.js';
 import { Frame } from './frame.js';
+import { SendPostOptions } from './inject/toolkit.js';
 import { RemoteObject } from './remote-object.js';
 import { BoxModel, CdpNode, CdpQuad, CdpRemoteObject, Point, Quad } from './types.js';
 
@@ -540,13 +541,14 @@ export class RemoteElement extends RemoteObject {
         );
     }
 
-    async sendPost(url: string, postParams: Array<[string, string]>) {
+    async sendPost(url: string, postParams: Array<[string, string]>, options: SendPostOptions = {}) {
         await this.executionContext.evaluateJson(
-            (url, postParams, toolkitBinding) => {
-                (window as any)[toolkitBinding].sendPost(url, postParams);
+            (url, postParams, options, toolkitBinding) => {
+                (window as any)[toolkitBinding].sendPost(url, postParams, options);
             },
             url,
             postParams,
+            options,
             this.page.toolkitBinding,
         );
     }

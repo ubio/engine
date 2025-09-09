@@ -1,5 +1,9 @@
 import { RemoteElementInfo } from '../remote-element.js';
 
+export interface SendPostOptions {
+    target?: '_blank' | '_self';
+}
+
 export function toolkit(options: any = {}) {
     const binding: string = options.toolkitBinding || 'AP';
 
@@ -358,10 +362,11 @@ export function toolkit(options: any = {}) {
         }
     }
 
-    function sendPost(url: string, postParams: Array<[string, string]>) {
+    function sendPost(url: string, postParams: Array<[string, string]>, options: SendPostOptions = {}) {
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = url;
+        form.target = options.target || '_self';
         for (const [key, value] of postParams) {
             const input = document.createElement('input');
             input.hidden = true;

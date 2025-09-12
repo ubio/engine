@@ -3,7 +3,7 @@ import { EventEmitter } from 'events';
 import { Exception } from '../exception.js';
 import { asyncRegexpReplace } from './cdp-util.js';
 import { ExecutionContext } from './execution-context.js';
-import { runtimeScripts, stubScripts } from './inject/index.js';
+import { runtimeScripts } from './inject/index.js';
 import { Page } from './page.js';
 import { RemoteElement } from './remote-element.js';
 import { RemoteObject } from './remote-object.js';
@@ -142,25 +142,6 @@ export class Frame extends EventEmitter {
         this.loaded = true;
         this.emit('ready');
         this.emit('loaded');
-    }
-
-    onExecutionContextCreated(context: any) {
-        const { id, auxData = {} } = context;
-        if (auxData.isDefault) {
-            const exCtx = new ExecutionContext(this, id);
-            exCtx.initContentScripts(stubScripts);
-            this._defaultExecCtx = exCtx;
-        }
-    }
-
-    onExecutionContextDestroyed(executionContextId: string) {
-        if (this._defaultExecCtx && this._defaultExecCtx.executionContextId === executionContextId) {
-            this.clearExecutionContexts();
-        }
-    }
-
-    onExecutionContextsCleared() {
-        this.clearExecutionContexts();
     }
 
     async captureHtmlSnapshot(): Promise<string> {

@@ -118,23 +118,4 @@ export class FrameManager {
         }
     }
 
-    private onExecutionContextCreated(context: any) {
-        const frameId = (context.auxData || {}).frameId || '';
-        const frame = this.getFrameById(frameId);
-        if (frame) {
-            frame.onExecutionContextCreated(context);
-        }
-    }
-
-    private onExecutionContextDestroyed(executionContextId: string) {
-        for (const frame of this.frames.values()) {
-            frame.onExecutionContextDestroyed(executionContextId);
-        }
-    }
-
-    private onExecutionContextsCleared() {
-        for (const frame of this.frames.values()) {
-            frame.onExecutionContextsCleared();
-        }
-    }
 }

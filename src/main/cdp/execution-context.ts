@@ -203,17 +203,18 @@ export class ExecutionContext {
         throw err;
     }
 
-    initContentScripts(scripts: ContentScript[]) {
+    async initContentScripts(scripts: ContentScript[]) {
         const options = {
             toolkitBinding: this.page.toolkitBinding,
         };
-        for (const { fn, filename } of scripts) {
+        const promises = scripts.map(async ({ fn, filename }) => {
             const source = `(${fn.toString()})(${JSON.stringify(options)})\n//# sourceURL=${filename}\n`;
-            this.page.sendAndForget('Runtime.evaluate', {
+            await this.page.send('Runtime.evaluate', {
                 contextId: this.executionContextId,
                 expression: source,
             });
-        }
+        });
+        await Promise.allSettled(promises);
     }
 
     protected onExecutionContextsCleared() {

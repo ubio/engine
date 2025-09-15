@@ -60,7 +60,7 @@ export class Frame extends EventEmitter {
             grantUniveralAccess: true,
         });
         this._isolatedWorld = new ExecutionContext(this, executionContextId);
-        this._isolatedWorld.initContentScripts(runtimeScripts);
+        await this._isolatedWorld.initContentScripts(runtimeScripts);
         return this._isolatedWorld;
     }
 

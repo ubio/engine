@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 
 import { Exception } from '../exception.js';
 import { Browser } from './browser.js';
-import { stubs } from './inject/stubs.js';
+import { runtimeScripts, stubScripts } from './inject/index.js';
 import { InterceptedRequest } from './interceptor.js';
 import { Page, PageNavigateOptions, PageWaitOptions } from './page.js';
 import { CdpFrame, CdpLifecycleEvent, CdpLoadingFailed, CdpRequestPaused, CdpRequestWillBeSent, CdpResponse, CdpResponseReceived, CdpTargetInfo, CdpTargetType } from './types.js';
@@ -85,10 +85,7 @@ export class Target extends EventEmitter {
             await this.send('Fetch.enable');
             await this.send('Page.enable');
             await this.send('Page.setLifecycleEventsEnabled', { enabled: true });
-
-            await this.send('Page.addScriptToEvaluateOnNewDocument', {
-                source: `(${stubs.toString()})()`
-            });
+            this.injectScripts();
 
             const { frameTree } = await this.send('Page.getFrameTree');
             this.attachedPage = new Page(this, frameTree);
@@ -377,5 +374,20 @@ export class Target extends EventEmitter {
         }
         const continuePayload = ireq.continue();
         this.sendAndForget(continuePayload.method, continuePayload.params);
+    }
+
+    private injectScripts() {
+        stubScripts.forEach(({ fn }) => {
+            this.sendAndForget('Page.addScriptToEvaluateOnNewDocument', {
+                source: `(${fn.toString()})()`
+            });
+        });
+        runtimeScripts.forEach(({ fn, filename }) => {
+            const options = {
+                toolkitBinding: this.browser.config.toolkitBinding,
+            };
+            const source = `(${fn.toString()})(${JSON.stringify(options)})\n//# sourceURL=${filename}\n`;
+            this.sendAndForget('Page.addScriptToEvaluateOnNewDocument', { source });
+        });
     }
 }

@@ -197,17 +197,26 @@ export class Frame extends EventEmitter {
     }
 
     private async withRetryOnContextLoss<T>(fn: (ctx: ExecutionContext) => Promise<T>): Promise<T> {
-        let ctx = await this.getCurrentExecutionContext();
-        try {
-            return await fn(ctx);
-        } catch (err: any) {
-            if (/Cannot find context with specified id/.test(err.message)) {
-                // Recreate isolated world and retry once
-                this._isolatedWorld = null;
-                ctx = await this.getCurrentExecutionContext();
+        const maxAttempts = 3;
+        let attempts = 0;
+        let lastError: any;
+        while (attempts < maxAttempts) {
+            const ctx = await this.getCurrentExecutionContext();
+            try {
                 return await fn(ctx);
+            } catch (err: any) {
+                lastError = err;
+                if (/Cannot find context with specified id/.test(err.message)) {
+                    this._isolatedWorld = null;
+                    attempts += 1;
+                    if (attempts < maxAttempts) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        continue;
+                    }
+                }
+                throw err;
             }
-            throw err;
         }
+        throw lastError;
     }
 }

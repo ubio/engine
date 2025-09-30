@@ -48,12 +48,36 @@ export class Frame extends EventEmitter {
     async getCurrentExecutionContext() {
         // Note: we can implement logic to switch between isolated world and default exec context here
         if (this._isolatedWorld && this._isolatedWorld.isAlive) {
-            return this._isolatedWorld;
+            try {
+                const toolkitBinding = this.page.toolkitBinding;
+                const toolkitAvailable = await this._isolatedWorld.evaluateJson((binding: string) => {
+                    const toolkit = (window as any)[binding];
+                    return toolkit && typeof toolkit.getElementInfo === 'function';
+                }, toolkitBinding);
+
+                if (toolkitAvailable) {
+                    return this._isolatedWorld;
+                }
+                this._isolatedWorld = null;
+            } catch (err: any) {
+                this._isolatedWorld = null;
+            }
         }
         return await this.initIsolatedWorld();
     }
 
     protected async initIsolatedWorld() {
+        try {
+            await this.page.waitForReady({
+                rejectNetworkErrors: false,
+                rejectHttpErrors: false,
+                rejectTimeout: false,
+                timeout: 3000,
+            });
+        } catch {
+            // Continue even if page wait fails
+        }
+
         const { executionContextId } = await this.page.target.send('Page.createIsolatedWorld', {
             frameId: this.frameId,
             worldName: 'Autopilot',
@@ -61,6 +85,9 @@ export class Frame extends EventEmitter {
         });
         this._isolatedWorld = new ExecutionContext(this, executionContextId);
         await this._isolatedWorld.initContentScripts(runtimeScripts);
+
+        await this.verifyToolkitLoaded(this._isolatedWorld);
+
         return this._isolatedWorld;
     }
 
@@ -74,6 +101,36 @@ export class Frame extends EventEmitter {
     clearExecutionContexts() {
         this._defaultExecCtx = null;
         this._isolatedWorld = null;
+    }
+
+    private async verifyToolkitLoaded(context: ExecutionContext, maxRetries: number = 3): Promise<void> {
+        const toolkitBinding = this.page.toolkitBinding;
+
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                const toolkitAvailable = await context.evaluateJson((binding: string) => {
+                    const toolkit = (window as any)[binding];
+                    return toolkit &&
+                           typeof toolkit.getElementInfo === 'function' &&
+                           typeof toolkit.queryAll === 'function' &&
+                           typeof toolkit.queryOne === 'function';
+                }, toolkitBinding);
+
+                if (toolkitAvailable) {
+                    return;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+            } catch (err: any) {
+                if (/Cannot find context with specified id/.test(err.message)) {
+                    throw err;
+                }
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+        }
+
+        throw new Error('Toolkit failed to load in isolated world after multiple attempts');
     }
 
     async evaluate(pageFn: RemoteExpression, ...args: any[]): Promise<RemoteObject> {
@@ -206,7 +263,15 @@ export class Frame extends EventEmitter {
                 return await fn(ctx);
             } catch (err: any) {
                 lastError = err;
-                if (/Cannot find context with specified id/.test(err.message)) {
+
+                const isContextError = /Cannot find context with specified id/.test(err.message) ||
+                                     /Execution context was destroyed/.test(err.message) ||
+                                     /Context.*destroyed/.test(err.message);
+
+                const isToolkitError = /Cannot read properties of undefined/.test(err.message) &&
+                                     /getElementInfo|queryAll|queryOne/.test(err.message);
+
+                if (isContextError || isToolkitError) {
                     this._isolatedWorld = null;
                     attempts += 1;
                     if (attempts < maxAttempts) {

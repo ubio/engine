@@ -59,7 +59,7 @@ export class Frame extends EventEmitter {
                 rejectNetworkErrors: false,
                 rejectHttpErrors: false,
                 rejectTimeout: false,
-                timeout: 3000,
+                timeout: 30000,
             });
         } catch {
             // Continue even if page wait fails

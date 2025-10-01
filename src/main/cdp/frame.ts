@@ -48,20 +48,7 @@ export class Frame extends EventEmitter {
     async getCurrentExecutionContext() {
         // Note: we can implement logic to switch between isolated world and default exec context here
         if (this._isolatedWorld && this._isolatedWorld.isAlive) {
-            try {
-                const toolkitBinding = this.page.toolkitBinding;
-                const toolkitAvailable = await this._isolatedWorld.evaluateJson((binding: string) => {
-                    const toolkit = (window as any)[binding];
-                    return toolkit && typeof toolkit.getElementInfo === 'function';
-                }, toolkitBinding);
-
-                if (toolkitAvailable) {
-                    return this._isolatedWorld;
-                }
-                this._isolatedWorld = null;
-            } catch (err: any) {
-                this._isolatedWorld = null;
-            }
+            return this._isolatedWorld;
         }
         return await this.initIsolatedWorld();
     }
@@ -129,8 +116,6 @@ export class Frame extends EventEmitter {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
         }
-
-        throw new Error('Toolkit failed to load in isolated world after multiple attempts');
     }
 
     async evaluate(pageFn: RemoteExpression, ...args: any[]): Promise<RemoteObject> {

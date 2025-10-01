@@ -1,6 +1,6 @@
 {
     "name": "@automationcloud/engine",
-    "version": "35.13.6",
+    "version": "35.13.7",
     "description": "Engine for running Automation Scripts",
     "main": "out/main/index.js",
     "types": "out/main/index.d.ts",

@@ -242,8 +242,29 @@ export class Frame extends EventEmitter {
         const maxAttempts = 3;
         let attempts = 0;
         let lastError: any;
+        let useDefaultContext = false;
+
         while (attempts < maxAttempts) {
-            const ctx = await this.getCurrentExecutionContext();
+            let ctx: ExecutionContext;
+
+            try {
+                // Try isolated world first, unless we're already using default context
+                if (!useDefaultContext) {
+                    ctx = await this.getCurrentExecutionContext();
+                } else {
+                    ctx = await this.getDefaultExecutionContext();
+                }
+            } catch (err: any) {
+                // If isolated world fails, try default context as fallback
+                if (!useDefaultContext) {
+                    this.logger.warn('Isolated world failed, falling back to default context', { error: err.message });
+                    useDefaultContext = true;
+                    ctx = await this.getDefaultExecutionContext();
+                } else {
+                    throw err;
+                }
+            }
+
             try {
                 return await fn(ctx);
             } catch (err: any) {
@@ -259,6 +280,13 @@ export class Frame extends EventEmitter {
                 if (isContextError || isToolkitError) {
                     this._isolatedWorld = null;
                     attempts += 1;
+
+                    // If isolated world failed and we haven't tried default context yet, switch to it
+                    if (!useDefaultContext && attempts < maxAttempts) {
+                        useDefaultContext = true;
+                        this.logger.warn('Switching to default context due to isolated world failure', { attempt: attempts });
+                    }
+
                     if (attempts < maxAttempts) {
                         await new Promise(resolve => setTimeout(resolve, 100));
                         continue;

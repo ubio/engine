@@ -24,6 +24,7 @@ export class Frame extends EventEmitter {
 
     protected _isolatedWorld: ExecutionContext | null = null;
     protected _defaultExecCtx: ExecutionContext | null = null;
+    protected _isolatedWorldPromise: Promise<ExecutionContext> | null = null;
 
     constructor(
         public page: Page,
@@ -50,7 +51,17 @@ export class Frame extends EventEmitter {
         if (this._isolatedWorld && this._isolatedWorld.isAlive) {
             return this._isolatedWorld;
         }
-        return await this.initIsolatedWorld();
+
+        // If already initializing, wait for it to complete to avoid creating multiple isolated worlds
+        if (!this._isolatedWorldPromise) {
+            this._isolatedWorldPromise = this.initIsolatedWorld();
+        }
+
+        try {
+            return await this._isolatedWorldPromise;
+        } finally {
+            this._isolatedWorldPromise = null;
+        }
     }
 
     protected async initIsolatedWorld() {
@@ -88,6 +99,7 @@ export class Frame extends EventEmitter {
     clearExecutionContexts() {
         this._defaultExecCtx = null;
         this._isolatedWorld = null;
+        this._isolatedWorldPromise = null;
     }
 
     private async verifyToolkitLoaded(context: ExecutionContext, maxRetries: number = 3): Promise<void> {
@@ -170,6 +182,8 @@ export class Frame extends EventEmitter {
         this.url = cdpFrame.unreachableUrl || cdpFrame.url;
         this.securityOrigin = cdpFrame.securityOrigin;
         this.mimeType = cdpFrame.mimeType;
+        // Clear execution contexts on navigation since they become invalid
+        this.clearExecutionContexts();
         this.emit('navigate');
         if (['iframe', 'page'].includes(this.page.target.type)) {
             this.logger.debug(`Navigate (${this.page.target.type}) ${this.url}`, {
@@ -239,33 +253,13 @@ export class Frame extends EventEmitter {
     }
 
     private async withRetryOnContextLoss<T>(fn: (ctx: ExecutionContext) => Promise<T>): Promise<T> {
-        const maxAttempts = 3;
+        const maxAttempts = 5;
         let attempts = 0;
         let lastError: any;
-        let useDefaultContext = false;
 
         while (attempts < maxAttempts) {
-            let ctx: ExecutionContext;
-
             try {
-                // Try isolated world first, unless we're already using default context
-                if (!useDefaultContext) {
-                    ctx = await this.getCurrentExecutionContext();
-                } else {
-                    ctx = await this.getDefaultExecutionContext();
-                }
-            } catch (err: any) {
-                // If isolated world fails, try default context as fallback
-                if (!useDefaultContext) {
-                    this.logger.warn('Isolated world failed, falling back to default context', { error: err.message });
-                    useDefaultContext = true;
-                    ctx = await this.getDefaultExecutionContext();
-                } else {
-                    throw err;
-                }
-            }
-
-            try {
+                const ctx = await this.getCurrentExecutionContext();
                 return await fn(ctx);
             } catch (err: any) {
                 lastError = err;
@@ -278,17 +272,13 @@ export class Frame extends EventEmitter {
                                      /getElementInfo|queryAll|queryOne/.test(err.message);
 
                 if (isContextError || isToolkitError) {
+                    // Force recreation of isolated world
                     this._isolatedWorld = null;
                     attempts += 1;
 
-                    // If isolated world failed and we haven't tried default context yet, switch to it
-                    if (!useDefaultContext && attempts < maxAttempts) {
-                        useDefaultContext = true;
-                        this.logger.warn('Switching to default context due to isolated world failure', { attempt: attempts });
-                    }
-
                     if (attempts < maxAttempts) {
-                        await new Promise(resolve => setTimeout(resolve, 100));
+                        // Wait a bit longer between retries to give the page time to stabilize
+                        await new Promise(resolve => setTimeout(resolve, 200 * attempts));
                         continue;
                     }
                 }

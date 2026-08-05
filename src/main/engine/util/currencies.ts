@@ -39,6 +39,7 @@ export const currencies: Currency[] = [
     { code: 'cop', symbols: [], name: 'Colombia Peso', exponent: 2 },
     { code: 'crc', symbols: ['₡'], name: 'Costa Rica Colon', exponent: 2 },
     { code: 'cup', symbols: ['₱'], name: 'Cuba Peso', exponent: 2 },
+    { code: 'cve', symbols: [], name: 'Cape Verdean Escudo', exponent: 2 },
     { code: 'czk', symbols: ['kč'], name: 'Czech Republic Koruna', exponent: 2 },
     { code: 'djf', symbols: ['fdj'], name: 'Djibouti Franc', exponent: 2 },
     { code: 'dkk', symbols: ['dkr'], name: 'Denmark Krone', exponent: 2 },

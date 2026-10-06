@@ -1,4 +1,4 @@
-import { ChildProcess, spawn } from 'child_process';
+import { ChildProcess, execFile, spawn } from 'child_process';
 import net from 'net';
 import os from 'os';
 import rimraf from 'rimraf';
@@ -80,18 +80,22 @@ export class ChromeLauncher {
         if (this.childProcess) {
             return await this.waitForPort();
         }
+        await this.freePort();
         const { chromePath, stdio } = this.options;
         const args = this.getEffectiveArgs();
-        this.childProcess = spawn(chromePath, args, {
+        const child = spawn(chromePath, args, {
             stdio,
         });
+        this.childProcess = child;
         if (this.options.terminateProcessOnExit) {
             const exitListener = () => this.stop();
             process.addListener('exit', exitListener);
-            this.childProcess.once('exit', () => process.removeListener('exit', exitListener));
+            child.once('exit', () => process.removeListener('exit', exitListener));
         }
-        this.childProcess.once('exit', () => {
-            this.childProcess = null;
+        child.once('exit', () => {
+            if (this.childProcess === child) {
+                this.childProcess = null;
+            }
         });
         await this.waitForPort();
     }
@@ -103,29 +107,98 @@ export class ChromeLauncher {
     }
 
     async shutdown(timeout: number) {
-        await new Promise<void>(resolve => {
-            if (!this.childProcess) {
-                return resolve();
-            }
-            const timer = setTimeout(() => {
-                if (this.childProcess) {
-                    this.childProcess.kill('SIGKILL');
-                    this.childProcess = null;
-                }
-                resolve();
-            }, timeout);
-            this.childProcess.on('exit', () => {
-                clearTimeout(timer);
-                resolve();
-            });
-            this.childProcess.kill('SIGTERM');
-        });
+        const child = this.childProcess;
+        const running = child && child.exitCode == null && child.signalCode == null;
+        if (child && running) {
+            await this.terminate(child, timeout);
+        }
+        try {
+            await this.freePort();
+        } catch (_err) {
+            return;
+        }
         const { userDataDir } = this.options;
         if (userDataDir) {
             await new Promise<void>(r => {
                 rimraf(userDataDir, _err => r());
             });
         }
+    }
+
+    terminate(child: ChildProcess, timeout: number) {
+        return new Promise<void>(resolve => {
+            const timer = setTimeout(() => {
+                try {
+                    child.kill('SIGKILL');
+                } catch (_err) {
+                    resolve();
+                }
+            }, timeout);
+            child.once('exit', () => {
+                clearTimeout(timer);
+                resolve();
+            });
+            try {
+                child.kill('SIGTERM');
+            } catch (_err) {
+                clearTimeout(timer);
+                resolve();
+            }
+        });
+    }
+
+    async freePort() {
+        const open = await this.isPortOpen();
+        if (!open) {
+            return;
+        }
+        const pids = await this.listenerPids();
+        for (const pid of pids) {
+            try {
+                process.kill(pid, 'SIGKILL');
+            } catch (_err) {
+                // The listener can exit between lsof and kill.
+            }
+        }
+        const startedAt = Date.now();
+        while (Date.now() < startedAt + this.options.connectionTimeout) {
+            const stillOpen = await this.isPortOpen();
+            if (!stillOpen) {
+                return;
+            }
+            await new Promise(r => setTimeout(r, 100));
+        }
+        throw new Exception({
+            name: 'ChromeLaunchFailed',
+            message: `Chrome debugging port ${this.options.chromePort} stayed in use`,
+            retry: true,
+        });
+    }
+
+    async isPortOpen() {
+        try {
+            await this.tryConnect();
+            return true;
+        } catch (_err) {
+            return false;
+        }
+    }
+
+    listenerPids() {
+        const port = this.options.chromePort;
+        return new Promise<number[]>(resolve => {
+            execFile('lsof', ['-nP', `-iTCP:${port}`, '-sTCP:LISTEN', '-t'], (err, stdout) => {
+                if (err || !stdout) {
+                    resolve([]);
+                    return;
+                }
+                const pids = stdout
+                    .split('\n')
+                    .map(line => Number(line))
+                    .filter(pid => pid > 0);
+                resolve(pids);
+            });
+        });
     }
 
     async waitForPort() {

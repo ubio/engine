@@ -83,19 +83,16 @@ export class ChromeLauncher {
         await this.freePort();
         const { chromePath, stdio } = this.options;
         const args = this.getEffectiveArgs();
-        const child = spawn(chromePath, args, {
+        this.childProcess = spawn(chromePath, args, {
             stdio,
         });
-        this.childProcess = child;
         if (this.options.terminateProcessOnExit) {
             const exitListener = () => this.stop();
             process.addListener('exit', exitListener);
-            child.once('exit', () => process.removeListener('exit', exitListener));
+            this.childProcess.once('exit', () => process.removeListener('exit', exitListener));
         }
-        child.once('exit', () => {
-            if (this.childProcess === child) {
-                this.childProcess = null;
-            }
+        this.childProcess.once('exit', () => {
+            this.childProcess = null;
         });
         await this.waitForPort();
     }

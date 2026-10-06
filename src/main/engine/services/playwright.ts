@@ -1,4 +1,5 @@
 import { inject, injectable } from 'inversify';
+import fetch from 'node-fetch';
 import { Browser, BrowserContext, chromium, ConnectOverCDPOptions, Page } from 'playwright';
 import WebSocket from 'ws';
 

@@ -107,10 +107,12 @@ export class ChromeLauncher {
     }
 
     async shutdown(timeout: number) {
-        const child = this.childProcess;
-        const running = child && child.exitCode == null && child.signalCode == null;
-        if (child && running) {
-            await this.terminate(child, timeout);
+        if (
+            this.childProcess
+            && this.childProcess.exitCode == null
+            && this.childProcess.signalCode == null
+        ) {
+            await this.terminate(this.childProcess, timeout);
         }
         try {
             await this.freePort();

@@ -52,12 +52,6 @@ export class BrowserService extends Browser {
 
     override async connect() {
         await super.connect();
-        const hasPage = [...this.attachedTargets()].some(target => target.type === 'page');
-        if (!hasPage) {
-            // macOS Chrome keeps the debug port after the last window closes.
-            // Playwright 1.42 cannot attach until a browser context exists again.
-            await this.newTab();
-        }
         await this.playwright.connectOverCDP();
     }
 

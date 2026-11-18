@@ -2,6 +2,7 @@ export * from './api-request.js';
 export * from './blob.js';
 export * from './browser.js';
 export * from './checkpoint.js';
+export * from './chromaton.js';
 export * from './credentials.js';
 export * from './emulation.js';
 export * from './fetch.js';

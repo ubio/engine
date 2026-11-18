@@ -8,6 +8,7 @@ import {
     BlobService,
     BrowserService,
     CheckpointService,
+    ChromatonService,
     CredentialsService,
     EmulationService,
     FetchService,
@@ -61,6 +62,7 @@ export class Engine {
         this.container.bind(BlobService).toSelf().inSingletonScope();
         this.container.bind(BrowserService).toSelf().inSingletonScope();
         this.container.bind(CheckpointService).toSelf().inSingletonScope();
+        this.container.bind(ChromatonService).toSelf().inSingletonScope();
         this.container.bind(CredentialsService).toSelf().inSingletonScope();
         this.container.bind(EmulationService).toSelf().inSingletonScope();
         this.container.bind(FetchService).toSelf().inSingletonScope();

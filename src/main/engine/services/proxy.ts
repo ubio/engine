@@ -1,7 +1,5 @@
 import { ProxyUpstream, RoutingProxy } from '@ubio/uniproxy';
-import { readFileSync } from 'fs';
 import { inject, injectable } from 'inversify';
-import path from 'path';
 
 import { Configuration, numberConfig, stringConfig } from '../../config.js';
 import { Logger } from '../../logger.js';
@@ -9,7 +7,6 @@ import { SessionHandler } from '../session.js';
 
 const PROXY_PORT = numberConfig('PROXY_PORT', 3128);
 const CA_CERTIFICATES = stringConfig('CA_CERTIFICATES', '');
-const caCert = readFileSync(path.join(__dirname, '../../../../ca.crt'), 'utf-8');
 
 @injectable()
 @SessionHandler()
@@ -29,7 +26,7 @@ export class ProxyService extends RoutingProxy {
     override getCACertificates() {
         const defaults = super.getCACertificates();
         const ca = this.config.get(CA_CERTIFICATES);
-        return [...defaults, ca, caCert].filter(Boolean);
+        return [...defaults, ca].filter(Boolean);
     }
 
     async onSessionStart() {

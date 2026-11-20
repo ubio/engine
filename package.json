@@ -21,7 +21,6 @@
     ],
     "files": [
         "out/main/**/*",
-        "ca.crt",
         "chrome-extensions"
     ],
     "dependencies": {
